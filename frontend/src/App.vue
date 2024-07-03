@@ -3,6 +3,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
+  <div id="app">
   <header>
    
     <div class="wrapper">
@@ -16,12 +17,18 @@ import { RouterLink, RouterView } from 'vue-router'
   <main>
     <RouterView />
   </main>
+</div>
 </template>
 
 <style scoped>
+
 * {
   margin: 0;
   padding: 0;
+}
+#app {
+  background: linear-gradient(to top, #fddb92 0%, #f7f7f7 100%);;
+  height: 100vh;
 }
 
 header {
