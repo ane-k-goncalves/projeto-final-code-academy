@@ -1,22 +1,33 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
+<script>
+import { RouterLink, RouterView } from 'vue-router';
+import AnimationVue from "./components/AnimationVue.vue";
+ 
+export default {
+    components: { 
+        AnimationVue,
+     },
+}
+
 </script>
 
 <template>
   <div id="app">
-  <header>
-   
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/cadastro">Cadastro</RouterLink>
-        <RouterLink to="/login">Login</RouterLink>
-      </nav>
+  
+   <div class="container">
+    <div class="row justify-content-start">
+      <main>
+        <RouterView />  
+      </main>
     </div>
-  </header>
-
-  <main>
-    <RouterView />
-  </main>
+    <div class="row justify-content-end">
+      <img width="100px" height="100px" src="../src/assets/logo3c.svg">
+     
+      <div>
+        <AnimationVue />
+      </div>
+    </div>
+   
+  </div>
 </div>
 </template>
 
@@ -26,34 +37,35 @@ import { RouterLink, RouterView } from 'vue-router'
   margin: 0;
   padding: 0;
 }
+
 #app {
-  background: linear-gradient(to top, #fddb92 0%, #f7f7f7 100%);;
+  background: linear-gradient(to top, #62aeff 0%, #f7f7f7 100%);;
   height: 100vh;
 }
 
-header {
+.container{
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 20px;
+
 }
 
-.wrapper {
-  display: flex;
-  justify-content: center;
-  width: 100%;
+.btn {
+    background-color: #FFB534;
+    display:inline;
+    justify-content: space-between;
+    margin: 10px;
+    margin-left: 50px;
+
 }
 
-nav {
-  display: flex;
-  gap: 20px;
-}
+
+
 
 main {
+  margin-top: 100px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   flex: 1;

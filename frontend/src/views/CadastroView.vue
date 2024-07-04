@@ -1,6 +1,8 @@
-<script setup>
+<script>
 
 
+
+  
 </script>
 <template>
         <div class="container">
@@ -23,35 +25,62 @@
                                         <input type="password" class="form-control" id="inputPassword">
                                         </div>
                                     </div>
-                                <button type="button" class="btn">Cadastre-se</button>
                                 </form>
+                                <div class="mb-4 row">
+                                    <button type="button" class="btn">Cadastre-se</button>
+                                    <p> Já possui conta?  <RouterLink to="/login">Login</RouterLink></p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+           
         </div>
+        
 
 </template>
 <style scoped>
 
 .container {
     position: relative;
-    left: -300px;
+    
 
+}
+
+.col {
+   
+    display: flex;
+    justify-content: space-between;
+  
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+p {
+    text-align: center;
+}
+
+.card-title {
+    display: flex;
+    justify-content: center;
 }
 
 .card {
     background: transparent;
     box-shadow: 0 0 10px #b6b1b1;
+    width: 450px;
+    height: 500px;
+
 }
 .btn {
     background-color: #FFB534;
+    width: 200px;
 }
 
-.container{
-    width: 500px;
-    
-}
 
 </style>

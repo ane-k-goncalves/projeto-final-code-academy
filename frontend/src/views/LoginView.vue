@@ -24,8 +24,11 @@
                                         </div>
                                     </div>
                                     <p> Forgot password</p>
-                                <button type="button" class="btn">Login</button>
                                 </form>
+                                <div class="mb-4 row">
+                                    <button type="button" class="btn">Login</button>
+                                    <p> Não possui cadastro?  <RouterLink to="/cadastro">Cadastre-se</RouterLink></p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -36,22 +39,44 @@
 </template>
 <style scoped>
 
-.container {
+container {
     position: relative;
-    left: -300px;
+    
 
+}
+
+.col {
+   
+    display: flex;
+    justify-content: space-between;
+  
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+p {
+    text-align: center;
+}
+
+.card-title {
+    display: flex;
+    justify-content: center;
 }
 
 .card {
     background: transparent;
     box-shadow: 0 0 10px #b6b1b1;
-}
+    width: 450px;
+    height: 500px;
 
+}
 .btn {
     background-color: #FFB534;
-}
-.container{
-    width: 500px;
+    width: 200px;
 }
 
 
