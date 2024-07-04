@@ -1,5 +1,39 @@
-<script setup>
+<script>
+import { mapActions } from 'vuex';
 
+export default {
+    name: 'LoginView',
+    data() {
+    return {
+      email: 'gfhfgh',
+      password: '',
+    
+    };
+  },
+  methods: {
+    subt() {
+        const payload = {
+            email: this.email,
+            password: this.password,
+        };
+        console.log(payload)
+
+        fetch(`http://localhost:8000/api/login`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+              
+            },
+            body: JSON.stringify(payload),
+        }).then(response => response.json())
+        .then(res => {
+            console.log(res);
+        })
+    },
+  },
+}
+            
 
 </script>
 <template>
@@ -10,22 +44,29 @@
                         <div class="card-body">
                             <h5 class="card-title">Login</h5>
                             <div class="col-md-12">
-                                <form>
+                                <form @submit.prevent="subt">
                                     <div class="mb-4 row">
                                         <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                                         <div class="col-sm-8">
-                                            <input type="email" class="form-control" id="inputEmail">
+                                            <input
+                                            v-model="email" type="email" class="form-control" id="inputEmail">
                                         </div>
                                     </div>
                                     <div class="mb-4 row">
                                         <label for="inputPassword" class="col-sm-2 col-form-label">Senha</label>
                                         <div class="col-sm-8">
-                                        <input type="password" class="form-control" id="inputPassword">
+                                        <input 
+                                        v-model="password" type="password" class="form-control" id="inputPassword">
                                         </div>
+                                       
+                                    </div>
+                                    <div class="mb-4 row">
+                                        <button type="submit" class="btn">Login</button>
+                                        <p> Não possui cadastro?  <RouterLink to="/">Cadastre-se</RouterLink></p>
                                     </div>
                                     <p> Forgot password</p>
-                                <button type="button" class="btn">Login</button>
                                 </form>
+                               
                             </div>
                         </div>
                     </div>
@@ -36,22 +77,44 @@
 </template>
 <style scoped>
 
-.container {
+container {
     position: relative;
-    left: -300px;
+    
 
+}
+
+.col {
+   
+    display: flex;
+    justify-content: space-between;
+  
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+p {
+    text-align: center;
+}
+
+.card-title {
+    display: flex;
+    justify-content: center;
 }
 
 .card {
     background: transparent;
     box-shadow: 0 0 10px #b6b1b1;
-}
+    width: 450px;
+    height: 500px;
 
+}
 .btn {
     background-color: #FFB534;
-}
-.container{
-    width: 500px;
+    width: 200px;
 }
 
 
