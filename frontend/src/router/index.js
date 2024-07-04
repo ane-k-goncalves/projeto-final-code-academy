@@ -6,7 +6,7 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/cadastro',
+      path: '/',
       name: 'CadastroView',
       component: () => import('../views/CadastroView.vue'),
       meta: {
@@ -20,6 +20,13 @@ const router = createRouter({
       meta: {
         title: 'Login'
       }
+    },
+
+    {
+      path: '/dashboard',
+      name: 'Dashboard',
+      component: () => import('../views/Dashboard.vue'),
+      meta: { requiresAuth: true }, 
     }
   ]
 })
