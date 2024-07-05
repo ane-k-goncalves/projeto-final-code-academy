@@ -1,22 +1,23 @@
 <script>
-import { mapActions } from 'vuex';
+import Cookie from 'js-cookie';
 
 export default {
     name: 'LoginView',
     data() {
     return {
-      email: 'gfhfgh',
+      email: '',
       password: '',
     
     };
   },
+  
   methods: {
     subt() {
         const payload = {
             email: this.email,
             password: this.password,
         };
-        console.log(payload)
+        
 
         fetch(`http://localhost:8000/api/login`, {
             method: 'POST',
@@ -28,7 +29,15 @@ export default {
             body: JSON.stringify(payload),
         }).then(response => response.json())
         .then(res => {
-            console.log(res);
+            if (res.token){
+             Cookie.set('token', res.token);
+             this.$router.push('/dashboard');
+        } else {
+          alert('Login failed');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
         })
     },
   },
@@ -62,7 +71,7 @@ export default {
                                     </div>
                                     <div class="mb-4 row">
                                         <button type="submit" class="btn">Login</button>
-                                        <p> Não possui cadastro?  <RouterLink to="/">Cadastre-se</RouterLink></p>
+                                        <p> Não possui cadastro? <RouterLink to="/">Cadastre-se</RouterLink></p>
                                     </div>
                                     <p> Forgot password</p>
                                 </form>

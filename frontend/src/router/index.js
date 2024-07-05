@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import CadastroView from '../views/CadastroView.vue'
 import LoginView from '../views/LoginView.vue'
+import Guard from '../services/LoginMiddleware'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,7 +27,7 @@ const router = createRouter({
       path: '/dashboard',
       name: 'Dashboard',
       component: () => import('../views/Dashboard.vue'),
-      meta: { requiresAuth: true }, 
+      beforeEnter: Guard.auth
     }
   ]
 })
