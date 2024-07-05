@@ -3,6 +3,7 @@ import { RouterLink, RouterView } from 'vue-router';
 import AnimationVue from "./components/AnimationVue.vue";
  
 export default {
+    name: "CRM" ,
     components: { 
         AnimationVue,
      },

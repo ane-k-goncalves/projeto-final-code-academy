@@ -73,7 +73,7 @@ export default {
                                         <button type="submit" class="btn">Login</button>
                                         <p> Não possui cadastro? <RouterLink to="/">Cadastre-se</RouterLink></p>
                                     </div>
-                                    <p> Forgot password</p>
+                                    <p> Esqueceu a senha?</p>
                                 </form>
                                
                             </div>
