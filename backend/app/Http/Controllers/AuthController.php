@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Contracts\Providers\JWT;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
@@ -18,10 +20,6 @@ class AuthController extends Controller
             return response()->json(['erro'=>'Usuário ou senha inváldo!'],403);
         }
 
-        // "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAv
-        // YXBpL2xvZ2luIiwiaWF0IjoxNzIwMDI5MjU4LCJleHAiOjE3MjAwMzI4NTgsIm5iZiI6MTcyMDAyOTI1OCwianRp
-        // IjoidXM1NTFyanBKVENzY1RtTyIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4Nz
-        // JkYjdhNTk3NmY3In0.bolTtl_5YyqdvgSNwRznT_HuPEuGR8TtumNsYnjoD9E"
     }
 
     public function logout(){
@@ -30,8 +28,8 @@ class AuthController extends Controller
     }
 
     public function refresh(){
-        $token = auth('api')->refresh();
-        return response()->json(['token' =>$token]);
+        $token = JWTAuth::refresh(JWTAuth::getToken());
+        return response()->json(['token' => $token]);
     }
 
     public function me(){

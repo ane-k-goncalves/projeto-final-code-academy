@@ -30,4 +30,5 @@ Route::prefix('v1')->middleware('jwt.auth')->group(function () {
 });
 
 Route::post('login','App\Http\Controllers\AuthController@login');
-Route::apiResource('cadastro','App\Http\Controllers\UserController');
+Route::apiResource('register-user','App\Http\Controllers\UserController');
+Route::apiResource('register-funil','App\Http\Controllers\FunilController');

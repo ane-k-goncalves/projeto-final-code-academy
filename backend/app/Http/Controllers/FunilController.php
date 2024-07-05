@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Funil;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class FunilController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+  
     public function index()
     {
-        $users = User::all();
-        return response()->json($users); 
+        $funis = Funil::all();
+        return response()->json($funis); 
     }
 
     /**
@@ -21,8 +19,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::create($request->all());
-        return response()->json($user);
+        $funil  = Funil::create($request->all());
+        return response()->json($funil );
     }
 
     /**
@@ -30,8 +28,8 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        $user = User::find($id);
-        return response()->json($user);
+        $funil  = Funil::find($id);
+        return response()->json($funil );
     }
 
     /**
@@ -39,10 +37,10 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::findOrFail($id);
-        $user->update($request->all());
+        $funil = Funil::findOrFail($id);
+        $funil->update($request->all());
       
-        return response()->json($user->fresh());
+        return response()->json($funil->fresh());
     }
 
     /**
@@ -50,8 +48,8 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        $user = User::findOrFail($id);
-        $user->delete();
+        $funil  = Funil::findOrFail($id);
+        $funil ->delete();
         return response()->json(['msg' =>'Usuario deletado com sucesso!']);
     }
 }
