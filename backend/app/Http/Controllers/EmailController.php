@@ -36,7 +36,7 @@ class EmailController extends Controller
             }
         );
 
-        return Password::PASSWORD_RESET;
+        return $status;
     }
 
 
