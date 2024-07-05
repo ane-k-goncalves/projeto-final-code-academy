@@ -1,7 +1,55 @@
 <script>
+import Cookie from 'js-cookie';
 
+export default {
+   
+  name: 'CadastroView',
+  data() {
+    return {
+      name: '',
+      email: '',
+      password: ''
+    };
+  },
+  methods: {
+    async register() {
+      try {
+        const payload = {
+          name: this.name,
+          email: this.email,
+          password: this.password
+        };
+        console.log(payload);
 
+        const response = await fetch('http://localhost:8000/api/register-user', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
 
+        const data = await response.json();
+        console.log(data);
+        if (data.id) {
+         
+          this.$router.push('/dashboard');
+        } else {
+         
+          console.error('Erro no registro:', data);
+        }
+      } catch (error) {
+        console.error('Erro:', error);
+      }
+    }
+  },
+  mounted() {
+
+  }
+};
+
+  
   
 </script>
 <template>
@@ -12,24 +60,31 @@
                         <div class="card-body">
                             <h5 class="card-title">Cadastro</h5>
                             <div class="col-md-12">
-                                <form>
+                                <form @submit.prevent="register">
+                                    <div class="mb-4 row">
+                                        <label for="inputNome" class="col-sm-2 col-form-label">Nome</label>
+                                        <div class="col-sm-8">
+                                            <input v-model="name" type="name" class="form-control" id="inputNome">
+                                        </div>
+                                    </div>
                                     <div class="mb-4 row">
                                         <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                                         <div class="col-sm-8">
-                                            <input type="email" class="form-control" id="inputEmail">
+                                            <input v-model="email" type="email" class="form-control" id="inputEmail">
                                         </div>
                                     </div>
                                     <div class="mb-4 row">
                                         <label for="inputPassword" class="col-sm-2 col-form-label">Senha</label>
                                         <div class="col-sm-8">
-                                        <input type="password" class="form-control" id="inputPassword">
+                                        <input v-model="password" type="password" class="form-control" id="inputPassword">
                                         </div>
                                     </div>
+                                    <div class="mb-4 row">
+                                        <button type="submit" class="btn">Cadastre-se</button>
+                                        <p> Já possui conta?  <RouterLink to="/login">Login</RouterLink></p>
+                                    </div>
                                 </form>
-                                <div class="mb-4 row">
-                                    <button type="button" class="btn">Cadastre-se</button>
-                                    <p> Já possui conta?  <RouterLink to="/login">Login</RouterLink></p>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
