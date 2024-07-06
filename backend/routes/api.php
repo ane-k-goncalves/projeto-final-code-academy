@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmaiController;
 use App\Http\Controllers\EmailController;
@@ -29,23 +30,16 @@ Route::prefix('v1')->middleware('jwt.auth')->group(function () {
     Route::post('me', 'App\Http\Controllers\AuthController@me');
     Route::post('refresh', 'App\Http\Controllers\AuthController@refresh');
     Route::post('logout', 'App\Http\Controllers\AuthController@logout');
+    Route::apiResource('register-funil','App\Http\Controllers\FunilController');
     
 });
 
-Route::post('login','App\Http\Controllers\AuthController@login');
+Route::post('login', [AuthController::class, 'login'])->name('login');
+
 Route::apiResource('register-user','App\Http\Controllers\UserController');
-Route::apiResource('register-funil','App\Http\Controllers\FunilController');
-
-
-Route::post('forget-password', [EmailController::class, 'sendPasswordChange'])
-    ->middleware('guest')
-    ->name('forget_password');
-
-
-Route::post('reset-password', [EmailController::class, 'resetPassword'])
-->middleware('guest')
-->name('password.update');
-
-Route::post('email/verify', [ValidateEmailcontroller::class, 'verifyEmail'])
-->middleware('auth') 
-->name('verification.send');
+Route::post('forget-password', [EmailController::class, 'sendPasswordChange'])->middleware('guest')->name('forget_password');
+Route::post('reset-password', [EmailController::class, 'resetPassword'])->middleware('guest')->name('password.update');
+Route::middleware('auth:api')->group(function () {
+    Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
+    Route::post('/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
+});
