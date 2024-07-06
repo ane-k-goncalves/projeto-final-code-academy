@@ -33,7 +33,8 @@ Route::prefix('v1')->middleware('jwt.auth')->group(function () {
     Route::apiResource('register-funil','App\Http\Controllers\FunilController');
 });
 
-Route::post('login','App\Http\Controllers\AuthController@login');
+Route::post('login', [AuthController::class, 'login'])->name('login');
+
 Route::apiResource('register-user','App\Http\Controllers\UserController');
 
 
