@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmaiController;
 use App\Http\Controllers\EmailController;
@@ -32,7 +33,8 @@ Route::prefix('v1')->middleware('jwt.auth')->group(function () {
     Route::apiResource('register-funil','App\Http\Controllers\FunilController');
 });
 
-Route::post('login','App\Http\Controllers\AuthController@login');
+Route::post('login', [AuthController::class, 'login'])->name('login');
+
 Route::apiResource('register-user','App\Http\Controllers\UserController');
 
 
