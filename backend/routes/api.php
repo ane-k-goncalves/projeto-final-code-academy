@@ -31,6 +31,15 @@ Route::prefix('v1')->middleware('jwt.auth')->group(function () {
     Route::post('refresh', 'App\Http\Controllers\AuthController@refresh');
     Route::post('logout', 'App\Http\Controllers\AuthController@logout');
     Route::apiResource('register-funil','App\Http\Controllers\FunilController');
+});
+
+Route::post('login','App\Http\Controllers\AuthController@login');
+Route::apiResource('register-user','App\Http\Controllers\UserController');
+
+
+Route::post('forget-password', [EmailController::class, 'sendPasswordChange'])
+    ->middleware('guest')
+    ->name('forget_password');
     
 });
 

@@ -81,8 +81,9 @@ export default {
                                         <button type="submit" class="btn">Login</button>
                                         <p> Não possui cadastro? <RouterLink to="/">Cadastre-se</RouterLink></p>
                                     </div>
-                                   
+                                    <div class="esqueceuSenha">
                                     <ForgotPassword />
+                                    </div>
                                 </form>
                                
                             </div>
@@ -90,9 +91,8 @@ export default {
                     </div>
                 </div>
             </div>
-            
             <div class="row justify-content-end">
-                <img width="100px" height="100px" src="../../src/assets/logo3c.svg">
+                <img width="100px" height="100px" src="../assets/logo3c.svg">
                 
                 <div>
                     <AnimationVue />
@@ -114,6 +114,10 @@ export default {
     display: flex;
     justify-content: space-between;
   
+}
+.esqueceuSenha {
+    display: flex;
+    justify-content: center;
 }
 
 .row {
