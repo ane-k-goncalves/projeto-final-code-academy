@@ -1,4 +1,5 @@
 <script>
+import AnimationVue from '@/components/AnimationVue.vue';
 import Cookie from 'js-cookie';
 
 export default {
@@ -10,6 +11,9 @@ export default {
       email: '',
       password: ''
     };
+  },
+  components: {
+    AnimationVue,
   },
   methods: {
     async register() {
@@ -90,7 +94,13 @@ export default {
                     </div>
                 </div>
             </div>
-           
+            <div class="row justify-content-end">
+              <img width="100px" height="100px" src="../../src/assets/logo3c.svg">
+            
+              <div>
+                <AnimationVue />
+              </div>
+            </div>
         </div>
         
 
@@ -118,11 +128,13 @@ export default {
 
 p {
     text-align: center;
+    margin-top: 20px;
 }
 
 .card-title {
     display: flex;
     justify-content: center;
+    margin-top: 20px;
 }
 
 .card {
