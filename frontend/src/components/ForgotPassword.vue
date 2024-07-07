@@ -2,8 +2,14 @@
 import { Modal } from 'bootstrap';
 import Cookie from 'js-cookie';
 
+import ResetPassword from './ResetPassword.vue';
+
 export default {
+    
         name: 'ForgotPassword',
+        components: { 
+            ResetPassword
+        },
         data() {
             return {
                 email: '',
@@ -37,11 +43,11 @@ export default {
                     const data = await res.json();
                     if (data.token) {
                         Cookie.set('token', data.token);
-                        console.log("Link de redefinição enviado com sucesso");
+                        console.log("Token de redefinição enviado com sucesso");
                     }
                 } else {
                     const errorData = await res.json();
-                    console.error('Erro ao enviar o link de redefinição:', errorData);
+                    console.error('Erro ao enviar o token de redefinição:', errorData);
                 }
             } catch (error) {
                 console.error('Erro na solicitação:', error);
@@ -67,9 +73,11 @@ export default {
                         <form @submit.prevent="solicitar">
                         <label for="inputEmail">Email</label>
                         <input v-model="email" type="email" class="form-control" id="inputEmail">
-                                    
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary" @click="showModal2" >Continuar</button>
+                         <div class="botoes">       
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Solicite token</button>
+                            <ResetPassword />
+                        </div>  
                         </form>
                     </div>
                     </div>
@@ -80,4 +88,21 @@ export default {
             
 </template>
 <style>
+.botoes {
+    display: flex;
+    align-items: end;
+    justify-content: space-around;
+    margin: 20px;
+}
+.modal-content {
+    height: 250px;
+}
+
+.btn {
+    background-color: #FFB534;
+    display:inline;
+    justify-content: space-between;
+  
+
+}
 </style>
