@@ -20,13 +20,7 @@ export default {
         <RouterView />  
       </main>
     </div>
-    <div class="row justify-content-end">
-      <img width="100px" height="100px" src="../src/assets/logo3c.svg">
-     
-      <div>
-        <AnimationVue />
-      </div>
-    </div>
+    
    
   </div>
 </div>

@@ -1,0 +1,83 @@
+<script>
+import { Modal } from 'bootstrap';
+import Cookie from 'js-cookie';
+
+export default {
+        name: 'ForgotPassword',
+        data() {
+            return {
+                email: '',
+            }
+
+        },
+        methods: {
+            showModal() {
+                const modalElement = document.getElementById('forgotPasswordModal');
+                const modal = new Modal(modalElement);
+                modal.show();
+            },
+            async solicitar() {
+            const req = {
+                email: this.email,
+               
+            };
+            
+            try {
+                const res = await fetch(`http://localhost:8000/api/forget-password`, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    },
+                    body: JSON.stringify(req),
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.token) {
+                        Cookie.set('token', data.token);
+                        console.log("Link de redefinição enviado com sucesso");
+                    }
+                } else {
+                    const errorData = await res.json();
+                    console.error('Erro ao enviar o link de redefinição:', errorData);
+                }
+            } catch (error) {
+                console.error('Erro na solicitação:', error);
+            }
+        } 
+        
+        }
+    }
+    
+</script>
+<template>
+    <div>
+     <button type="button" class="btn" @click="showModal"> Esqueceu a senha?</button>
+
+            <div class="modal" id="forgotPasswordModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Solicite token para redefinir a senha</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form @submit.prevent="solicitar">
+                        <label for="inputEmail">Email</label>
+                        <input v-model="email" type="email" class="form-control" id="inputEmail">
+                                    
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" @click="showModal2" >Continuar</button>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+             </div>
+     </div>
+             
+            
+</template>
+<style>
+</style>
