@@ -52,6 +52,18 @@ export default {
 
 
 
+<<<<<<< HEAD
+main {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 100%; 
+}
+=======
+>>>>>>> bf61489 (estrutura navbar)
 
 
 
