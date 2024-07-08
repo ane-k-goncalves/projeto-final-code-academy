@@ -8,6 +8,9 @@ export default {
         AnimationVue
      
         
+        AnimationVue
+     
+        
      },
 }
 
@@ -65,6 +68,8 @@ main {
 }
 =======
 >>>>>>> bf61489 (estrutura navbar)
+
+
 
 
 </style>
