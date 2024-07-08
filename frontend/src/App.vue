@@ -5,7 +5,9 @@ import AnimationVue from "./components/AnimationVue.vue";
 export default {
     name: "CRM" ,
     components: { 
-        AnimationVue,
+        AnimationVue
+     
+        
      },
 }
 
@@ -46,6 +48,7 @@ export default {
     margin-left: 50px;
 
 }
+
 
 
 
