@@ -31,10 +31,17 @@ const router = createRouter({
       beforeEnter: Guard.auth
     },
     {
+<<<<<<< HEAD
     path: '/reset-password/:token',
     name: 'ResetPassword',
     component: ResetPassword,
    
+=======
+      path: '/teste',
+      name: 'Teste',
+      component: () => import('../views/teste.vue'),
+      beforeEnter: Guard.auth
+>>>>>>> bf61489 (estrutura navbar)
     }
   ]
 })
