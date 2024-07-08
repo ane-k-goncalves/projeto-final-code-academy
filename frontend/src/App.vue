@@ -5,7 +5,9 @@ import AnimationVue from "./components/AnimationVue.vue";
 export default {
     name: "CRM" ,
     components: { 
-        AnimationVue,
+        AnimationVue
+     
+        
      },
 }
 
@@ -57,14 +59,6 @@ export default {
 
 
 
-main {
-  margin-top: 100px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  width: 100%;
-}
+
 
 </style>

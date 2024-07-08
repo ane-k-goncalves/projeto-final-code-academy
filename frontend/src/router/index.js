@@ -28,6 +28,12 @@ const router = createRouter({
       name: 'Dashboard',
       component: () => import('../views/Dashboard.vue'),
       beforeEnter: Guard.auth
+    },
+    {
+      path: '/teste',
+      name: 'Teste',
+      component: () => import('../views/teste.vue'),
+      beforeEnter: Guard.auth
     }
   ]
 })
