@@ -24,8 +24,13 @@ class VerificationController extends Controller
             $user->markEmailAsVerified();
         }
 
+<<<<<<< HEAD
         //return response()->json(['message' => 'E-mail verificado']);
         return redirect('/login')->with('message', 'E-mail verificado com sucesso. Faça login para continuar.');
+=======
+     
+        return response()->json(['msg' => 'Confirmacao feita com sucesso!']);
+>>>>>>> 491e526 (organizacao de codigo)
     }
 
    
