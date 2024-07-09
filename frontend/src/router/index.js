@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import CadastroView from '../views/CadastroView.vue'
 import LoginView from '../views/LoginView.vue'
 import Guard from '../services/LoginMiddleware'
+import ResetPassword from '@/views/ResetPassword.vue'
+import ResetPassword from '@/views/ResetPassword.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,11 +31,17 @@ const router = createRouter({
       component: () => import('../views/Dashboard.vue'),
       beforeEnter: Guard.auth
     },
-    {
+
+    path: '/reset-password/:token',
+    name: 'ResetPassword',
+    component: ResetPassword,
+   
+
       path: '/teste',
       name: 'Teste',
       component: () => import('../views/teste.vue'),
       beforeEnter: Guard.auth
+
     }
   ]
 })

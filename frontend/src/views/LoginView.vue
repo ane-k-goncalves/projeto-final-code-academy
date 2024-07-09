@@ -105,7 +105,8 @@ export default {
 
 .container {
     position: relative;
-    
+    display: flex;
+    justify-content: center;
 
 }
 
