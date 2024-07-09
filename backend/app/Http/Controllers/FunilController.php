@@ -19,8 +19,11 @@ class FunilController extends Controller
    
     public function index(Request $request)
     {
-        $filter = $request->query('filter', null);
+        //$filter = $request->query('filter', null);
+        $filter = data_get($request->filter,null);
+      
         $funis = $this->service->getAll($filter);
+        
         return response()->json($funis);
     }
 

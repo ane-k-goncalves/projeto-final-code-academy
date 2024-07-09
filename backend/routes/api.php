@@ -45,7 +45,10 @@ Route::post('forget-password', [EmailController::class, 'sendPasswordChange'])
     ->middleware('guest')
     ->name('forget_password');
     
+<<<<<<< HEAD
 
+=======
+>>>>>>> 491e526 (organizacao de codigo)
 
 
 
