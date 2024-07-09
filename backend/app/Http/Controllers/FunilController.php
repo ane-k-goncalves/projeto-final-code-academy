@@ -2,54 +2,64 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Funil;
+use App\DTO\CreateFunilDTO;
+use App\DTO\UpdateFunilDTO;
+use App\Services\FunilService;
 use Illuminate\Http\Request;
 
 class FunilController extends Controller
 {
-  
-    public function index()
+    protected $service;
+
+    public function __construct(FunilService $service)
     {
-        $funis = Funil::all();
-        return response()->json($funis); 
+        $this->service = $service;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+   
+    public function index(Request $request)
+    {
+        $filter = $request->query('filter', null);
+        $funis = $this->service->getAll($filter);
+        return response()->json($funis);
+    }
+
+    
     public function store(Request $request)
     {
-        $funil  = Funil::create($request->all());
-        return response()->json($funil );
+        $dto = new CreateFunilDTO($request->name);
+        $funil = $this->service->new($dto);
+        return response()->json($funil, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
+    
     public function show(string $id)
     {
-        $funil  = Funil::find($id);
-        return response()->json($funil );
+        $funil = $this->service->findOne($id);
+        if (!$funil) {
+            return response()->json(['message' => 'Funil not found'], 404);
+        }
+
+        return response()->json($funil);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
+    
+    public function update(Request $request, string $id)
     {
-        $funil = Funil::findOrFail($id);
-        $funil->update($request->all());
-      
-        return response()->json($funil->fresh());
+        $dto = new UpdateFunilDTO($id, $request->name);
+        $funil = $this->service->update($dto);
+
+        if (!$funil) {
+            return response()->json(['message' => 'Funil not found'], 404);
+        }
+
+        return response()->json($funil);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    
     public function destroy(string $id)
     {
-        $funil  = Funil::findOrFail($id);
-        $funil ->delete();
-        return response()->json(['msg' =>'Usuario deletado com sucesso!']);
+        $this->service->delete($id);
+        return response()->json(['message' => 'Funil deleted successfully']);
     }
 }
