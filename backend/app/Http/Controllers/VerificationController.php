@@ -25,7 +25,7 @@ class VerificationController extends Controller
         }
 
         //return response()->json(['message' => 'E-mail verificado']);
-        return redirect('/')->with('message', 'E-mail verificado com sucesso. Faça login para continuar.');
+        return redirect('/login')->with('message', 'E-mail verificado com sucesso. Faça login para continuar.');
     }
 
    

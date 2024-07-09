@@ -45,7 +45,7 @@ Route::post('forget-password', [EmailController::class, 'sendPasswordChange'])
     ->middleware('guest')
     ->name('forget_password');
     
-});
+
 
 
 

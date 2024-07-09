@@ -28,7 +28,8 @@
                     if (verify.ok) {
                     this.message = 'Seu email foi verificado com sucesso!';
                     setTimeout(() => {
-                        window.location.href = 'http://localhost:8000/login';
+                        
+                        window.location.href = 'http://localhost:8085/login';
                     }, 2000); // Aguarde 2 segundos antes de redirecionar
                     } else {
                     const data = await verify.json();
