@@ -89,5 +89,6 @@ Route::middleware('signed')->group(function () {
     Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
     Route::post('/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 
+    
 });
 
