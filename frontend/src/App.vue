@@ -6,11 +6,7 @@ export default {
     name: "CRM" ,
     components: { 
         AnimationVue
-     
-        
-        AnimationVue
-     
-        
+
      },
 }
 
@@ -56,7 +52,8 @@ export default {
 
 
 
-<<<<<<< HEAD
+
+
 main {
   margin-top: 100px;
   display: flex;
@@ -66,8 +63,7 @@ main {
   flex: 1;
   width: 100%; 
 }
-=======
->>>>>>> bf61489 (estrutura navbar)
+
 
 
 
