@@ -12,5 +12,5 @@ class Funil extends Model
     protected $nome = 'funils';    
     protected $fillable = ['name'];
 
-    // Outros métodos, relações ou acessos adicionais conforme necessário
+  
 }

@@ -14,15 +14,15 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         try {
-            // Tentativa de autenticação
+       
             if (!$token = JWTAuth::attempt($credentials)) {
                 return response()->json(['error' => 'Usuário ou senha inválidos.'], 401);
             }
 
-            // Obter o usuário autenticado
+  
             $user = auth()->user();
 
-            // Verificar se o email do usuário está verificado
+         
             if (!$user->hasVerifiedEmail()) {
                 return response()->json(['error' => 'Email não verificado.'], 403);
             }
@@ -31,7 +31,6 @@ class AuthController extends Controller
             return response()->json(['error' => 'Não foi possível criar o token.'], 500);
         }
 
-        // Retornar o token JWT se tudo estiver correto
         return response()->json(['token' => $token]);
     }
 
