@@ -6,8 +6,7 @@ export default {
     name: "CRM" ,
     components: { 
         AnimationVue
-     
-        
+
      },
 }
 
@@ -50,6 +49,21 @@ export default {
 }
 
 
+
+
+
+
+
+
+main {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 100%; 
+}
 
 
 
