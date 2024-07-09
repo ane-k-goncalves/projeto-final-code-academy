@@ -8,9 +8,9 @@ export default {
     name: 'LoginView',
     data() {
     return {
-      email: '',
-      password: '',
-    
+        email: '',
+        password: '',
+        verificationMessage: ''
     };
   },
   components: {
@@ -49,6 +49,7 @@ export default {
         })
     },
   },
+  
 }
             
 
@@ -85,7 +86,7 @@ export default {
                                     <ForgotPassword />
                                     </div>
                                 </form>
-                               
+                                <div v-if="verificationMessage" class="verification"> {{ verificationMessage }}</div>
                             </div>
                         </div>
                     </div>

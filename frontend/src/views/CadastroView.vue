@@ -9,7 +9,8 @@ export default {
     return {
       name: '',
       email: '',
-      password: ''
+      password: '',
+      message: ''
     };
   },
   components: {
@@ -43,14 +44,30 @@ export default {
          
           console.error('Erro no registro:', data);
         }
+
+
+        const sendVerificationResponse = await fetch('http://localhost:8000/api/resend', {
+            method: 'POST',
+            headers:{
+               'Content-Type': 'application/json',
+               'Authorization': 'Bearer' + (await response.json()).token
+            }
+        });
+
+        if(sendVerificationResponse.ok) {
+          this.message = 'Cadastro realizado. Por favor verifique seu email.';
+        }else{
+          const errorData = await sendVerificationResponse.json();
+          this.message = 'Error: ' + errorData.message;
+        }
+
+       
       } catch (error) {
-        console.error('Erro:', error);
+        console.error('Erro:', error.message);
       }
     }
   },
-  mounted() {
-
-  }
+  
 };
 
   
@@ -88,7 +105,7 @@ export default {
                                         <p> Já possui conta?  <RouterLink to="/login">Login</RouterLink></p>
                                     </div>
                                 </form>
-                                
+                                <div>{{ message }}</div>
                             </div>
                         </div>
                     </div>
