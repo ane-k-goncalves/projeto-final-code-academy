@@ -37,7 +37,8 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
+       
+    
         $user->sendEmailVerificationNotification();
 
         return response()->json([

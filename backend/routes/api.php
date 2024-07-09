@@ -3,8 +3,6 @@
 
 use App\Http\Controllers\VerificationController;
 
-use App\Http\Controllers\Auth\VerificationController;
-
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmaiController;
 use App\Http\Controllers\EmailController;
@@ -87,9 +85,10 @@ Route::apiResource('register-funil','App\Http\Controllers\FunilController');
 Route::apiResource('register-user','App\Http\Controllers\UserController');
 Route::post('forget-password', [EmailController::class, 'sendPasswordChange'])->middleware('guest')->name('forget_password');
 Route::post('reset-password', [EmailController::class, 'resetPassword'])->middleware('guest')->name('password.update');
-Route::middleware('auth:api')->group(function () {
+Route::middleware('signed')->group(function () {
     Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
     Route::post('/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 
+    
 });
 

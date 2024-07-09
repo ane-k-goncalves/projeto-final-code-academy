@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use App\Models\User;
+
 
 class AuthController extends Controller
 {
@@ -33,7 +33,7 @@ class AuthController extends Controller
 
         return response()->json(['token' => $token]);
     }
-
+ 
     public function logout()
     {
         auth()->logout();
