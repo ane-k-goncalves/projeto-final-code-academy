@@ -3,7 +3,11 @@ import CadastroView from '../views/CadastroView.vue'
 import LoginView from '../views/LoginView.vue'
 import Guard from '../services/LoginMiddleware'
 import ResetPassword from '@/views/ResetPassword.vue'
+<<<<<<< HEAD
 import teste from '@/views/teste.vue'
+=======
+import ResetPassword from '@/views/ResetPassword.vue'
+>>>>>>> 8ff0ac8 (reset e forgot password implementados(falta uma correção))
 
 import ResetPassword from '@/views/ResetPassword.vue'
 
