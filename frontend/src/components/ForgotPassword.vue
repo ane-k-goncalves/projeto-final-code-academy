@@ -2,7 +2,7 @@
 import { Modal } from 'bootstrap';
 import Cookie from 'js-cookie';
 
-import ResetPassword from './ResetPassword.vue';
+import ResetPassword from '../views/ResetPassword.vue';
 
 export default {
     
@@ -44,6 +44,7 @@ export default {
                     if (data.token) {
                         Cookie.set('token', data.token);
                         console.log("Token de redefinição enviado com sucesso");
+                        this.$router.push({ path: '/reset-password/:token', query: { token: data.token } });
                     }
                 } else {
                     const errorData = await res.json();
@@ -76,7 +77,7 @@ export default {
                          <div class="botoes">       
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                             <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Solicite token</button>
-                            <ResetPassword />
+                            
                         </div>  
                         </form>
                     </div>

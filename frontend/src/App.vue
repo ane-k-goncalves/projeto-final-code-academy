@@ -15,17 +15,8 @@ export default {
 
 <template>
   <div id="app">
-  
-   <div class="container">
-    <div class="row justify-content-start">
-      <main>
         <RouterView />  
-      </main>
-    </div>
-    
-   
   </div>
-</div>
 </template>
 
 <style scoped>
@@ -38,11 +29,13 @@ export default {
 #app {
   background: linear-gradient(to top, #62aeff 0%, #f7f7f7 100%);;
   height: 100vh;
+  
 }
 
 .container{
+  position: absolute;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 
 }
