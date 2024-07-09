@@ -1,10 +1,17 @@
 <script>
+import FunilDashboard from '../components/FunilDashboard.vue';
+
+
     export default {
-        
+        components: {
+          FunilDashboard,
+        },
+       
         
     };
 </script>
 <template>
+  <div>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Dashboard</a>
@@ -20,7 +27,7 @@
             Funil
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#"> Novo funil</a></li>
+            <li><a class="dropdown-item" href="#" > </a></li>
             
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
@@ -35,6 +42,9 @@
     </div>
   </div>
 </nav>
+
+<FunilDashboard />
+</div>
     
 </template>
 <style scoped>

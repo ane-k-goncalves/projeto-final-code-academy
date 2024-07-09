@@ -39,7 +39,7 @@ Route::prefix('v1')->middleware('jwt.auth')->group(function () {
     
 });
 
-Route::post('login', [AuthController::class, 'login'])->name('login');
+
 
 Route::post('login', [AuthController::class, 'login'])->name('login');
 
@@ -49,8 +49,15 @@ Route::post('reset-password', [EmailController::class, 'resetPassword'])->middle
 Route::middleware('auth:api')->group(function () {
     Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
     Route::post('/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
-   
 });
+
+
+
+Route::post('forget-password', [EmailController::class, 'sendPasswordChange'])
+    ->middleware('guest')
+    ->name('forget_password');
+    
+
 
 Route::post('login', [AuthController::class, 'login'])->name('login');
 
