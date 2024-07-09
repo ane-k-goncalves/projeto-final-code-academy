@@ -41,7 +41,7 @@ export default {
              Cookie.set('token', res.token);
              this.$router.push('/dashboard');
         } else {
-          alert('Login failed');
+          alert('Login incorreto');
         }
       })
       .catch(error => {

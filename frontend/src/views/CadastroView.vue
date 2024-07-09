@@ -38,7 +38,7 @@ export default {
         const data = await response.json();
         console.log(data);
         if (data.id) {
-         
+          alert('Cadastro realizado. Por favor verifique seu email.');
           this.$router.push('/dashboard');
         } else {
          
@@ -56,6 +56,7 @@ export default {
 
         if(sendVerificationResponse.ok) {
           this.message = 'Cadastro realizado. Por favor verifique seu email.';
+          this.$router.push({ path: '/verify/email/{id}/{hash}' });
         }else{
           const errorData = await sendVerificationResponse.json();
           this.message = 'Error: ' + errorData.message;

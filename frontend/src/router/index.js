@@ -2,10 +2,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 import CadastroView from '../views/CadastroView.vue'
 import LoginView from '../views/LoginView.vue'
 import Guard from '../services/LoginMiddleware'
-import ResetPassword from '@/views/ResetPassword.vue'
+
 import teste from '@/views/teste.vue'
 
-import ResetPassword from '@/views/ResetPassword.vue'
+
 
 
 const router = createRouter({
@@ -37,7 +37,7 @@ const router = createRouter({
     {
     path: '/reset-password/:token',
     name: 'ResetPassword',
-    component: ResetPassword,
+    component: () => import('../views/ResetPassword.vue'),
     },
     {
       path: '/teste',
@@ -47,7 +47,7 @@ const router = createRouter({
     },
 
     {
-      path: '/login/:verify',
+      path: '/verify/email/{id}/{hash}',
       name: 'VerifyEmail',
       component: () => import('../views/VerifyEmail.vue'),
      

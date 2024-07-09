@@ -14,11 +14,21 @@ export default {
         };
     },
     created() {
-        const urlParams = new URLSearchParams(window.location.search);
-        this.token = urlParams.get('token');
-        if (!this.token) {
-            this.message = 'Token não encontrado na URL.';
-        }
+    // Extrair token da query string
+    const urlParams = new URLSearchParams(window.location.search);
+    const queryToken = urlParams.get('token');
+
+    // Extrair token da rota
+    const routeToken = this.$route.params.token;
+
+    // Usar o token da rota se disponível, caso contrário, usar o token da query string
+    this.token = routeToken || queryToken;
+
+    if (!this.token) {
+      this.message = 'Token não encontrado na URL.';
+    }
+
+    
     },
     methods: {
         showModal() {
