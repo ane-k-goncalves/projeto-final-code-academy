@@ -33,8 +33,10 @@ Route::middleware('jwt.auth')->group(function () {
     Route::post('refresh', 'App\Http\Controllers\AuthController@refresh');
     Route::post('logout', 'App\Http\Controllers\AuthController@logout');
 
-    Route::apiResource('register-funil','App\Http\Controllers\FunilController');
+   // Route::apiResource('register-funil','App\Http\Controllers\FunilController');
 });
+
+Route::apiResource('register-funil','App\Http\Controllers\FunilController');
 
 Route::post('login', [AuthController::class, 'login'])->name('login');
 

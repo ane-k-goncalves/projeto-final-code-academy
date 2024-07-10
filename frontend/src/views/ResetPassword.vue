@@ -68,17 +68,15 @@ export default {
 
 <template>
     <div>
-        <button type="button" class="btn" @click="showModal">Redefina a senha</button>
+      
 
-        <div class="modal" id="resetPassword" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Redefinir a senha</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form @submit.prevent="resetPassword">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Redefinir a senha</h5>
+            </div>
+            <div class="card-body">
+                
+                         <form @submit.prevent="resetPassword">
                             <label for="inputEmail">Email</label>
                             <input v-model="email" type="email" class="form-control" id="inputEmail">
                             
@@ -89,15 +87,14 @@ export default {
                             <input v-model="password_confirmation" type="password" class="form-control" id="inputNewPassword">
                             
                             <div class="botoes">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                             
                                 <button type="submit" class="btn btn-primary">Continuar</button>
                             </div>
                         </form>
-                        <p v-if="message">{{ message }}</p>
-                    </div>
-                </div>
+                
             </div>
-        </div>
+            <p v-if="message">{{ message }}</p>
+            </div>
     </div>
 </template>
 
@@ -120,10 +117,31 @@ label {
     display: flex;
     justify-content: flex-start;
 }
-.modal-title {
-    color: black;
+.card {
+    width: 500px;
+    background: linear-gradient(to top, #b3d3f3 0%, #f7f7f7 100%);
+    display: flex;
+    justify-content: center;
+    margin: 200px;
+    border-color: #b3d3f3;
 }
-.modal-body {
-    color: black;
+
+div {
+     display: flex;
+    justify-content: center;
+
+}
+
+.card-title {
+    display: flex;
+    justify-content: space-between;
+    /* flex-direction: column;
+    margin: 20px;
+    text-align: center; */
+
+}
+p{
+    display: flex;
+    justify-content: center;
 }
 </style>
