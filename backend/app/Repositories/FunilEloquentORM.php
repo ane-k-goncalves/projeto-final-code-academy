@@ -26,8 +26,8 @@ class FunilEloquentORM implements FunilRepositoryInterface
 
 
 
-        $teste = new PaginationPresenter($paginator);
-        return $teste;
+        return new PaginationPresenter($paginator);
+   
     }
 
     public function getAll(string $filter = null): array

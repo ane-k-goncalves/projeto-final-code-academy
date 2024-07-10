@@ -1,7 +1,7 @@
 <template>
   <div id="container" class="container d-flex justify-content-around align-items-start flex-wrap">
     <div class="caixas card">
-      <h1 class="card-header">Favorite Foods</h1>
+      <h1 class="card-header sticky-top bg-white">Favorite Foods</h1>
       <draggable v-model="favoriteMeals" tag="ul" group="foods" :animation="300" class="list-group list-group-flush">
         <template #item="{ element: meal }">
           <li class="list-group-item">{{ meal }}</li>
@@ -9,7 +9,7 @@
       </draggable>
     </div>  
     <div class="caixas card">
-      <h1 class="card-header">Terrible Foods</h1>
+      <h1 class="card-header sticky-top bg-white">Terrible Foods</h1>
       <draggable v-model="terribleMeals" tag="ul" group="foods" :animation="300" class="list-group list-group-flush">
         <template #item="{ element: meal }">
           <li class="list-group-item">{{ meal }}</li>
@@ -17,7 +17,7 @@
       </draggable>
     </div> 
     <div class="caixas card">
-      <h1 class="card-header">Healthy Foods</h1>
+      <h1 class="card-header sticky-top bg-white">Healthy Foods</h1>
       <draggable v-model="healthyMeals" tag="ul" group="foods" :animation="300" class="list-group list-group-flush">
         <template #item="{ element: meal }">
           <li class="list-group-item">{{ meal }}</li>
@@ -25,7 +25,7 @@
       </draggable>
     </div> 
     <div class="caixas card">
-      <h1 class="card-header">Junk Foods</h1>
+      <h1 class="card-header sticky-top bg-white">Junk Foods</h1>
       <draggable v-model="junkMeals" tag="ul" group="foods" :animation="300" class="list-group list-group-flush">
         <template #item="{ element: meal }">
           <li class="list-group-item">{{ meal }}</li>
@@ -69,6 +69,5 @@ const junkMeals = ref([
   max-height: 300px;
   overflow-y: auto;
   margin-bottom: 20px;
-  margin-top:300px ;
 }
 </style>

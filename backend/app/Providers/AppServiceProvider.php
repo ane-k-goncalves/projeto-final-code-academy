@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Funil;
+use App\Observers\FunilObserver;
 use App\Repositories\FunilEloquentORM;
 use App\Repositories\FunilRepositoryInterface;
 use Illuminate\Auth\Notifications\ResetPassword;
@@ -25,5 +27,7 @@ class AppServiceProvider extends ServiceProvider
         ResetPassword::createUrlUsing(static function ($notifiable, $token) {
             return 'http://localhost:8085/reset-password/'.$token;
          });
+
+         Funil::observe(FunilObserver::class);
     }
 }

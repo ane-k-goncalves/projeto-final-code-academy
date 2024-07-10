@@ -2,10 +2,11 @@
 
 
 use App\Http\Controllers\VerificationController;
-
+use App\Http\Controllers\FunilController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmaiController;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\EtapaController;
 use App\Http\Controllers\UserController;
 
 use Illuminate\Http\Request;
@@ -27,6 +28,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
+
+
 Route::middleware('jwt.auth')->group(function () {
 
     Route::post('me', 'App\Http\Controllers\AuthController@me');
@@ -34,6 +37,14 @@ Route::middleware('jwt.auth')->group(function () {
     Route::post('logout', 'App\Http\Controllers\AuthController@logout');
 
    
+});
+
+Route::prefix('funis/{funilId}')->group(function () {
+    Route::get('etapas', [EtapaController::class, 'index']);
+    Route::post('etapas', [EtapaController::class, 'store']);
+    Route::put('etapas/{id}', [EtapaController::class, 'update']);
+    Route::delete('etapas/{id}', [EtapaController::class, 'destroy']);
+    Route::post('etapas/order', [EtapaController::class, 'updateOrder']);
 });
 
 Route::post('login', [AuthController::class, 'login'])->name('login');
