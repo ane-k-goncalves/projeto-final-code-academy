@@ -12,5 +12,10 @@ class Funil extends Model
     protected $nome = 'funils';    
     protected $fillable = ['name'];
 
+    public function etapas()
+    {
+        return $this->hasMany(Etapa::class);
+    }
+
   
 }

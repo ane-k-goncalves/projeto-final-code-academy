@@ -19,6 +19,12 @@ class FunilService{
         $this->repository = $repository;
     }
 
+    public function paginate(int $page =1, string $filter = null, int $totalPerPage = 15){
+    
+        return $this->repository->paginate(page:$page,totalPerPage:$totalPerPage, filter:$filter);
+
+    }
+
     public function getAll(string $filter = null):array{
         return $this->repository->getAll($filter);
     }

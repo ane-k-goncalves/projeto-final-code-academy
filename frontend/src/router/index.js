@@ -43,7 +43,7 @@ const router = createRouter({
       path: '/teste',
       name: 'Teste',
       component: () => import('../views/teste.vue'),
-      beforeEnter: Guard.auth
+     
     },
 
     {
