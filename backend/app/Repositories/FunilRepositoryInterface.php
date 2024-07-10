@@ -9,6 +9,7 @@ use stdClass;
 
 interface FunilRepositoryInterface
 {
+    public function paginate (int $page =1, string $filter = null, int $totalPerPage = 15):PaginationInterface;
     public function getAll(string $filter = null): array;
     public function findOne(string $id): Funil|null;
     public function delete(string $id): void;

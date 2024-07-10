@@ -17,12 +17,17 @@ class FunilController extends Controller
     }
 
    
+
     public function index(Request $request)
     {
-        //$filter = $request->query('filter', null);
+        // $filter = $request->query('filter', null);
         $filter = data_get($request->filter,null);
       
-        $funis = $this->service->getAll($filter);
+        $funis = $this->service->paginate(
+            page:$request->get('page',1),
+            totalPerPage:$request->get('perPage',15),
+            filter:$request->filter
+        );
         
         return response()->json($funis);
     }
