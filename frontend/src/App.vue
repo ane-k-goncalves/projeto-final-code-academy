@@ -19,10 +19,7 @@ export default {
 
 <style scoped>
 
-* {
-  margin: 0;
-  padding: 0;
-}
+
 
 #app {
   background: linear-gradient(to top, #62aeff 0%, #f7f7f7 100%);;
@@ -30,7 +27,7 @@ export default {
   
 }
 
-.container{
+/* .container{
   position: absolute;
   display: flex;
   justify-content: center;
@@ -59,7 +56,7 @@ main {
   justify-content: center;
   flex: 1;
   width: 100%; 
-}
+} */
 
 
 
