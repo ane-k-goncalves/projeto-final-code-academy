@@ -33,17 +33,17 @@ Route::middleware('jwt.auth')->group(function () {
     Route::post('refresh', 'App\Http\Controllers\AuthController@refresh');
     Route::post('logout', 'App\Http\Controllers\AuthController@logout');
 
-    Route::apiResource('register-funil','App\Http\Controllers\FunilController');
+   
 });
 
 Route::post('login', [AuthController::class, 'login'])->name('login');
 
 Route::apiResource('register-user','App\Http\Controllers\UserController');
-
+Route::apiResource('register-funil','App\Http\Controllers\FunilController');
 
 Route::post('forget-password', [EmailController::class, 'sendPasswordChange'])->middleware('guest')->name('forget_password');
 Route::post('reset-password', [EmailController::class, 'resetPassword'])->middleware('guest')->name('password.update');
-Route::middleware('auth:api')->group(function () {
+Route::middleware('signed')->group(function () {
     Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
     Route::post('/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 });

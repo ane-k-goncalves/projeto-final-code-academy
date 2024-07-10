@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Repositories\{PaginationPresenter, PaginationInterface};
 use App\Models\Funil;
 use App\DTO\{CreateFunilDTO, UpdateFunilDTO};
 use App\Repositories\FunilRepositoryInterface;
@@ -11,6 +12,22 @@ class FunilEloquentORM implements FunilRepositoryInterface
    
     public function __construct(protected Funil $model){
 
+    }
+
+    public function paginate(int $page = 1, string $filter = null, int $totalPerPage = 15): PaginationInterface
+    {
+        $query = $this->model->query();
+
+        if ($filter) {
+            $query->where('name', 'like', "%$filter%");
+        }
+
+        $paginator = $query->paginate($totalPerPage, ['*'], 'page', $page);
+
+
+
+        $teste = new PaginationPresenter($paginator);
+        return $teste;
     }
 
     public function getAll(string $filter = null): array
