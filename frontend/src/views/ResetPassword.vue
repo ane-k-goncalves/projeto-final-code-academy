@@ -21,7 +21,6 @@ export default {
     // Extrair token da rota
     const routeToken = this.$route.params.token;
 
-    // Usar o token da rota se disponível, caso contrário, usar o token da query string
     this.token = routeToken || queryToken;
 
     if (!this.token) {

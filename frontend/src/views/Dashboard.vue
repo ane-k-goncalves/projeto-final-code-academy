@@ -1,17 +1,22 @@
 <script>
+import NavBar from '@/components/NavBar.vue';
 import FunilDashboard from '../components/FunilDashboard.vue';
 
 
     export default {
         components: {
           FunilDashboard,
+          NavBar
         },
        
         
     };
 </script>
 <template>
+ 
+
   <div>
+    <NavBar />
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Dashboard</a>
@@ -49,12 +54,15 @@ import FunilDashboard from '../components/FunilDashboard.vue';
 </template>
 <style scoped>
 .navbar {
-    width: 100%;
+  height: 80px;
+    margin-left: 100px;
 
 }
 .container-fluid {
+  
     display: flex;
     justify-content: space-between;
+
 }
 
 </style>

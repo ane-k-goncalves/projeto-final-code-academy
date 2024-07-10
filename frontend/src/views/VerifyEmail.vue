@@ -1,6 +1,7 @@
 <script>
     export default {
         name: "VerifyEmail",
+        props: ['id', 'hash'],
         data() {
             return {
             message: ''
@@ -18,7 +19,7 @@
                 }
 
                 try {
-                    const verify = await fetch(`http://localhost:8000/api/email/verify/${id}/${hash}`, {
+                    const verify = await fetch(`http://localhost:8000/api/verify-email/${this.id}/${this.hash}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -28,9 +29,9 @@
                     if (verify.ok) {
                     this.message = 'Seu email foi verificado com sucesso!';
                     setTimeout(() => {
-                        
+                       
                         window.location.href = 'http://localhost:8085/login';
-                    }, 2000); // Aguarde 2 segundos antes de redirecionar
+                    }, 2000);
                     } else {
                     const data = await verify.json();
                     this.message = data.message || 'Erro ao verificar o email.';

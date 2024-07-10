@@ -39,7 +39,7 @@ export default {
         console.log(data);
         if (data.id) {
           alert('Cadastro realizado. Por favor verifique seu email.');
-          this.$router.push('/dashboard');
+          
         } else {
          
           console.error('Erro no registro:', data);
@@ -55,8 +55,13 @@ export default {
         });
 
         if(sendVerificationResponse.ok) {
+          const responseData = await sendVerificationResponse.json();
+          const id = responseData.id;
+          const hash= responseData.hash;
+
           this.message = 'Cadastro realizado. Por favor verifique seu email.';
-          this.$router.push({ path: '/verify/email/{id}/{hash}' });
+         
+          this.$router.push({  path: '/verify/email/:id/:hash', query: { id: id, hash: hash }});
         }else{
           const errorData = await sendVerificationResponse.json();
           this.message = 'Error: ' + errorData.message;
@@ -107,6 +112,7 @@ export default {
                                     </div>
                                 </form>
                                 <div>{{ message }}</div>
+                                
                             </div>
                         </div>
                     </div>
