@@ -40,29 +40,36 @@ class EtapaController extends Controller
      */
     public function show(string $id)
     {
-        $user = Etapa::find($id);
-        return response()->json($user);
+        $etapa = Etapa::find($id);
+        return response()->json($etapa);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $idFunil, string $id)
     {
-        $user = Etapa::findOrFail($id);
-        $user->update($request->all());
+        $etapa = Etapa::findOrFail($id);
+        $etapa->update($request->all());
       
-        return response()->json($user->fresh());
+        return response()->json($etapa->fresh());
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $idFunil, string $id)
     {
-        $user = Etapa::findOrFail($id);
-        $user->delete();
-        return response()->json(['msg' =>'Usuario deletado com sucesso!']);
+        $etapa = Etapa::find($id);
+        
+
+        if (!$etapa) {
+            return response()->json(['error' => 'Etapa não encontrada'], 404);
+        }
+    
+        $etapa->delete();
+    
+        return response()->json(['msg' =>'Etapa deletada com sucesso!']);
     }
 
     public function updateOrder(Request $request)
