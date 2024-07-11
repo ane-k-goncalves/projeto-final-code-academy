@@ -39,6 +39,7 @@ export default {
         .then(res => {
             if (res.token){
              Cookie.set('token', res.token);
+            
              this.$router.push('/dashboard');
         } else {
           alert('Login incorreto');
