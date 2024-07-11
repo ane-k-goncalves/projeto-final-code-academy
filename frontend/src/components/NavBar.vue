@@ -30,10 +30,13 @@
             <div class="collapse navbar-collapse flex-column" >
               <ul class="navbar-nav flex-column">
             <li class="nav-item" id="icone-sair">
-              <a class="nav-link" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-box-arrow-in-left" viewBox="0 0 16 16">
+              <form @submit.prevent="logout">
+              <a class="nav-link" href="#"><button type="submit" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-box-arrow-in-left" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0z"/>
               <path fill-rule="evenodd" d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708z"/>
-            </svg></a>
+            </svg>
+            </button></a>
+             </form>
             </li>
           </ul>
         </div>
@@ -44,9 +47,37 @@
 </template>
 
 <script>
+
+import Cookie from 'js-cookie';
+
 export default {
-  name: 'NavBar'
-};
+
+  name: 'NavBar',
+
+  methods: {
+   async logout() {
+    const token = Cookie.set('token');
+    // const token = localStorage.getItem('token');
+    console.log(token); 
+            const res = await fetch(`http://localhost:8000/api/logout`, {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                            
+                        },
+                        body: JSON.stringify(),
+                    });
+    
+            if(res.ok) {
+              alert('Até logo!');
+              Cookie.removeItem('token'); 
+              this.$router.push({ path: '/login' });
+            }
+          }
+          }
+  }
+
 </script>
 
 <style scoped>

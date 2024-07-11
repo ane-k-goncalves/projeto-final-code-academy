@@ -1,12 +1,18 @@
 <script>
 import NavBar from '@/components/NavBar.vue';
 import FunilDashboard from '../components/FunilDashboard.vue';
+import EditarFunil from '../components/EditarFunil.vue';
+import ExcluirFunil from '../components/ExcluirFunil.vue';
+import CardFunil from '../components/CardFunil.vue'
 
 
-    export default {
+   export default {
         components: {
           FunilDashboard,
-          NavBar
+          NavBar,
+          EditarFunil,
+          ExcluirFunil,
+          CardFunil
         },
        
         
@@ -27,18 +33,7 @@ import FunilDashboard from '../components/FunilDashboard.vue';
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <FunilDashboard />
-        </li>
-       
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Funil
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#" > </a></li>
-            
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
+
         </li>
        
       </ul>
@@ -49,6 +44,10 @@ import FunilDashboard from '../components/FunilDashboard.vue';
     </div>
   </div>
 </nav>
+
+  <div class="container">
+  <CardFunil />
+  </div>
 
 </div>
     
@@ -64,6 +63,9 @@ import FunilDashboard from '../components/FunilDashboard.vue';
     display: flex;
     justify-content: space-between;
 
+}
+.container {
+  margin:100px;
 }
 
 </style>
