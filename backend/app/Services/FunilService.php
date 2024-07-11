@@ -3,7 +3,8 @@
 namespace App\Services;
 
 
-
+use App\Repositories\PaginationInterface;
+use Illuminate\Support\Facades\Log;
 
 use App\DTO\CreateFunilDTO;
 use App\DTO\UpdateFunilDTO;
@@ -19,12 +20,17 @@ class FunilService{
         $this->repository = $repository;
     }
 
-    public function paginate(int $page =1, string $filter = null, int $totalPerPage = 15){
-    
-        return $this->repository->paginate(page:$page,totalPerPage:$totalPerPage, filter:$filter);
-
+    public function paginate(
+        int $page = 1,
+        int $totalPerPage = 8,
+        string $filter = null
+    ): PaginationInterface {
+        return $this->repository->paginate(
+            page: $page,
+            totalPerPage: $totalPerPage,
+            filter: $filter,
+        );
     }
-
     public function getAll(string $filter = null):array{
         return $this->repository->getAll($filter);
     }
