@@ -2,32 +2,18 @@
 
 namespace App\Repositories;
 
-use App\Repositories\{PaginationPresenter, PaginationInterface};
+use Illuminate\Support\Facades\Log;
 use App\Models\Funil;
 use App\DTO\{CreateFunilDTO, UpdateFunilDTO};
 use App\Repositories\FunilRepositoryInterface;
 
 class FunilEloquentORM implements FunilRepositoryInterface
 {
-   
-    public function __construct(protected Funil $model){
+    protected $model;
 
-    }
-
-    public function paginate(int $page = 1, string $filter = null, int $totalPerPage = 15): PaginationInterface
+    public function __construct(Funil $model)
     {
-        $query = $this->model->query();
-
-        if ($filter) {
-            $query->where('name', 'like', "%$filter%");
-        }
-
-        $paginator = $query->paginate($totalPerPage, ['*'], 'page', $page);
-
-
-
-        return new PaginationPresenter($paginator);
-   
+        $this->model = $model;
     }
 
     public function getAll(string $filter = null): array
@@ -35,22 +21,17 @@ class FunilEloquentORM implements FunilRepositoryInterface
         $query = $this->model->query();  
 
         if ($filter) {
-        $query->where('name', 'like', "%$filter%");
-    }
+            $query->where('name', 'like', "%$filter%");
+        }
+
         return $query->get()->toArray();
     }
 
-    
     public function findOne(string $id): Funil|null
     {
-        $funil =$this->model->find($id);
-        if(!$funil){
-            return null;
-        }
-        return $funil;
+        return $this->model->find($id);
     }
 
-    
     public function create(CreateFunilDTO $dto): Funil
     {
         return $this->model->create([
@@ -73,9 +54,23 @@ class FunilEloquentORM implements FunilRepositoryInterface
         return $funil;
     }
 
-    
     public function delete(string $id): void
     {
-         $this->model->findOrFail($id)->delete();
+        $this->model->findOrFail($id)->delete();
+    }
+
+    public function paginate(int $page = 1, string $filter = null,int $totalPerPage = 15): PaginationInterface
+    {
+        $query = $this->model->query();
+
+        if ($filter) {
+            $query->where(function ($query) use ($filter) {
+                $query->where('subject', 'like', "%{$filter}%")
+                      ->orWhere('body', 'like', "%{$filter}%");
+            });
+        }
+
+        $paginator = $query->paginate($totalPerPage, ['*'], 'page', $page);
+        return new PaginationPresenter($paginator);
     }
 }

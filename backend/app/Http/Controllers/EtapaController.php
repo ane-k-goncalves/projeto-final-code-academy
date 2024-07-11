@@ -7,34 +7,26 @@ use Illuminate\Http\Request;
 
 class EtapaController extends Controller
 {
-
-  
-
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $users = Etapa::all();
-        return response()->json($users);
+        $etapas = Etapa::all();
+        return response()->json($etapas);
     }
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request,$funilId)
     {
-       
-
         $etapa = Etapa::create([
             'funil_id' => $funilId,
             'name' => $request->name,
             'position' => $request->position
         ]);
-
         return response()->json($etapa, 201);
     }
-
     /**
      * Display the specified resource.
      */
@@ -43,7 +35,6 @@ class EtapaController extends Controller
         $etapa = Etapa::find($id);
         return response()->json($etapa);
     }
-
     /**
      * Update the specified resource in storage.
      */
@@ -54,7 +45,6 @@ class EtapaController extends Controller
       
         return response()->json($etapa->fresh());
     }
-
     /**
      * Remove the specified resource from storage.
      */
@@ -77,11 +67,9 @@ class EtapaController extends Controller
         $request->validate([
             'etapas' => 'required|array'
         ]);
-
         foreach ($request->etapas as $etapa) {
             Etapa::where('id', $etapa['id'])->update(['position' => $etapa['position']]);
         }
-
         return response()->json(['message' => 'Order updated successfully']);
     }
 }
