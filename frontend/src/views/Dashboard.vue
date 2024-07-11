@@ -25,7 +25,9 @@ import FunilDashboard from '../components/FunilDashboard.vue';
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        
+        <li class="nav-item">
+          <FunilDashboard />
+        </li>
        
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -48,14 +50,13 @@ import FunilDashboard from '../components/FunilDashboard.vue';
   </div>
 </nav>
 
-<FunilDashboard />
 </div>
     
 </template>
 <style scoped>
 .navbar {
-  height: 80px;
-    margin-left: 100px;
+  height: 60px;
+  margin-left: 80px;
 
 }
 .container-fluid {

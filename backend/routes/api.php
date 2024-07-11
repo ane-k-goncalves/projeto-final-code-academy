@@ -53,6 +53,7 @@ Route::prefix('funis/{funilId}')->group(function () {
 
 Route::apiResource('register-funil','App\Http\Controllers\FunilController');
 
+
 Route::post('login', [AuthController::class, 'login'])->name('login');
 
 Route::apiResource('register-user','App\Http\Controllers\UserController');
