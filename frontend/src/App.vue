@@ -22,7 +22,7 @@ export default {
 
 
 #app {
-  background: linear-gradient(to top, #62aeff 0%, #f7f7f7 100%);;
+  background: linear-gradient(to top, #f7f7f7 0%, #62aeff 200%);;
   height: 100vh;
   
 }
