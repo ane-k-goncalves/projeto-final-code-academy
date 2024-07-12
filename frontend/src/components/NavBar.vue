@@ -56,22 +56,22 @@ export default {
 
   methods: {
    async logout() {
-    const token = Cookie.set('token');
-    // const token = localStorage.getItem('token');
-    console.log(token); 
+    // const token = Cookie.set('token');
+    // // const token = localStorage.getItem('token');
+    // console.log(token); 
             const res = await fetch(`http://localhost:8000/api/logout`, {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json',
-                            
+                           // 'Authorization': `Bearer ${token}`
                         },
                         body: JSON.stringify(),
                     });
     
             if(res.ok) {
               alert('Até logo!');
-              Cookie.removeItem('token'); 
+              // Cookie.remove('token'); 
               this.$router.push({ path: '/login' });
             }
           }

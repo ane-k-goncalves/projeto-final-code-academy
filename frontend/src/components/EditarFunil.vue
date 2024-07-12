@@ -20,7 +20,7 @@ export default {
     },
     async editarFunil(){
       const dados = {
-        name: this.name,
+        name: this.newName,
         id: this.id,
       };
       try {
@@ -35,7 +35,7 @@ export default {
                 });
 
         const data = await res.json();
-        console.log(data);
+       
         if (data.ok) {
            
             this.name = this.newName;
