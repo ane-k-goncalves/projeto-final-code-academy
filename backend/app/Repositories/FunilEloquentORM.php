@@ -64,10 +64,7 @@ class FunilEloquentORM implements FunilRepositoryInterface
         $query = $this->model->query();
 
         if ($filter) {
-            $query->where(function ($query) use ($filter) {
-                $query->where('subject', 'like', "%{$filter}%")
-                      ->orWhere('body', 'like', "%{$filter}%");
-            });
+            $query->where('name', 'like', "%{$filter}%");
         }
 
         $paginator = $query->paginate($totalPerPage, ['*'], 'page', $page);
