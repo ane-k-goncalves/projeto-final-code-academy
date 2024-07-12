@@ -1,6 +1,8 @@
 <script>
 
 import { Modal } from 'bootstrap';
+import CardFunil from './CardFunil.vue';
+import Paginacao from './Paginacao.vue';
 
 export default {
 
@@ -9,11 +11,16 @@ export default {
       return {
         name: '',
         newName: '',
-        id: ''
+        id: '',
+        funils: []
        
       }
     },
-  methods: {
+    components: {
+      CardFunil,
+      Paginacao
+    },
+    methods: {
    
     showModal() {
         const modalElement = document.getElementById('adicionar');
@@ -37,11 +44,12 @@ export default {
                     body: JSON.stringify(dados),
                 });
 
-          const data = await res.json();
-        console.log(data);
+        
+       
         if (data) {
           alert('Funil cadastrado.');
-          
+          const data = await res.json();
+          this.funils.push(data)
         } else {
          
           console.error('Erro no registro:', data);
@@ -50,12 +58,36 @@ export default {
         console.log('Erro', error);
       }
     },
-    
-                 
-   
+    async fetchFunils() {
+      try{
+          const res = await fetch(`http://localhost:8000/api/register-funil`, {
+             method: 'GET',
+             headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+            body: JSON.stringify(),
+          });
+                
+          if(res.ok) {
+          const data = await res.json();
+          this.funils = data;
+        } else {
+          console.error('Erro ao buscar funis');
+        }
+      } catch (error) {
+        console.error('Erro na requisição', error);
+      }
+    }
+  },
+  mounted() {
+    this.fetchFunils();
   }
-
 }
+// implementar paginacao
+//quando gerar card limitar a 8 ir para proxima paginca
+           
 </script>
 <template>
     <div>
@@ -86,9 +118,19 @@ export default {
                 </div>
             </div>
         </div>
-       
+        <div class="container">
+          <div class="row">
+            <CardFunil :funils="funils"  />
+          </div>
+          <div class="row">
+            <!-- <Paginacao :funils="funils" @fetch-funils="fetchFunils"/> -->
+          </div>
+        </div>
     </div>
   </template>
   
-
-  
+<style scoped>
+.container {
+    margin: 80px;
+}
+</style>

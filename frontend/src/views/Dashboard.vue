@@ -5,8 +5,7 @@ import EditarFunil from '../components/EditarFunil.vue';
 import ExcluirFunil from '../components/ExcluirFunil.vue';
 import CardFunil from '../components/CardFunil.vue'
 
-
-   export default {
+export default {
         components: {
           FunilDashboard,
           NavBar,
@@ -15,8 +14,7 @@ import CardFunil from '../components/CardFunil.vue'
           CardFunil
         },
        
-        
-    };
+};
 </script>
 <template>
  
@@ -32,13 +30,11 @@ import CardFunil from '../components/CardFunil.vue'
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <FunilDashboard />
-
         </li>
        
       </ul>
       <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <input v-model="filter" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
     </div>
@@ -46,7 +42,8 @@ import CardFunil from '../components/CardFunil.vue'
 </nav>
 
   <div class="container">
-  <CardFunil />
+
+    <FunilDashboard />
   </div>
 
 </div>
