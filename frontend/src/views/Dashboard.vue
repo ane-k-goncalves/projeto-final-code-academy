@@ -4,6 +4,7 @@ import FunilDashboard from '../components/FunilDashboard.vue';
 import EditarFunil from '../components/EditarFunil.vue';
 import ExcluirFunil from '../components/ExcluirFunil.vue';
 import CardFunil from '../components/CardFunil.vue'
+import Paginacao from '@/components/Paginacao.vue';
 
 export default {
         components: {
@@ -11,7 +12,8 @@ export default {
           NavBar,
           EditarFunil,
           ExcluirFunil,
-          CardFunil
+          CardFunil,
+          Paginacao
         },
        
 };
@@ -34,7 +36,7 @@ export default {
        
       </ul>
       <form class="d-flex">
-        <input v-model="filter" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
     </div>
@@ -45,14 +47,17 @@ export default {
 
     <FunilDashboard />
   </div>
+  <div>
+    <Paginacao />
+  </div>
 
 </div>
     
 </template>
 <style scoped>
 .navbar {
-  height: 60px;
-  margin-left: 80px;
+  height: 80px;
+  margin-left: 100px;
 
 }
 .container-fluid {
@@ -62,7 +67,7 @@ export default {
 
 }
 .container {
-  margin:100px;
+  margin-left:300px;
 }
 
 </style>

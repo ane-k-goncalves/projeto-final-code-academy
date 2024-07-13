@@ -4,11 +4,22 @@ export default {
     name: 'ExcluirFunil',
     data() {
       return {
-        name: '',
-        newName: '',
-        id: ''
+        // name: '',
+        // newName: '',
+        // id: ''
        
       }
+    },
+    props: {
+    funils: {
+            type: Object,
+            required: true
+        },
+        id: {
+            type: Number,
+            required: true
+        },
+       
     },
      methods: {
         showModal3() {
@@ -63,13 +74,8 @@ export default {
                 <div class="modal-body">
                     <form @submit.prevent="excluirFunil">
                     <div>
-                    <label>Nome:</label>
-                    <input v-model="name" type="text" />
-                    </div>
-                    <div>
-                    <label>ID:</label>
-                    <input v-model="id" type="text" />
-                    </div>                    
+                        <p> Deseja mesmo excluir ?</p>
+                   </div>                  
                 
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save changes</button>

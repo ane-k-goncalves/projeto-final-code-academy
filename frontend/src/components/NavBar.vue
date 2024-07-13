@@ -5,7 +5,7 @@
       <div class="container-fluid d-flex flex-column ">
         <div class="icone3c">
         <a class="navbar-brand" href="#" >
-          <img width="50px" height="50px" src="../assets/logo3c.svg">
+          <img width="60px" height="60px" src="../assets/logo3c.svg">
         </a>
         </div>
        
@@ -88,13 +88,15 @@ export default {
 }
 .icone3c {
   background-color: #FFBD00;
-  width: 80px;
+  width: 100px;
+  height: 80px;
   display: flex;
   justify-content: center;
-  position: fixed;
+  /* position: fixed; */
   
  
 }
+
 
 .container-fluid {
   display: flex;
@@ -117,7 +119,7 @@ export default {
   top: 0;
   left: 0;
   height: 100%;
-  width: 80px;
+  width: 100px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

@@ -2,7 +2,6 @@
 
 import { Modal } from 'bootstrap';
 import CardFunil from './CardFunil.vue';
-import Paginacao from './Paginacao.vue';
 
 export default {
 
@@ -12,13 +11,16 @@ export default {
         name: '',
         newName: '',
         id: '',
-        funils: []
+        funils: {
+    
+        }
        
       }
     },
+    
     components: {
       CardFunil,
-      Paginacao
+     
     },
     methods: {
    
@@ -60,7 +62,7 @@ export default {
     },
     async fetchFunils() {
       try{
-          const res = await fetch(`http://localhost:8000/api/register-funil`, {
+          const res = await fetch(`http://localhost:8000/api/register-funil/`, {
              method: 'GET',
              headers: {
                 'Accept': 'application/json',
@@ -85,8 +87,7 @@ export default {
     this.fetchFunils();
   }
 }
-// implementar paginacao
-//quando gerar card limitar a 8 ir para proxima paginca
+
            
 </script>
 <template>
@@ -118,19 +119,18 @@ export default {
                 </div>
             </div>
         </div>
-        <div class="container">
-          <div class="row">
-            <CardFunil :funils="funils"  />
-          </div>
-          <div class="row">
-            <!-- <Paginacao :funils="funils" @fetch-funils="fetchFunils"/> -->
-          </div>
-        </div>
+       
     </div>
   </template>
   
 <style scoped>
 .container {
     margin: 80px;
+}
+
+button {
+  background-color:blue;
+  color: white;
+  margin: 20px;
 }
 </style>
