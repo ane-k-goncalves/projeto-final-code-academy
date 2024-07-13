@@ -37,7 +37,7 @@ Route::middleware('jwt.auth')->group(function () {
     Route::post('logout', 'App\Http\Controllers\AuthController@logout');
 
 
-   // Route::apiResource('register-funil','App\Http\Controllers\FunilController');
+
 
    
 });
@@ -50,14 +50,13 @@ Route::prefix('funis/{funilId}')->group(function () {
     Route::post('etapas/order', [EtapaController::class, 'updateOrder']);
 
 });
-
 Route::apiResource('register-funil','App\Http\Controllers\FunilController');
 
 
 Route::post('login', [AuthController::class, 'login'])->name('login');
 
 Route::apiResource('register-user','App\Http\Controllers\UserController');
-Route::apiResource('register-funil','App\Http\Controllers\FunilController');
+
 
 Route::post('forget-password', [EmailController::class, 'sendPasswordChange'])->middleware('guest')->name('forget_password');
 Route::post('reset-password', [EmailController::class, 'resetPassword'])->middleware('guest')->name('password.update');
