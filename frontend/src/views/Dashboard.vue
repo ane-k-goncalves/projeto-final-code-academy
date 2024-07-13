@@ -1,16 +1,20 @@
 <script>
 import NavBar from '@/components/NavBar.vue';
 import FunilDashboard from '../components/FunilDashboard.vue';
+import EditarFunil from '../components/EditarFunil.vue';
+import ExcluirFunil from '../components/ExcluirFunil.vue';
+import CardFunil from '../components/CardFunil.vue'
 
-
-    export default {
+export default {
         components: {
           FunilDashboard,
-          NavBar
+          NavBar,
+          EditarFunil,
+          ExcluirFunil,
+          CardFunil
         },
        
-        
-    };
+};
 </script>
 <template>
  
@@ -25,37 +29,30 @@ import FunilDashboard from '../components/FunilDashboard.vue';
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        
-       
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Funil
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#" > </a></li>
-            
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
+        <li class="nav-item">
         </li>
        
       </ul>
       <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <input v-model="filter" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
     </div>
   </div>
 </nav>
 
-<FunilDashboard />
+  <div class="container">
+
+    <FunilDashboard />
+  </div>
+
 </div>
     
 </template>
 <style scoped>
 .navbar {
-  height: 80px;
-    margin-left: 100px;
+  height: 60px;
+  margin-left: 80px;
 
 }
 .container-fluid {
@@ -63,6 +60,9 @@ import FunilDashboard from '../components/FunilDashboard.vue';
     display: flex;
     justify-content: space-between;
 
+}
+.container {
+  margin:100px;
 }
 
 </style>

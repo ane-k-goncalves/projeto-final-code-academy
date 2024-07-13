@@ -27,17 +27,31 @@ const router = createRouter({
         title: 'Login'
       }
     },
+    {
+      path: '/home',
+      name: 'HomeView',
+      component: () => import('../views/Home.vue'),
+      meta: {
+        title: 'Home'
+      }
+    },
 
     {
       path: '/dashboard',
       name: 'Dashboard',
       component: () => import('../views/Dashboard.vue'),
-      beforeEnter: Guard.auth
+      beforeEnter: Guard.auth,
+      meta: {
+        title: 'Dashboard'
+      }
     },
     {
-    path: '/reset-password/:token',
-    name: 'ResetPassword',
-    component: () => import('../views/ResetPassword.vue'),
+      path: '/reset-password/:token',
+      name: 'ResetPassword',
+      component: () => import('../views/ResetPassword.vue'),
+      meta: {
+        title: 'Redefinir senha'
+      }
     },
     {
       path: '/teste',

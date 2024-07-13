@@ -10,7 +10,7 @@ class Etapa extends Model
     use HasFactory;
 
     protected $nome = 'etapas';    
-    protected $fillable = ['name, funil_id, position'];
+    protected $fillable = ['name', 'funil_id', 'position'];
 
     public function funil()
     {

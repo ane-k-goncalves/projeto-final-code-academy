@@ -18,6 +18,17 @@ class PaginationPresenter implements PaginationInterface
         return $this->paginator->items();
     }
 
+    public function toArray(): array
+    {
+        return [
+            'data' => $this->paginator->items(),
+            'current_page' => $this->paginator->currentPage(),
+            'last_page' => $this->paginator->lastPage(),
+            'per_page' => $this->paginator->perPage(),
+            'total' => $this->paginator->total(),
+        ];
+    }
+
     public function total(): int
     {
         return $this->paginator->total() ?? 0;
@@ -43,6 +54,8 @@ class PaginationPresenter implements PaginationInterface
         return $this->paginator->currentPage() + 1;
     }
 
+
+    
     public function getNumberPreviousPage(): int
     {
         return $this->paginator->currentPage() - 1;

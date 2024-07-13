@@ -1,32 +1,93 @@
 <script>
-import { createFunil } from '../services/Funil';
+
 import { Modal } from 'bootstrap';
+import CardFunil from './CardFunil.vue';
+import Paginacao from './Paginacao.vue';
 
 export default {
+
   name: 'FunilDashboard',
-  props: ['funil'],
-  data() {
-    return {
-      formData: this.funil || {},
-    };
-  },
-  methods: {
-    async handleSubmit() {
-      if (this.formData.id) {
-        await updateFunil(this.formData.id, this.formData);
-      } else {
-        await createFunil(this.formData);
+    data() {
+      return {
+        name: '',
+        newName: '',
+        id: '',
+        funils: []
+       
       }
-      this.$emit('saved');
     },
-  
-  showModal() {
-      const modalElement = document.getElementById('adicionar');
-      const modal = new Modal(modalElement);
-      modal.show();
+    components: {
+      CardFunil,
+      Paginacao
+    },
+    methods: {
+   
+    showModal() {
+        const modalElement = document.getElementById('adicionar');
+        const modal = new Modal(modalElement);
+        modal.show();
+    },
+    async criarFunil() {
+      const dados = {
+        name: this.name,
+        
+      };
+
+      try {
+        const res = await fetch(`http://localhost:8000/api/register-funil`, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    },
+                    body: JSON.stringify(dados),
+                });
+
+        
+       
+        if (data) {
+          alert('Funil cadastrado.');
+          const data = await res.json();
+          this.funils.push(data)
+        } else {
+         
+          console.error('Erro no registro:', data);
+        }
+      }catch(error){
+        console.log('Erro', error);
+      }
+    },
+    async fetchFunils() {
+      try{
+          const res = await fetch(`http://localhost:8000/api/register-funil`, {
+             method: 'GET',
+             headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+            body: JSON.stringify(),
+          });
+                
+          if(res.ok) {
+          const data = await res.json();
+          this.funils = data;
+        } else {
+          console.error('Erro ao buscar funis');
+        }
+      } catch (error) {
+        console.error('Erro na requisição', error);
+      }
+    }
+  },
+  mounted() {
+    this.fetchFunils();
   }
-},
 }
+// implementar paginacao
+//quando gerar card limitar a 8 ir para proxima paginca
+           
 </script>
 <template>
     <div>
@@ -36,16 +97,17 @@ export default {
             <div class="modal-dialog">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ 'Adicionar' }} Funil</h5>
+                    <h5 class="modal-title">Funil</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
               
                 <div class="modal-body">
-                    <form @submit.prevent="handleSubmit">
+                    <form @submit.prevent="criarFunil">
                     <div>
                     <label>Nome:</label>
-                    <input v-model="formData.nome" type="text" />
+                    <input v-model="name" type="text" />
                     </div>
+                       
                 
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save changes</button>
@@ -56,9 +118,19 @@ export default {
                 </div>
             </div>
         </div>
-     </div>
-      
+        <div class="container">
+          <div class="row">
+            <CardFunil :funils="funils"  />
+          </div>
+          <div class="row">
+            <!-- <Paginacao :funils="funils" @fetch-funils="fetchFunils"/> -->
+          </div>
+        </div>
+    </div>
   </template>
   
-
-  
+<style scoped>
+.container {
+    margin: 80px;
+}
+</style>
