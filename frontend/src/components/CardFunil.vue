@@ -2,23 +2,25 @@
 import EditarFunil from './EditarFunil.vue';
 import ExcluirFunil from './ExcluirFunil.vue';
 
+
 export default {
     name: "CardFunil",
     props: {
         funils: {
-            type: Array,
+            type: Object,
             required: true
-        }
+        },
+        
     },
-    
-    
+
     components: {
         EditarFunil,
-        ExcluirFunil
+        ExcluirFunil,
+       
     },
  
                     
-            }
+}
     
 
 </script>
@@ -31,17 +33,17 @@ export default {
             <h5 class="card-title">{{ funil.name }}</h5>
             
             <div> 
-                <EditarFunil />
+                <EditarFunil :id="funil.id"/>
             </div>
             <div> 
-                <ExcluirFunil />
+                <ExcluirFunil :id="funil.id" />
             </div>
            
         </div>
         </div>
     
     </div>
-
+   
 
 </div>
 
@@ -49,7 +51,7 @@ export default {
 <style scoped>
 .card {
    margin: 20px;
-    width: 200px;
+    width: 300px;
 
 }
 

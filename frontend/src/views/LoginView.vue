@@ -81,7 +81,7 @@ export default {
                                     </div>
                                     <div class="mb-4 row">
                                         <button type="submit" class="btn">Login</button>
-                                        <p> Não possui cadastro? <RouterLink to="/">Cadastre-se</RouterLink></p>
+                                        <p> Não possui cadastro? <RouterLink to="/cadastro">Cadastre-se</RouterLink></p>
                                     </div>
                                     <div class="esqueceuSenha">
                                     <ForgotPassword />

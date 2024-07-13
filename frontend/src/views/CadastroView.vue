@@ -58,8 +58,6 @@ export default {
           const responseData = await sendVerificationResponse.json();
           const id = responseData.id;
           const hash= responseData.hash;
-
-          this.message = 'Cadastro realizado. Por favor verifique seu email.';
          
           this.$router.push({  path: '/verify/email/:id/:hash', query: { id: id, hash: hash }});
         }else{
@@ -67,6 +65,7 @@ export default {
           this.message = 'Error: ' + errorData.message;
         }
 
+        alert('Cadastro realizado. Por favor verifique seu email.');
        
       } catch (error) {
         console.error('Erro:', error.message);
@@ -111,7 +110,7 @@ export default {
                                         <p> Já possui conta?  <RouterLink to="/login">Login</RouterLink></p>
                                     </div>
                                 </form>
-                                <div>{{ message }}</div>
+                              
                                 
                             </div>
                         </div>
@@ -133,7 +132,8 @@ export default {
 
 .container {
     position: relative;
-    
+    display: flex;
+    justify-content: center;
 
 }
 
