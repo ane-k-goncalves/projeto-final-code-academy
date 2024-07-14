@@ -6,10 +6,8 @@ export default {
   name: 'EditarFunil',
     data() {
       return {
-        // name: '',
         newName: '',
-        // id: ''
-       
+        
       }
     },
     props: {
@@ -74,15 +72,6 @@ export default {
             
                 <div class="modal-body">
                     <form @submit.prevent="editarFunil">
-                    <!-- <div>
-                    <label>Nome: {{ name }}</label>
-                    <input v-model="name" type="text" />
-                    </div>
-
-                    <div>
-                    <p>ID: {{ id }}</p>
-                    
-                    </div>  -->
                     
                     <div>
                     <label>Novo nome:</label>
