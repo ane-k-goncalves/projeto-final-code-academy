@@ -11,9 +11,7 @@ export default {
         name: '',
         newName: '',
         id: '',
-        funils: {
-    
-        }
+        funils: {}
        
       }
     },
@@ -48,10 +46,10 @@ export default {
 
         
        
-        if (data) {
+        if (res.ok) {
           alert('Funil cadastrado.');
           const data = await res.json();
-          this.funils.push(data)
+          this.funils = data;
         } else {
          
           console.error('Erro no registro:', data);

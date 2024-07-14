@@ -7,7 +7,7 @@ export default {
     name: "CardFunil",
     props: {
         funils: {
-            type: Object,
+            type: Array,
             required: true
         },
         
@@ -18,7 +18,11 @@ export default {
         ExcluirFunil,
        
     },
- 
+    methods: {
+        goToCard(id, name) {
+            this.$router.push({ name: 'Etapas', params: {id, name}});
+        }
+    }
                     
 }
     
@@ -28,7 +32,7 @@ export default {
     <div>
     <div class="col">
         
-        <div  v-for="funil in funils" :key="funil.id" class="card text-center">
+        <div  v-for="funil in funils" :key="funil.id" @click="goToCard(funil.id, funil.name)" class="card text-center">
         <div class="card-body">
             <h5 class="card-title">{{ funil.name }}</h5>
             
@@ -52,7 +56,7 @@ export default {
 .card {
    margin: 20px;
     width: 300px;
-
+    box-shadow: grey 20px;
 }
 
 .col {

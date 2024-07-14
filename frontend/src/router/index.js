@@ -65,6 +65,17 @@ const router = createRouter({
       name: 'VerifyEmail',
       component: () => import('../views/VerifyEmail.vue'),
     },
+
+    {
+      path: '/etapas/:id/:name',
+      name: 'Etapas',
+      component: () => import('../views/Etapas.vue'),
+      props:  route => ({ id: Number(route.params.id), name: route.params.name }),
+      meta: {
+        title: 'Etapas'
+      }
+    },
+   
    
    
   ]
