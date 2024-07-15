@@ -1,4 +1,7 @@
 <script>
+import ExcluirEtapa from './ExcluirEtapa.vue';
+import EditarEtapa from './EditarEtapa.vue';
+
 export default {
     name: 'CardsEtapas',
    
@@ -17,6 +20,10 @@ export default {
     //     etapas: []
     //     }
     // },
+    components: {
+        ExcluirEtapa,
+        EditarEtapa
+    }
    
 }
 </script>
@@ -25,9 +32,19 @@ export default {
          <div class="row">
             <div v-for="etapa in etapas" :key="etapa.id" :id="id" class="card text-center">
             <div class="card-body">
-                <h5 class="card-title">{{ etapa.name }}</h5>
-                
-                
+                <div class="container-body">
+                    <div class="row">
+                        <div class="col">
+                    <h5 class="card-title">{{ etapa.name }}  </h5>
+                    </div>
+                    <div class="col">
+                    <ExcluirEtapa :etapas="etapa.id" :id="id"/>
+                    </div>
+                   
+                    <EditarEtapa :etapas="etapa.id" :id="id"/>
+                    
+                    </div>
+                </div>
                 </div>
                 </div>
         </div>
@@ -37,12 +54,18 @@ export default {
 .container {
     display: flex;
     justify-content: center;
-    margin-top: 200px
+    margin-top: 100px
 }
 
 .card{
-    width: 200px;
+    width: 280px;
     margin: 20px;
+}
+
+.container-body {
+    display: inline;
+    justify-content: space-between;
+
 }
 
 </style>

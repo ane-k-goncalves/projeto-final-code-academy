@@ -31,18 +31,9 @@ export default {
             },
 
             totalPages() {
-                return Math.ceil(this.funis.lengh / this.perPage)
+                return Math.ceil(this.funis.data.lengh / this.perPage)
             },
-            visiblePageNum() {
-                let pageNum = []
-                if(this.totalPages <= 7) {
-                    for(let i = 1; i <=this.totalPages; i++) {
-                        pageNum.push(i);
-                    }
-               
-                }
-                return pageNum;
-            }
+           
         },
         methods: {
             async fetchFunis() {
@@ -88,7 +79,7 @@ export default {
 
                     if(res.ok){
                         const data = await res.json();
-                        this.funis.funils = data;
+                        this.funis.filter = data;
                         this.funis.currentPage = 1;
                     
                     }
@@ -150,9 +141,7 @@ export default {
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                         </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        
                         <li class="page-item">
                         <a class="page-link" href="#" @click="changePage(funils.currentPage + 1)" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
