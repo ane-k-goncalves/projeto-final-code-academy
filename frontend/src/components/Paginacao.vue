@@ -15,6 +15,7 @@ export default {
                 filter: '',
                 perPage: 8,
                 currentPage: 1,
+                total:''
     
             },
             funils: {},
@@ -50,7 +51,11 @@ export default {
 
                 if(res.ok){
                     const data = await res.json();
-                    this.funis = data;
+                    this.funis.data = data.data;
+                    this.funis.currentPage = data.current_page;
+                    this.funis.perPage = data.per_page;
+                    this.funis.total = data.total;
+                    this.funis.lastPage = data.last_page;
                    
                 }
             },

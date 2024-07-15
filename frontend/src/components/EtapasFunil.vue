@@ -16,9 +16,8 @@ export default {
     data() {
         return {
           
-            newEtapa: '',
+            name: '',
             
-            // etapas: []
         }
     },
     
@@ -32,11 +31,11 @@ export default {
 
         async novaEtapa() {
             try{
-            const etapasExistentes = this.etapas.length;
-            const newPosition = etapasExistentes > 4 ? Math.max(...this.etapas.map(etapa => etapa.position)) + 1 : 1;
             
+            const etapasExistentes = this.etapas.length;
+            const newPosition = etapasExistentes > 0 ? Math.max(...this.etapas.map(etapa => etapa.position)) + 1 : etapasExistentes + 1;
             const dados = {
-                name: this.newEtapa,
+                name: this.name,
                 position : newPosition
             };
            
@@ -46,13 +45,13 @@ export default {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                  },
-                 body: JSON.stringify({ dados})
+                  body: JSON.stringify(dados)
             });
 
             if(res.ok) {
                 const data = await res.json();
-                this.etapas.push(data); // Atualize a lista de etapas
-                    this.newEtapa = ''
+               
+                this.name = ''
             }
         }catch(error){
             console.log(error)
@@ -78,7 +77,7 @@ export default {
                     <form @submit.prevent="novaEtapa">
                     <div>
                     <label>Nomeie nova etapa:</label>
-                    <input v-model="newEtapa" type="text" />
+                    <input v-model="name" type="text" />
                     </div>
                        
                 
