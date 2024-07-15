@@ -34,6 +34,7 @@ export default {
             try{
             const etapasExistentes = this.etapas.length;
             const newPosition = etapasExistentes > 4 ? Math.max(...this.etapas.map(etapa => etapa.position)) + 1 : 1;
+            
             const dados = {
                 name: this.newEtapa,
                 position : newPosition
@@ -50,7 +51,8 @@ export default {
 
             if(res.ok) {
                 const data = await res.json();
-                this.etapas.push(data)
+                this.etapas.push(data); // Atualize a lista de etapas
+                    this.newEtapa = ''
             }
         }catch(error){
             console.log(error)

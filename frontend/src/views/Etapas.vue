@@ -49,6 +49,9 @@ export default {
             }catch(error) {
                 console.log('Erro na requisição', error)
             }
+        },
+        goToDashboard() {
+            this.$router.push('/dashboard');
         }
     },
     mounted() {
@@ -64,6 +67,7 @@ export default {
     <NavBar />
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
+                
                 <a class="navbar-brand" href="#"> Funil {{ name }}</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -82,6 +86,13 @@ export default {
                         <path d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z"/>
                         </svg> Novo contato</button>
                         </a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn-sair" type="submit" @click="goToDashboard">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+                        </svg>
+                        </button>
                     </li>
                 
                 </ul>
@@ -112,6 +123,8 @@ export default {
     width: 200px;
     height: 40px;
 }
+
+
 
 .nav-item {
     margin-left: 200px
