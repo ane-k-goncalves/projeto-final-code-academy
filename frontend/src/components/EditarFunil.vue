@@ -6,11 +6,20 @@ export default {
   name: 'EditarFunil',
     data() {
       return {
-        name: '',
         newName: '',
-        id: ''
-       
+        
       }
+    },
+    props: {
+      funils: {
+            type: Object,
+            required: true
+        },
+        id: {
+            type: Number,
+            required: true
+        },
+       
     },
     methods: {
         showModal2() {
@@ -39,13 +48,9 @@ export default {
         if (data.ok) {
            
             this.name = this.newName;
-          
-          alert('Funil editado.');
-            
-        } else {
-          console.error('Erro no registro:', data);
         }
-      }catch(error){
+        alert('Funil editado.');
+    }catch(error){
         console.log('Erro', error);
       }
     },
@@ -67,15 +72,6 @@ export default {
             
                 <div class="modal-body">
                     <form @submit.prevent="editarFunil">
-                    <div>
-                    <label>Nome:</label>
-                    <input v-model="name" type="text" />
-                    </div>
-
-                    <div>
-                    <label>ID:</label>
-                    <input v-model="id" type="text" />
-                    </div> 
                     
                     <div>
                     <label>Novo nome:</label>

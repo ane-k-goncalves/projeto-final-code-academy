@@ -12,7 +12,7 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
+      path: '/cadastro',
       name: 'CadastroView',
       component: () => import('../views/CadastroView.vue'),
       meta: {
@@ -28,7 +28,7 @@ const router = createRouter({
       }
     },
     {
-      path: '/home',
+      path: '/',
       name: 'HomeView',
       component: () => import('../views/Home.vue'),
       meta: {
@@ -65,6 +65,17 @@ const router = createRouter({
       name: 'VerifyEmail',
       component: () => import('../views/VerifyEmail.vue'),
     },
+
+    {
+      path: '/etapas/:id/:name',
+      name: 'Etapas',
+      component: () => import('../views/Etapas.vue'),
+      props:  route => ({ id: Number(route.params.id), name: route.params.name }),
+      meta: {
+        title: 'Etapas'
+      }
+    },
+   
    
    
   ]

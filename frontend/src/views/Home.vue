@@ -1,8 +1,10 @@
 <template>
+    <div>
     <nav id="navbar" class="navbar navbar-light bg-white shadow-sm fixed-top">
         <div class="container d-flex justify-content-between align-items-center">
             <img id="img-nav" src="../assets/logo-3C.svg" alt="logo" class="ml-3">
           <button id="button-login" class="btn btn-warning rounded-pill mr-3" @click="goToLogin">Login</button>
+          
         </div>
     </nav>
     
@@ -38,7 +40,7 @@
 
     </div>
 
-    <div></div>
+    </div>
 </template>
 
 <script>
