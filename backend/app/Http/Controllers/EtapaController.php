@@ -10,9 +10,9 @@ class EtapaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($funilId)
     {
-        $etapas = Etapa::all();
+        $etapas = Etapa::where('funil_id', $funilId)->get();
         return response()->json($etapas);
     }
     /**
