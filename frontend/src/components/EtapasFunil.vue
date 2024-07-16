@@ -17,14 +17,14 @@ export default {
         return {
           
             name: '',
-            
+            adicionar: "modal "+ this.etapas
         }
     },
     
 
     methods: {
         showModal() {
-            const modalElement = document.getElementById('adicionar');
+            const modalElement = document.getElementById(this.adicionar);
             const modal = new Modal(modalElement);
             modal.show();
         },
@@ -65,7 +65,7 @@ export default {
      <div>
         <button type="button" class="btn" @click="showModal"> Adicionar nova etapa</button>
 
-        <div class="modal" id="adicionar" tabindex="-1">
+        <div class="modal" :id="adicionar" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                 <div class="modal-header">

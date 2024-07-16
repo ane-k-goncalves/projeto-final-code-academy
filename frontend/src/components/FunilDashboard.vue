@@ -58,35 +58,36 @@ export default {
         console.log('Erro', error);
       }
     },
-    async fetchFunils() {
-      try{
-          const res = await fetch(`http://localhost:8000/api/register-funil/`, {
-             method: 'GET',
-             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            },
-            body: JSON.stringify(),
-          });
+//     async fetchFunils() {
+//       try{
+//           const res = await fetch(`http://localhost:8000/api/register-funil/`, {
+//              method: 'GET',
+//              headers: {
+//                 'Accept': 'application/json',
+//                 'Content-Type': 'application/json',
+//                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
+//             },
+//             body: JSON.stringify(),
+//           });
                 
-          if(res.ok) {
-          const data = await res.json();
-          this.funils = data;
-        } else {
-          console.error('Erro ao buscar funis');
-        }
-      } catch (error) {
-        console.error('Erro na requisição', error);
-      }
-    }
-  },
-  mounted() {
-    this.fetchFunils();
-  }
-}
+//           if(res.ok) {
+//           const data = await res.json();
+//           this.funils = data;
+//         } else {
+//           console.error('Erro ao buscar funis');
+//         }
+//       } catch (error) {
+//         console.error('Erro na requisição', error);
+//       }
+//     }
+//   },
+//   mounted() {
+//     this.fetchFunils();
+//   }
+// }
 
-           
+    }
+}         
 </script>
 <template>
     <div>
