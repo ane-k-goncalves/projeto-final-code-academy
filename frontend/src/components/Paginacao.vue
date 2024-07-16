@@ -46,10 +46,10 @@ export default {
             },
 
             async buscar() {
-                const params = new URLSearchParams({
+                const params = {
                     filter: this.filtro,
-                }).toString();
-                const url = `http://localhost:8000/api/register-funil?${params}`;
+                }
+                const url = `http://localhost:8000/api/register-funil`;
 
                 try {
                     const res = await fetch(url, {
@@ -58,6 +58,8 @@ export default {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
                     },
+
+                    body: JSON.stringify(params)
                     });
                
 

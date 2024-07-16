@@ -52,12 +52,40 @@ export default {
             console.error('Erro na requisição', error);
           }
         
-  },
-},
-  mounted() {
-    this.fetchFunils();
-  }
-}
+        },
+        async buscar() {
+                const params = {
+                    filter: this.filtro,
+                }
+                const url = `http://localhost:8000/api/register-funil/`;
+
+                try {
+                    const res = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+
+                    body: JSON.stringify()
+                    });
+               
+
+                    if(res.ok){
+                        const data = await res.json();
+                        this.funis.filter = data;
+                        this.funis.currentPage = 1;
+                    
+                    }
+            }catch(error){
+                console.log(error);
+            }
+        }
+        },
+        mounted() {
+          this.fetchFunils();
+        }
+    }
 
 
 </script>
@@ -81,10 +109,10 @@ export default {
                     </li>
                 
                 </ul>
-                <form class="d-flex">
+                <form class="d-flex" @submit.prevent="buscar">
                     <div class="filtro">
-                        <input v-model="filtro" class="form-control me-2" type="search" placeholder="Search" @input="fetchFunis(1)"  aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit" @click="buscar">Buscar</button>
+                        <input v-model="filtro" class="form-control me-2" type="search" placeholder="Search"  aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Buscar</button>
                     </div>
                 </form>
                 </div>
