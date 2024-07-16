@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Models\Funil;
 use App\Observers\FunilObserver;
+use App\Repositories\EtapaEloquentORM;
+use App\Repositories\EtapaRepositoryInterface;
 use App\Repositories\FunilEloquentORM;
 use App\Repositories\FunilRepositoryInterface;
 use Illuminate\Auth\Notifications\ResetPassword;
@@ -17,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(FunilRepositoryInterface::class, FunilEloquentORM::class);
+        $this->app->bind(EtapaRepositoryInterface::class, EtapaEloquentORM::class);
     }
 
     /**

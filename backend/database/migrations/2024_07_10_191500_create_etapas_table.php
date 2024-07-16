@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('position');
 
             $table->foreign('funil_id')->references('id')->on('funils')->onDelete('cascade');
+            $table->unique(['funil_id', 'position']); 
         });
     }
 

@@ -14,7 +14,7 @@ public function __construct(
 
 public static function makeFromRequest(StoreUpdateFunil $request){
     return new self(
-        $request->nome
+        $request->name
     );
 }
 
