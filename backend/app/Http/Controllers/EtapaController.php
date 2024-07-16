@@ -2,74 +2,81 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Etapa;
+use App\Services\EtapaService;
+use App\DTO\{CreateEtapaDTO, UpdateEtapaDTO, UpdateOrderEtapaDTO};
 use Illuminate\Http\Request;
 
 class EtapaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index($funilId)
+    protected $etapaService;
+
+    public function __construct(EtapaService $etapaService)
     {
-        $etapas = Etapa::where('funil_id', $funilId)->get();
+        $this->etapaService = $etapaService;
+    }
+
+    public function index(Request $request, string $funilId)
+    {
+        $filter = $request->query('filter');
+        $etapas = $this->etapaService->getAll($filter, $funilId);
         return response()->json($etapas);
     }
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request,$funilId)
+
+    public function show(string $funilId, string $id)
     {
-        $etapa = Etapa::create([
-            'funil_id' => $funilId,
-            'name' => $request->name,
-            'position' => $request->position
-        ]);
-        return response()->json($etapa, 201);
-    }
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        $etapa = Etapa::find($id);
+        $etapa = $this->etapaService->findOne($id, $funilId);
         return response()->json($etapa);
     }
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $idFunil, string $id)
-    {
-        $etapa = Etapa::findOrFail($id);
-        $etapa->update($request->all());
-      
-        return response()->json($etapa->fresh());
-    }
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $idFunil, string $id)
-    {
-        $etapa = Etapa::find($id);
-        
 
-        if (!$etapa) {
-            return response()->json(['error' => 'Etapa não encontrada'], 404);
-        }
-    
-        $etapa->delete();
-    
-        return response()->json(['msg' =>'Etapa deletada com sucesso!']);
+    public function store(Request $request, string $funilId)
+    {
+        $dto = CreateEtapaDTO::makeFromRequest($request, $funilId);
+        $etapa = $this->etapaService->create($dto);
+        return response()->json($etapa, 201);
     }
 
-    public function updateOrder(Request $request)
+    public function update(Request $request, string $id)
     {
         $request->validate([
-            'etapas' => 'required|array'
+            'name' => 'required|string|max:255',
         ]);
-        foreach ($request->etapas as $etapa) {
-            Etapa::where('id', $etapa['id'])->update(['position' => $etapa['position']]);
+
+        $dto = UpdateEtapaDTO::makeFromRequest($request);
+
+        $etapa = $this->etapaService->update($dto);
+
+        if (!$etapa) {
+            return response()->json(['message' => 'Etapa não encontrada.'], 404);
         }
-        return response()->json(['message' => 'Order updated successfully']);
+
+        return response()->json(['message' => 'Etapa atualizada com sucesso!', 'data' => $etapa], 200);
+    }
+
+    public function destroy(string $funilId, string $id)
+    {
+        $this->etapaService->delete($id, $funilId);  
+        return response()->json(['message' => 'Etapa deletada com sucesso!'], 204);
+    }
+
+    public function swap(Request $request, string $funilId)
+    {
+        $request->validate([
+            'etapa1_id' => 'required|string|exists:etapas,id',
+            'etapa2_id' => 'required|string|exists:etapas,id',
+        ]);
+    
+        $etapa1Id = $request->input('etapa1_id');
+        $etapa2Id = $request->input('etapa2_id');
+    
+        $etapa1 = $this->etapaService->findOne($etapa1Id, $funilId);
+        $etapa2 = $this->etapaService->findOne($etapa2Id, $funilId);
+    
+        if ($etapa1 && $etapa2 && $etapa1->position === $etapa2->position) {
+            return response()->json(['message' => 'As etapas já estão na mesma posição.'], 400);
+        }
+    
+        $this->etapaService->swap($etapa1Id, $etapa2Id, $funilId);
+    
+        return response()->json(['message' => 'Posições das etapas trocadas com sucesso!'], 200);
     }
 }

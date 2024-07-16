@@ -47,7 +47,7 @@ Route::prefix('funis/{funilId}')->group(function () {
     Route::post('etapas', [EtapaController::class, 'store']);
     Route::put('etapas/{id}', [EtapaController::class, 'update']);
     Route::delete('etapas/{id}', [EtapaController::class, 'destroy']);
-    Route::post('etapas/order', [EtapaController::class, 'updateOrder']);
+    Route::post('etapas/swap', [EtapaController::class, 'swap']);
 
 });
 

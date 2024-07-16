@@ -2,23 +2,20 @@
 
 namespace App\DTO;
 
+use Illuminate\Http\Request;
 
-use App\Http\Requests\StoreUpdateEtapa;
+class CreateEtapaDTO
+{
+    public function __construct(
+        public string $name,
+        public string $funil_id // Adiciona o funil_id
+    ) {}
 
-Class CreateEtapaDTO{
-
-public function __construct(
-    public string $name,
-    public int $position,
-    public int $funil_id,
-){}
-
-public static function makeFromRequest(StoreUpdateEtapa $request){
-    return new self(
-        $request->name,
-        $request->position,
-        $request->funil_id
-    );
-}
-
+    public static function makeFromRequest(Request $request, string $funilId): self
+    {
+        return new self(
+            $request->name,
+            $funilId
+        );
+    }
 }
