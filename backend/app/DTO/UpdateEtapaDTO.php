@@ -4,16 +4,18 @@ namespace App\DTO;
 
 use Illuminate\Http\Request;
 
-class UpdateOrderEtapaDTO
+class UpdateEtapaDTO
 {
     public function __construct(
-        public array $etapas
+        public string $id,      
+        public string $name,    
     ) {}
 
     public static function makeFromRequest(Request $request): self
     {
         return new self(
-            $request->etapas  
+            $request->route('id'),  
+            $request->name       
         );
     }
 }
