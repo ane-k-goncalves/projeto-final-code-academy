@@ -17,4 +17,9 @@ class Etapa extends Model
         return $this->belongsTo(Funil::class);
     }
 
+    public function contatos()
+    {
+        return $this->hasMany(Contato::class);
+    }
+
 }
