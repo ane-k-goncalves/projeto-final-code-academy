@@ -13,7 +13,7 @@ public function __construct(
    
 ){}
 
-public static function makeFromRequest(StoreUpdateFunil $request){
+public static function makeFromRequest(StoreUpdateFunil $request):self{
     return new self(
         $request->id,
         $request->name

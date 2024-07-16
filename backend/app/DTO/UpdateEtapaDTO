@@ -1,0 +1,29 @@
+<?php
+
+namespace App\DTO;
+
+
+use App\Http\Requests\StoreUpdateEtapa;
+
+Class UpdateEtapaDTO{
+
+public function __construct(
+    public string $id,
+    public string $name,
+    public string $funil_id,
+    public int $position
+
+   
+){}
+
+public static function makeFromRequest(StoreUpdateEtapa $request):self{
+    return new self(
+        $request->id,
+        $request->name,
+        $request->funil_id,
+        $request->position
+       
+    );
+}
+
+}
