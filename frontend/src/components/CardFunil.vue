@@ -60,7 +60,10 @@ export default {
 }
 
 .col {
+  
+    width: 1360px;
     display: flex;
     flex-wrap: wrap;
+    margin-top: 150px;
 }
 </style>
