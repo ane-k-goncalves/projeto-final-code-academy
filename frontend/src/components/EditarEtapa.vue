@@ -14,13 +14,14 @@ export default {
         },
     data() {
         return {
-            newName: ''
+            newName: '',
+            idEditar: "modal " + this.etapas,
         }
     }
     }, 
     methods: {
-        showModal() {
-            const modalElement = document.getElementById('editar');
+        showModal2() {
+            const modalElement = document.getElementById(this.idEditar);
             const modal = new Modal(modalElement);
             modal.show();
         },
@@ -55,9 +56,9 @@ export default {
 </script>
 <template>
     <div>
-      <button type="button" class="btn" @click="showModal"> Editar etapa</button>
+      <button type="button" class="btn" @click="showModal2"> Editar etapa</button>
 
-        <div class="modal" id="editar" tabindex="-1">
+        <div class="modal" :id="idEditar" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                 <div class="modal-header">
