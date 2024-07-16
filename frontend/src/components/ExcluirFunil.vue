@@ -7,7 +7,7 @@ export default {
         // name: '',
         // newName: '',
         // id: ''
-       
+       idExcluir: "idExcluir" + this.id
       }
     },
     props: {
@@ -23,7 +23,7 @@ export default {
     },
      methods: {
         showModal3() {
-            const modalElement = document.getElementById('excluir');
+            const modalElement = document.getElementById(this.idExcluir);
             const modal = new Modal(modalElement);
             modal.show();
         },
@@ -63,7 +63,7 @@ export default {
     <div>
       <button type="button" class="btn" @click="showModal3"> Excluir funil</button>
 
-        <div class="modal" id="excluir" tabindex="-1">
+        <div class="modal" :id="idExcluir" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                 <div class="modal-header">

@@ -32,18 +32,18 @@ export default {
     <div>
     <div class="col">
         
-        <div  v-for="funil in funils" :key="funil.id" @click="goToCard(funil.id, funil.name)" class="card text-center">
-        <div class="card-body">
-            <h5 class="card-title">{{ funil.name }}</h5>
+        <div  v-for="funil in funils" :key="funil.id"  class="card text-center">
+            <div class="card-body">
+                <h5 @click="goToCard(funil.id, funil.name)" class="card-title">{{ funil.name }}</h5>
+                
+                <div> 
+                    <EditarFunil :id="funil.id"/>
+                </div>
+                <div> 
+                    <ExcluirFunil :id="funil.id" />
+                </div>
             
-            <div> 
-                <EditarFunil :id="funil.id"/>
             </div>
-            <div> 
-                <ExcluirFunil :id="funil.id" />
-            </div>
-           
-        </div>
         </div>
     
     </div>
