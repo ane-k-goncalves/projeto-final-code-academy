@@ -1,5 +1,6 @@
 <script>
 import { Modal } from 'bootstrap';
+import Cookie from 'js-cookie';
 
 export default {
     name: "EditarEtapa",
@@ -15,41 +16,33 @@ export default {
     data() {
         return {
             newName: '',
-            idEditar: "modal " + this.etapas,
         }
     }
     }, 
     methods: {
         showModal2() {
-            const modalElement = document.getElementById(this.idEditar);
+            const modalElement = this.$refs.modal;
             const modal = new Modal(modalElement);
             modal.show();
         },
 
         async editarEtapa() {
-            const dados = {
-                name: this.newName,
-                
-            };
             try{
             const res = await fetch(`http://localhost:8000/api/funis/${this.id}/etapas/${this.etapas}`,  {
                         method: 'PUT',
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json',
-                          
+                            'Authorization': `Bearer ${token}`,
                         },
                         body: JSON.stringify(dados),
                     });
                 if(res.ok){
-                 
                     alert('Etapa editada')
                 }
-
             }catch(error) {
                 console.log(error)
             }
-
         }
     }
 }
@@ -58,7 +51,7 @@ export default {
     <div>
       <button type="button" class="btn" @click="showModal2"> Editar etapa</button>
 
-        <div class="modal" :id="idEditar" tabindex="-1">
+        <div class="modal" ref="modal" ttabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                 <div class="modal-header">

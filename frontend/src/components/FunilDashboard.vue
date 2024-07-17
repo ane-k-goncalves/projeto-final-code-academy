@@ -2,6 +2,7 @@
 
 import { Modal } from 'bootstrap';
 import CardFunil from './CardFunil.vue';
+import Cookie from 'js-cookie';
 
 export default {
 
@@ -29,8 +30,7 @@ export default {
     },
     async criarFunil() {
       const dados = {
-        name: this.name,
-        
+        name: this.name,        
       };
 
       try {
@@ -39,7 +39,7 @@ export default {
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Authorization': `Bearer ${Cookie.get('token')}`,
                     },
                     body: JSON.stringify(dados),
                 });

@@ -36,12 +36,10 @@ export default {
         });
 
         const data = await response.json();
-        console.log(data);
-        if (data.id) {
+        if (response.ok) {
           alert('Cadastro realizado. Por favor verifique seu email.');
-          
+          this.$router.push('/verify/email/:id/:hash');
         } else {
-         
           console.error('Erro no registro:', data);
         }
 
@@ -50,7 +48,7 @@ export default {
             method: 'POST',
             headers:{
                'Content-Type': 'application/json',
-               'Authorization': 'Bearer' + (await response.json()).token
+              'Authorization': `Bearer  ${Cookie.get('token')}`,
             }
         });
 
@@ -59,7 +57,7 @@ export default {
           const id = responseData.id;
           const hash= responseData.hash;
          
-          this.$router.push({  path: '/verify/email/:id/:hash', query: { id: id, hash: hash }});
+          this.$router.push('/verify/email/:id/:hash');
         }else{
           const errorData = await sendVerificationResponse.json();
           this.message = 'Error: ' + errorData.message;

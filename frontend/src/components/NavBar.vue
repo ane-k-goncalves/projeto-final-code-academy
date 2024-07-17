@@ -56,20 +56,13 @@ export default {
 
   methods: {
    async logout() {
-      const token = Cookie.get('token');
-  
-    console.log(token); 
-    const dados = {
-      token
-    }
             const res = await fetch(`http://localhost:8000/api/logout`, {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`,
+                            'Authorization': `Bearer  ${Cookie.get('token')}`,
                         },
-                        body: JSON.stringify((dados))
                     });
     
             if(res.ok) {

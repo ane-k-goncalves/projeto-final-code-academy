@@ -1,7 +1,7 @@
 <script>
 import CardFunil from './CardFunil.vue';
 import FunilDashboard from './FunilDashboard.vue';
-
+import Cookie from 'js-cookie';
 
 export default {
     components: {
@@ -57,6 +57,7 @@ export default {
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
+                        'Authorization': `Bearer  ${Cookie.get('token')}`,
                     },
 
                     body: JSON.stringify(params)
