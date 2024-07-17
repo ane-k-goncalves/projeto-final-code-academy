@@ -1,12 +1,11 @@
 <script>
 import { Modal } from 'bootstrap';
+import Cookie from 'js-cookie';
+
 export default {
     name: 'ExcluirFunil',
     data() {
       return {
-        // name: '',
-        // newName: '',
-        // id: ''
        idExcluir: "idExcluir" + this.id
       }
     },
@@ -28,17 +27,16 @@ export default {
             modal.show();
         },
         async excluirFunil(){
-        const dados = {
-            name: this.name,
-        
-        };
-        try {
+            const dados = {
+                name: this.name, 
+            };
+            try {
             const res = await fetch(`http://localhost:8000/api/register-funil/${this.id}`, {
                         method: 'DELETE',
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json',
-                          
+                            'Authorization': `Bearer ${Cookie.get('token')}`,
                         },
                         body: JSON.stringify(dados),
                     });

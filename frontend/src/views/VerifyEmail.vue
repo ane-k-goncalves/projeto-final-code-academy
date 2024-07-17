@@ -27,14 +27,11 @@
                     });
 
                     if (verify.ok) {
-                    this.message = 'Seu email foi verificado com sucesso!';
-                    setTimeout(() => {
-                       
-                        window.location.href = 'http://localhost:8085/login';
-                    }, 2000);
+                        this.message = 'Seu email foi verificado com sucesso!';
+                        this.$router.push('/login');
                     } else {
-                    const data = await verify.json();
-                    this.message = data.message || 'Erro ao verificar o email.';
+                    
+                    this.message = 'Erro ao verificar o email.';
                     }
         }catch(error){
             console.error('Erro:', error.message);

@@ -1,5 +1,7 @@
 <script>
 import { Modal } from 'bootstrap';
+import Cookie from 'js-cookie';
+
 export default {
     name: "ExcluirEtapa",
     props: {
@@ -14,7 +16,6 @@ export default {
     },
     data() {
         return {
-           
             idExcluir: "modal" + this.etapas,
         }
     },
@@ -28,27 +29,20 @@ export default {
         async excluirEtapa() {
 
             try{
-                
             const res = await fetch(`http://localhost:8000/api/funis/${this.id}/etapas/${this.etapas}`,  {
                         method: 'DELETE',
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json',
-                          
-                        },
-                        
+                            'Authorization': `Bearer  ${Cookie.get('token')}`,
+                        },   
                     });
-
                 if(res.ok){
-                    const data = await res.json();
-                    
-                    alert('Etapa Excluída')
+                    alert('Etapa Excluída');
                 }
-
             }catch(error) {
                 console.log(error)
             }
-
         }
     }
 }

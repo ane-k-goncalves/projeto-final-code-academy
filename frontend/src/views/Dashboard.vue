@@ -31,15 +31,17 @@ export default {
         },
         methods: {
         async fetchFunils() {
+          const token = Cookie.get('token');
+          console.log(token)
           try{
               const res = await fetch(`http://localhost:8000/api/register-funil/`, {
                 method: 'GET',
                 headers: {
-                    'Accept': 'application/json',
+                    Accept: 'application/json',
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${Cookie.get('token')}`,
                 },
-                body: JSON.stringify(),
+               
               });
                     
               if(res.ok) {
@@ -53,34 +55,33 @@ export default {
           }
         
         },
-        async buscar() {
-                const params = {
-                    filter: this.filtro,
-                }
-                const url = `http://localhost:8000/api/register-funil/`;
+        // async buscar() {
+        //         const token = Cookie.get('token');
+        //         const url = `http://localhost:8000/api/register-funil/`;
 
-                try {
-                    const res = await fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    },
+        //         try {
+        //             const res = await fetch(url, {
+        //             method: 'GET',
+        //             headers: {
+        //                 'Accept': 'application/json',
+        //                 'Content-Type': 'application/json',
+        //                 'Authorization': `Bearer ${token}`,
+        //             },
 
-                    body: JSON.stringify()
-                    });
+        //             body: JSON.stringify()
+        //             });
                
 
-                    if(res.ok){
-                        const data = await res.json();
-                        this.funis.filter = data;
-                        this.funis.currentPage = 1;
+        //             if(res.ok){
+        //                 const data = await res.json();
+        //                 this.funis.filter = data;
+        //                 this.funis.currentPage = 1;
                     
-                    }
-            }catch(error){
-                console.log(error);
-            }
-        }
+        //             }
+        //     }catch(error){
+        //         console.log(error);
+        //     }
+        // }
         },
         mounted() {
           this.fetchFunils();

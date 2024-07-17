@@ -1,5 +1,7 @@
 <script>
 import { Modal } from 'bootstrap';
+import Cookie from 'js-cookie';
+
 export default {
     name: "EtapasFunil",
     props: {
@@ -12,16 +14,12 @@ export default {
             required: true
         },
     },
-
     data() {
         return {
-          
             name: '',
             adicionar: "modal "+ this.etapas
         }
     },
-    
-
     methods: {
         showModal() {
             const modalElement = document.getElementById(this.adicionar);
@@ -31,34 +29,32 @@ export default {
 
         async novaEtapa() {
             try{
-            
             const etapasExistentes = this.etapas.length;
             const newPosition = etapasExistentes > 0 ? Math.max(...this.etapas.map(etapa => etapa.position)) + 1 : etapasExistentes + 1;
             const dados = {
                 name: this.name,
                 position : newPosition
             };
-           
+        
             const res = await fetch(`http://localhost:8000/api/funis/${this.id}/etapas`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer  ${Cookie.get('token')}`,
                  },
-                  body: JSON.stringify(dados)
+                body: JSON.stringify(dados)
             });
 
             if(res.ok) {
-                const data = await res.json();
-               
-                this.name = ''
+                this.name = '';
+                alert('Nova etapa criada!')
             }
         }catch(error){
             console.log(error)
         }
         },
     }
- 
 }
 </script>
 <template>

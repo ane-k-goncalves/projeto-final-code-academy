@@ -1,5 +1,6 @@
 <script>
 import { Modal } from "bootstrap";
+import Cookie from 'js-cookie';
 
 export default {
   name: "EditarFunil",
@@ -25,16 +26,15 @@ export default {
       const dados = {
         name: this.newName,
       };
-
-      console.log(this.id);
       try {
         const res = await fetch(
           `http://localhost:8000/api/register-funil/${this.id}`,
           {
             method: "PUT",
             headers: {
-              Accept: "application/json",
+              'Accept': "application/json",
               "Content-Type": "application/json",
+              'Authorization': `Bearer  ${Cookie.get('token')}`,
             },
             body: JSON.stringify(dados),
           }

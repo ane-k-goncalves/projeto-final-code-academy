@@ -2,6 +2,7 @@
 import NavBar from "@/components/NavBar.vue";
 import EtapasFunil from "../components/EtapasFunil.vue";
 import CardsEtapas from "../components/CardsEtapas.vue";
+import Cookie from 'js-cookie';
 
 export default {
   name: "Etapas",
@@ -33,8 +34,9 @@ export default {
           {
             method: "GET",
             headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                'Authorization': `Bearer  ${Cookie.get('token')}`,
             },
           }
         );
