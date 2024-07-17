@@ -10,7 +10,7 @@ class Contato extends Model
     use HasFactory;
 
     protected $nome = 'contatos';    
-    protected $fillable = ['name', 'etapa_id', 'position','telefone','email','cpf','data_de_nascimento','endereco','valor'];
+    protected $fillable = ['name', 'etapa_id', 'position','telefone','email','cpf','data_de_nascimento','endereco','valor','ddd'];
 
 
     public function etapa()

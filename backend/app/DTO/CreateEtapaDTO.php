@@ -8,7 +8,7 @@ class CreateEtapaDTO
 {
     public function __construct(
         public string $name,
-        public string $funil_id // Adiciona o funil_id
+        public string $funil_id 
     ) {}
 
     public static function makeFromRequest(Request $request, string $funilId): self
