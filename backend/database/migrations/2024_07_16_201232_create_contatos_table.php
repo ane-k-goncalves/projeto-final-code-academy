@@ -23,6 +23,7 @@ return new class extends Migration
             $table->date('data_de_nascimento');
             $table->string('endereco');
             $table->double('valor');
+            $table->integer('ddd');
             
             $table->foreign('etapa_id')->references('id')->on('etapas')->onDelete('cascade');
 

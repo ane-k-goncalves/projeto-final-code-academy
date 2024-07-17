@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Models\Funil;
 use App\Observers\FunilObserver;
+use App\Repositories\ContatoEloquentORM;
+use App\Repositories\ContatoRepositoryInterface;
 use App\Repositories\EtapaEloquentORM;
 use App\Repositories\EtapaRepositoryInterface;
 use App\Repositories\FunilEloquentORM;
@@ -20,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(FunilRepositoryInterface::class, FunilEloquentORM::class);
         $this->app->bind(EtapaRepositoryInterface::class, EtapaEloquentORM::class);
+        $this->app->bind(ContatoRepositoryInterface::class, ContatoEloquentORM::class);
     }
 
     /**

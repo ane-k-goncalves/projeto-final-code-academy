@@ -8,6 +8,7 @@ use App\Http\Controllers\EmaiController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\EtapaController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ContatoController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
