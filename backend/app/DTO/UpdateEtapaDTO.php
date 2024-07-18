@@ -2,6 +2,7 @@
 
 namespace App\DTO;
 
+use App\Http\Requests\StoreUpdateEtapa;
 use Illuminate\Http\Request;
 
 class UpdateEtapaDTO
@@ -11,7 +12,7 @@ class UpdateEtapaDTO
         public string $name,    
     ) {}
 
-    public static function makeFromRequest(Request $request): self
+    public static function makeFromRequest(StoreUpdateEtapa $request): self
     {
         return new self(
             $request->route('id'),  

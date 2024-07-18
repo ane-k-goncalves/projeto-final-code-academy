@@ -40,7 +40,10 @@ Route::middleware('jwt.auth')->group(function () {
 
    Route::apiResource('register-funil','App\Http\Controllers\FunilController');
 
-   Route::prefix('funis/{funilId}')->group(function () {
+
+});
+
+Route::prefix('funis/{funilId}')->group(function () {
     Route::get('etapas', [EtapaController::class, 'index']);
     Route::post('etapas', [EtapaController::class, 'store']);
     Route::put('etapas/{id}', [EtapaController::class, 'update']);
@@ -49,7 +52,15 @@ Route::middleware('jwt.auth')->group(function () {
 
 });
 
-   
+
+Route::prefix('etapas/{etapaId}')->group(function () {
+    Route::get('contatos', [ContatoController::class, 'index']);
+    Route::post('contatos', [ContatoController::class, 'store']);
+    Route::get('contatos/{contatoId}', [ContatoController::class, 'show']);
+    Route::put('contatos/{contatoId}', [ContatoController::class, 'update']);
+    Route::delete('contatos/{contatoId}', [ContatoController::class, 'destroy']);
+    Route::put('contatos/{contatoId}/swap', [ContatoController::class, 'swap']);
+    Route::put('contatos/{contatoId}/swap-phase', [ContatoController::class, 'swapPhase']);
 });
 
 

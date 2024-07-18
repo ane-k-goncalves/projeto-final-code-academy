@@ -48,7 +48,9 @@ class ContatoEloquentORM implements ContatoRepositoryInterface
             'data_de_nascimento' => $dto->data_de_nascimento,
             'valor' => $dto->valor,
             'ddd' => $dto->ddd,
-            'cpf' => $dto->cpf
+            'cpf' => $dto->cpf,
+            'position'=>$position,
+            'endereco'=>$dto->endereco
 
 
 
@@ -57,7 +59,7 @@ class ContatoEloquentORM implements ContatoRepositoryInterface
 
     public function update(UpdateContatoDTO $dto): Contato|null
     {
-        $contato = $this->model->find($dto->id);
+        $contato = $this->model->find($dto->etapaId, $dto->id);
 
         if (!$contato) {
             return null;
@@ -71,6 +73,7 @@ class ContatoEloquentORM implements ContatoRepositoryInterface
             'valor' => $dto->valor,
             'ddd' => $dto->ddd,
             'endereco' => $dto->endereco,
+            
         ]);
 
         return $contato;
@@ -91,25 +94,50 @@ class ContatoEloquentORM implements ContatoRepositoryInterface
         ]);
 
         $getPositions = $this->model->where('etapa_id', $etapaId)
-            ->pluck('positions')->toArray();
+            ->where('position','>=', $newPosition)
+            ->where('id','!=',$contatoId)->get();
+
 
         foreach ($getPositions as $position){
-            if($position->position >= $newPosition && $contato->id !==$contatoId){
                 $position->update([
                 'position' => $position->position+1
             ]);
             }
         }
 
-    }
 
-    public function swapPhase(string $contatoId, string $contato2Id, string $etapaId): void
+
+    public function swapPhase(string $contatoId, string $newPosition, string $etapaId, string $newEtapaId): void
     {
-        $etapaId = 2;
+        $contato = $this->model->find($contatoId);
+        $oldPosition = $contato->position;
+        $oldEtapaId = $contato->etapa_id;
 
-    $etapaId->save();
+        $getOldPositions = $this->model->where('etapa_id', $oldEtapaId)
+            ->where('position','>=', $oldPosition)
+            ->where('id','!=',$contatoId)->get();
 
-    }
+        foreach ($getOldPositions as $position){
+                $position->update([
+                    'position' => $position->position-1
+                ]);
+            }
 
 
+        $contato->Update([
+            'etapa_id' => $newEtapaId,
+            'position' => $newPosition
+        ]);
+
+        $getPositions = $this->model->where('etapa_id', $newEtapaId)
+            ->where('position','=>', $newPosition)
+            ->where('id','!=',$contatoId)->get();
+
+        foreach ($getPositions as $position){
+
+                $position->update([
+                    'position' => $position->position+1
+                ]);
+            }
+        }
 }

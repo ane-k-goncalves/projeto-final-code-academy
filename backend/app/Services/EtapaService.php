@@ -8,41 +8,41 @@ use App\Models\Etapa;
 
 class EtapaService
 {
-    protected $etapaRepository;
+    protected $repository;
 
-    public function __construct(EtapaRepositoryInterface $etapaRepository)
+    public function __construct(EtapaRepositoryInterface $repository)
     {
-        $this->etapaRepository = $etapaRepository;
+        $this->repository = $repository;
     }
 
     public function getAll(string $filter = null, string $funilId = null): array
     {
-        return $this->etapaRepository->getAll($filter, $funilId);
+        return $this->repository->getAll($filter, $funilId);
     }
 
     public function findOne(string $id, string $funilId): Etapa|null
     {
-        return $this->etapaRepository->findOne($id,$funilId);
+        return $this->repository->findOne($id,$funilId);
     }
 
     public function create(CreateEtapaDTO $dto): Etapa
     {
-        return $this->etapaRepository->create($dto);
+        return $this->repository->create($dto);
     }
 
     public function update(UpdateEtapaDTO $dto): Etapa|null
     {
-        return $this->etapaRepository->update($dto);
+        return $this->repository->update($dto);
     }
 
     
     public function delete(string $id, string $funilId): void
     {
-        $this->etapaRepository->delete($id, $funilId);  
+        $this->repository->delete($id, $funilId);  
     }
 
     public function swap(string $etapa1Id, string $etapa2Id, string $funilId): void
     {
-        $this->etapaRepository->swap($etapa1Id, $etapa2Id, $funilId);
+        $this->repository->swap($etapa1Id, $etapa2Id, $funilId);
     }
 }
