@@ -2,35 +2,34 @@
 
 namespace App\DTO;
 
+use App\Http\Request\StoreUpdateContato;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Date;
 
 class UpdateContatoDTO
 {
     public function __construct(
         public string $id,
+        public string $etapaId,
         public string $name,
-        public int $ddd,
+        public string $telefone,
         public string $email,
-        public string $endereco,
         public string $data_de_nascimento,
         public float $valor,
-        public string $telefone
+        public string $ddd, 
+        public string $endereco  
     ) {}
-
-    public static function makeFromRequest(Request $request): self
+    public static function makeFromRequest(array $data): self
     {
         return new self(
-            $request->route('id'),
-            $request->name,
-            $request->email,
-            $request->endereco,
-            $request->ddd,
-            $request->data_de_nascimento,
-            $request->valor,
-            $request->telefone
-
-
+            $data['id'] ?? '', // Adicionando valor padrão vazio
+            $data['etapaId'] ?? '', // Adicionando valor padrão vazio
+            $data['name'] ?? '',
+            $data['telefone'] ?? '',
+            $data['email'] ?? '',
+            $data['data_de_nascimento'] ?? '',
+            (float)($data['valor'] ?? 0.0),
+            $data['ddd'] ?? '',
+            $data['endereco'] ?? ''
         );
     }
 }

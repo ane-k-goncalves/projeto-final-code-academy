@@ -13,9 +13,10 @@ class CreateContatoDTO
         public string $telefone,
         public string $email,
         public string $data_de_nascimento,
-        public string $valor,
+        public float $valor,
         public int $ddd,
         public string $cpf,
+        public string $endereco
 
 
     ) {}
@@ -30,7 +31,8 @@ class CreateContatoDTO
             $request->data_de_nascimento,
             $request->valor,
             $request->ddd,
-            $request->cpf
+            $request->cpf,
+            $request->endereco
 
         );
     }

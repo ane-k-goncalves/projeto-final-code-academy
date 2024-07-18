@@ -35,7 +35,7 @@ class EtapaController extends Controller
         return response()->json($etapa, 201);
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $etapaId)
     {
       
 

@@ -25,10 +25,7 @@ class StoreUpdateFunil extends FormRequest
             'name' => 'required|string|max:255',
         ];
 
-        if ($this->isMethod('put') || $this->isMethod('patch')) {
-            $rules['id'] = 'required|integer|exists:funils,id';
-        }
-
+       
         return $rules;
 
     }

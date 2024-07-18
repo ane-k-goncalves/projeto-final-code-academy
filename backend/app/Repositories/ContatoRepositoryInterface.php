@@ -19,5 +19,5 @@ interface ContatoRepositoryInterface
 
     public function swap(string $contatoId, string $newPosition, string $etapaId): void;
 
-    public function swapPhases(string $contatoId,string $contato2Id, string $etapaId):void;
+    public function swapPhase(string $contatoId, string $newPosition, string $etapaId, string $newEtapaId):void;
 }
