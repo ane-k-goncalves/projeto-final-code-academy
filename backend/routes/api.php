@@ -64,6 +64,7 @@ Route::prefix('etapas/{etapaId}')->group(function () {
 });
 
 
+Route::apiResource('register-funil','App\Http\Controllers\FunilController');
 
 
 Route::post('login', [AuthController::class, 'login'])->name('login');
