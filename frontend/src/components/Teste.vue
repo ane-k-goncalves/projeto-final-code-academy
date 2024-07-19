@@ -24,20 +24,21 @@
         </template>
       </draggable>
     </div> 
-    <div class="caixas card">
+    <!-- <div class="caixas card">
       <h1 class="card-header sticky-top bg-white">Junk Foods</h1>
       <draggable v-model="junkMeals" tag="ul" group="foods" :animation="300" class="list-group list-group-flush">
-        <template #item="{ element: meal }">
-          <li class="list-group-item">{{ meal }}</li>
+        <template>
         </template>
       </draggable>
-    </div> 
+    </div>  -->
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import draggable from 'vuedraggable';
+
+
 
 const favoriteMeals = ref([
   'Pizza',

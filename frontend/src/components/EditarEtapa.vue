@@ -3,53 +3,60 @@ import { Modal } from 'bootstrap';
 import Cookie from 'js-cookie';
 
 export default {
-    name: "EditarEtapa",
-    props: {
-        id: {
-        type: Number,
-        required: true
-        },
-        etapas: {
-            type: Array,
-            required: true
-        },
-    data() {
-        return {
-            newName: '',
-        }
-    }
-    }, 
-    methods: {
-        showModal2() {
-            const modalElement = this.$refs.modal;
-            const modal = new Modal(modalElement);
-            modal.show();
-        },
+    // name: "EditarEtapa",
+    // props: {
+    //     id: {
+    //     type: Number,
+    //     required: true
+    //     },
+    //     element: {
+    //         type: Number,
+    //         required: true
+    //     },
+    //     data() {
+    //         return {
+    //             newName: '',
+               
+    //     }
+    // }
+    // }, 
+    // methods: {
+    //     showModal2() {
+    //         this.$emit('close-offcanvas');
+    //         const modalElement = this.$refs.modal;
+    //         const modal = new Modal(modalElement);
+    //         modal.show();
+    //     },
 
-        async editarEtapa() {
-            try{
-            const res = await fetch(`http://localhost:8000/api/funis/${this.id}/etapas/${this.etapas}`,  {
-                        method: 'PUT',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`,
-                        },
-                        body: JSON.stringify(dados),
-                    });
-                if(res.ok){
-                    alert('Etapa editada')
-                }
-            }catch(error) {
-                console.log(error)
-            }
-        }
-    }
+    //     async editarEtapa() {
+    //         const dados = {
+    //             name: this.newName,
+    //         };
+      
+            
+    //         try{
+    //         const res = await fetch(`http://localhost:8000/api/funis/${this.id}/etapas/${this.element}`,  {
+    //                     method: 'PUT',
+    //                     headers: {
+    //                         'Accept': 'application/json',
+    //                         'Content-Type': 'application/json',
+    //                         'Authorization': `Bearer  ${Cookie.get('token')}`,
+    //                     },
+    //                     body: JSON.stringify(dados),
+    //                 });
+    //             if(res.ok){
+    //                 alert('Etapa editada')
+    //             }
+    //         }catch(error) {
+    //             console.log(error)
+    //         }
+    //     }
+    // }
 }
 </script>
 <template>
     <div>
-      <button type="button" class="btn" @click="showModal2"> Editar etapa</button>
+      <!-- <button type="button" class="btn" @click="showModal2"> Editar etapa</button>
 
         <div class="modal" ref="modal" ttabindex="-1">
             <div class="modal-dialog">
@@ -76,7 +83,7 @@ export default {
                 </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 <style scoped>
