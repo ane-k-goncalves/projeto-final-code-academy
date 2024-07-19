@@ -92,5 +92,10 @@ export default {
 </template>
 <style scoped>
 
-
+.btn {
+  background-color: #3057f2;
+  color: white;
+  width: 200px;
+  height: 40px;
+}
 </style>
