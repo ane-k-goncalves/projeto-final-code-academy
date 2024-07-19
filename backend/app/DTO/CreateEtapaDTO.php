@@ -8,14 +8,14 @@ class CreateEtapaDTO
 {
     public function __construct(
         public string $name,
-        public string $funil_id 
+        
     ) {}
 
-    public static function makeFromRequest(Request $request, string $funilId): self
+    public static function makeFromRequest(array $data ): self
     {
         return new self(
-            $request->name,
-            $funilId
+            $data['name'],
+          
         );
     }
 }

@@ -36,13 +36,12 @@ class ContatoEloquentORM implements ContatoRepositoryInterface
 }
 
 
-    public function create(CreateContatoDTO $dto): Contato
+    public function create(CreateContatoDTO $dto, string $etapaId): Contato
     {
-        $position = $this->model->where('etapa_id', $dto->etapa_id)->max('position') + 1;
+        $position = $this->model->where('etapa_id', $etapaId)->max('position') + 1;
 
         return $this->model->create([
             'name' => $dto->name,
-            'etapa_id' => $dto->etapa_id,
             'telefone' => $dto->telefone,
             'email' => $dto->email,
             'data_de_nascimento' => $dto->data_de_nascimento,
@@ -50,16 +49,17 @@ class ContatoEloquentORM implements ContatoRepositoryInterface
             'ddd' => $dto->ddd,
             'cpf' => $dto->cpf,
             'position'=>$position,
-            'endereco'=>$dto->endereco
+            'endereco'=>$dto->endereco,
+            'etapa_id' => $etapaId
 
 
 
         ]);
     }
 
-    public function update(UpdateContatoDTO $dto): Contato|null
+    public function update(UpdateContatoDTO $dto, string $contatoId): Contato|null
     {
-        $contato = $this->model->find($dto->etapaId, $dto->id);
+        $contato = Contato::find($contatoId);
 
         if (!$contato) {
             return null;
@@ -70,10 +70,10 @@ class ContatoEloquentORM implements ContatoRepositoryInterface
             'telefone' => $dto->telefone,
             'email' => $dto->email,
             'data_de_nascimento' => $dto->data_de_nascimento,
+            'endereco' => $dto->endereco,
             'valor' => $dto->valor,
             'ddd' => $dto->ddd,
-            'endereco' => $dto->endereco,
-            
+           
         ]);
 
         return $contato;
@@ -85,13 +85,14 @@ class ContatoEloquentORM implements ContatoRepositoryInterface
         $this->model->where('id',$id)->delete();
     }
 
-    public function swap(string $contatoId, string $newPosition, string $etapaId): void
+    public function swap(string $contatoId, int $newPosition, string $etapaId): void
     {
         $contato = $this->model->find($contatoId);
-
+       dd($etapaId);
         $contato->Update([
             'position' => $newPosition
         ]);
+      
 
         $getPositions = $this->model->where('etapa_id', $etapaId)
             ->where('position','>=', $newPosition)
@@ -107,7 +108,7 @@ class ContatoEloquentORM implements ContatoRepositoryInterface
 
 
 
-    public function swapPhase(string $contatoId, string $newPosition, string $etapaId, string $newEtapaId): void
+    public function swapPhase(string $contatoId, int $newPosition, string $etapaId, string $newEtapaId): void
     {
         $contato = $this->model->find($contatoId);
         $oldPosition = $contato->position;

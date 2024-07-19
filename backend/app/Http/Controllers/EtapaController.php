@@ -2,46 +2,51 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Request\StoreUpdateEtapa;
 use App\Services\EtapaService;
-use App\DTO\{CreateEtapaDTO, UpdateEtapaDTO, UpdateOrderEtapaDTO};
+use App\DTO\{CreateEtapaDTO, UpdateEtapaDTO};
 use Illuminate\Http\Request;
 
 class EtapaController extends Controller
 {
-    protected $etapaService;
+    protected $service;
 
-    public function __construct(EtapaService $etapaService)
+    public function __construct(EtapaService $service)
     {
-        $this->etapaService = $etapaService;
+        $this->service = $service;
     }
 
     public function index(Request $request, string $funilId)
     {
         $filter = $request->query('filter');
-        $etapas = $this->etapaService->getAll($filter, $funilId);
+        $etapas = $this->service->getAll($filter, $funilId);
         return response()->json($etapas);
     }
 
     public function show(string $funilId, string $id)
     {
-        $etapa = $this->etapaService->findOne($id, $funilId);
+        $etapa = $this->service->findOne($id, $funilId);
         return response()->json($etapa);
     }
 
-    public function store(Request $request, string $funilId)
+    public function store(StoreUpdateEtapa $requestEtapa, string $funil_id)
     {
-        $dto = CreateEtapaDTO::makeFromRequest($request, $funilId);
-        $etapa = $this->etapaService->create($dto);
+
+        $validatedData = $requestEtapa->validated();
+        $dto = CreateEtapaDTO::makeFromRequest($validatedData);
+
+        $etapa = $this->service->create($dto, $funil_id);
         return response()->json($etapa, 201);
+        
     }
 
-    public function update(Request $request, string $etapaId)
+    public function update(StoreUpdateEtapa $requestContato,string $funilId,string $etapaId)
     {
       
+        $validatedData = $requestContato->validated();
+        $dto = UpdateEtapaDTO::makeFromRequest($validatedData);
 
-        $dto = UpdateEtapaDTO::makeFromRequest($request);
-
-        $etapa = $this->etapaService->update($dto);
+        $etapa = $this->service->update($dto, $etapaId);
 
         if (!$etapa) {
             return response()->json(['message' => 'Etapa não encontrada.'], 404);
@@ -52,29 +57,17 @@ class EtapaController extends Controller
 
     public function destroy(string $funilId, string $id)
     {
-        $this->etapaService->delete($id, $funilId);  
+        $this->service->delete($id, $funilId);  
         return response()->json(['message' => 'Etapa deletada com sucesso!'], 204);
     }
 
     public function swap(Request $request, string $funilId)
     {
-        $request->validate([
-            'etapa1_id' => 'required|string|exists:etapas,id',
-            'etapa2_id' => 'required|string|exists:etapas,id',
-        ]);
-    
-        $etapa1Id = $request->input('etapa1_id');
-        $etapa2Id = $request->input('etapa2_id');
-    
-        $etapa1 = $this->etapaService->findOne($etapa1Id, $funilId);
-        $etapa2 = $this->etapaService->findOne($etapa2Id, $funilId);
-    
-        if ($etapa1 && $etapa2 && $etapa1->position === $etapa2->position) {
-            return response()->json(['message' => 'As etapas já estão na mesma posição.'], 400);
-        }
-    
-        $this->etapaService->swap($etapa1Id, $etapa2Id, $funilId);
-    
-        return response()->json(['message' => 'Posições das etapas trocadas com sucesso!'], 200);
+        $newPosition = $request->input('new_position');
+        $etapaId = $request->input('etapa_id');
+
+        $this->service->swap($etapaId, $newPosition, $funilId);
+
+        return response()->json(['message' => 'Contato movido com sucesso'], 200);
     }
 }
