@@ -48,14 +48,14 @@ Route::prefix('funis/{funilId}')->group(function () {
     Route::post('etapas', [EtapaController::class, 'store']);
     Route::put('etapas/{id}', [EtapaController::class, 'update']);
     Route::delete('etapas/{id}', [EtapaController::class, 'destroy']);
-    Route::put('etapas/swap', [EtapaController::class, 'swap']);
+    Route::put('etapas/{etapaId}/swap', [EtapaController::class, 'swap']);
 
 });
 
 
 Route::prefix('etapas/{etapaId}')->group(function () {
     Route::get('contatos', [ContatoController::class, 'index']);
-    Route::post('contatos', [ContatoController::class, 'store']);
+    Route::post('contatos', [ContatoControllertroller::class, 'store']);
     Route::get('contatos/{contatoId}', [ContatoController::class, 'show']);
     Route::put('contatos/{contatoId}', [ContatoController::class, 'update']);
     Route::delete('contatos/{contatoId}', [ContatoController::class, 'destroy']);

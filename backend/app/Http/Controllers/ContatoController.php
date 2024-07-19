@@ -56,13 +56,10 @@ class ContatoController extends Controller
         return response()->json(['message' => 'Contato deletada com sucesso!'], 204);
     }
 
-    public function swap(Request $request,string $etapaId)
+    public function swap(Request $request,string $etapaId, string $contatoId)
     {
-       
-        (integer)$newPosition = $request->input('newPosition');
-        (integer)$contatoId = $request->input('contato_id');
-     
-        
+        $newPosition = $request->newPosition;
+        $contatoId = $request->contatoId;
         
         $this->service->swap($contatoId, $newPosition, $etapaId);
     

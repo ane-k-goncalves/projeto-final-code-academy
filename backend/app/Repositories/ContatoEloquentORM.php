@@ -87,13 +87,14 @@ class ContatoEloquentORM implements ContatoRepositoryInterface
 
     public function swap(string $contatoId, int $newPosition, string $etapaId): void
     {
+     
         $contato = $this->model->find($contatoId);
-       dd($etapaId);
+      
         $contato->Update([
             'position' => $newPosition
         ]);
       
-
+     
         $getPositions = $this->model->where('etapa_id', $etapaId)
             ->where('position','>=', $newPosition)
             ->where('id','!=',$contatoId)->get();
