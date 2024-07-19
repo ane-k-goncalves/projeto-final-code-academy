@@ -25,14 +25,14 @@ class ContatoService
         return $this->repository->findOne($id,$etapaId);
     }
 
-    public function create(CreateContatoDTO $dto): Contato
+    public function create(CreateContatoDTO $dto, string $etapaId): Contato
     {
-        return $this->repository->create($dto);
+        return $this->repository->create($dto, $etapaId);
     }
 
-    public function update(UpdateContatoDTO $dto): Contato|null
+    public function update(UpdateContatoDTO $dto,string $contatoId): Contato|null
     {
-        return $this->repository->update($dto);
+        return $this->repository->update($dto, $contatoId);
     }
 
 
@@ -41,7 +41,7 @@ class ContatoService
         $this->repository->delete($id);
     }
 
-    public function swap(string $contatoId, string $newPosition, string $etapaId): void
+    public function swap(string $contatoId, int $newPosition, string $etapaId): void
     {
         $this->repository->swap($contatoId, $newPosition, $etapaId);
     }

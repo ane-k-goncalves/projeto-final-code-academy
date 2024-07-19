@@ -2,21 +2,20 @@
 
 namespace App\DTO;
 
-use App\Http\Requests\StoreUpdateEtapa;
-use Illuminate\Http\Request;
+use App\Http\Request\StoreUpdateEtapa;
+
 
 class UpdateEtapaDTO
 {
-    public function __construct(
-        public string $id,      
+    public function __construct(  
         public string $name,    
     ) {}
 
-    public static function makeFromRequest(StoreUpdateEtapa $request): self
+    public static function makeFromRequest(array $data): self
     {
         return new self(
-            $request->route('id'),  
-            $request->name       
+             
+            $data['name']       
         );
     }
 }

@@ -11,11 +11,11 @@ interface EtapaRepositoryInterface
 
     public function findOne(string $id, string $funilId): Etapa|null;
 
-    public function create(CreateEtapaDTO $dto): Etapa;
+    public function create(CreateEtapaDTO $dto, string $funil_id): Etapa;
 
-    public function update(UpdateEtapaDTO $dto): Etapa|null;
+    public function update(UpdateEtapaDTO $dto, string $etapaId): Etapa|null;
 
     public function delete(string $id, string $funilId): void; 
 
-    public function swap(string $etapa1Id, string $etapa2Id, string $funilId): void;
+    public function swap(string $etapaId, string $newPosition, string $funilId): void;
 }

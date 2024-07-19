@@ -48,7 +48,7 @@ Route::prefix('funis/{funilId}')->group(function () {
     Route::post('etapas', [EtapaController::class, 'store']);
     Route::put('etapas/{id}', [EtapaController::class, 'update']);
     Route::delete('etapas/{id}', [EtapaController::class, 'destroy']);
-    Route::post('etapas/swap', [EtapaController::class, 'swap']);
+    Route::put('etapas/swap', [EtapaController::class, 'swap']);
 
 });
 
@@ -59,8 +59,8 @@ Route::prefix('etapas/{etapaId}')->group(function () {
     Route::get('contatos/{contatoId}', [ContatoController::class, 'show']);
     Route::put('contatos/{contatoId}', [ContatoController::class, 'update']);
     Route::delete('contatos/{contatoId}', [ContatoController::class, 'destroy']);
-    Route::put('contatos/{contatoId}/swap', [ContatoController::class, 'swap']);
-    Route::put('contatos/{contatoId}/swap-phase', [ContatoController::class, 'swapPhase']);
+    Route::patch('contatos/{contatoId}/swap', [ContatoController::class, 'swap']);
+    Route::patch('contatos/{contatoId}/swap-phase', [ContatoController::class, 'swapPhase']);
 });
 
 

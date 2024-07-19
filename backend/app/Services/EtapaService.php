@@ -25,14 +25,14 @@ class EtapaService
         return $this->repository->findOne($id,$funilId);
     }
 
-    public function create(CreateEtapaDTO $dto): Etapa
+    public function create(CreateEtapaDTO $dto, string $funil_id): Etapa
     {
-        return $this->repository->create($dto);
+        return $this->repository->create($dto, $funil_id);
     }
 
-    public function update(UpdateEtapaDTO $dto): Etapa|null
+    public function update(UpdateEtapaDTO $dto, string $etapaId): Etapa|null
     {
-        return $this->repository->update($dto);
+        return $this->repository->update($dto, $etapaId);
     }
 
     
@@ -41,8 +41,8 @@ class EtapaService
         $this->repository->delete($id, $funilId);  
     }
 
-    public function swap(string $etapa1Id, string $etapa2Id, string $funilId): void
+    public function swap(string $etapaId, string $newPosition, string $funilId): void
     {
-        $this->repository->swap($etapa1Id, $etapa2Id, $funilId);
+        $this->repository->swap($etapaId, $newPosition, $funilId);
     }
 }

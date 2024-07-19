@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Etapa;
-use App\DTO\{CreateEtapaDTO, UpdateEtapaDTO, UpdateOrderEtapaDTO};
+use App\DTO\{CreateEtapaDTO, UpdateEtapaDTO};
 use App\Repositories\EtapaRepositoryInterface;
 
 class EtapaEloquentORM implements EtapaRepositoryInterface
@@ -36,20 +36,20 @@ class EtapaEloquentORM implements EtapaRepositoryInterface
 }
 
 
-    public function create(CreateEtapaDTO $dto): Etapa
+    public function create(CreateEtapaDTO $dto, string $funil_id): Etapa
     {
-        $position = $this->model->where('funil_id', $dto->funil_id)->max('position') + 1;
+        $position = $this->model->where('funil_id', $funil_id)->max('position') + 1;
 
         return $this->model->create([
             'name' => $dto->name,
-            'funil_id' => $dto->funil_id,
-            'position' => $position
+            'position' => $position,
+            'funil_id' => $funil_id
         ]);
     }
 
-    public function update(UpdateEtapaDTO $dto): Etapa|null
+    public function update(UpdateEtapaDTO $dto,string $etapaId): Etapa|null
     {
-        $etapa = $this->model->find($dto->id);  
+        $etapa = $this->model->find($etapaId);  
 
         if (!$etapa) {
             return null;
@@ -68,26 +68,24 @@ class EtapaEloquentORM implements EtapaRepositoryInterface
         $this->model->where('id', $id)->where('funil_id', $funilId)->delete();
     }
 
-    public function swap(string $etapa1Id, string $etapa2Id, string $funilId): void
+    public function swap(string $etapaId, string $newPosition, string $funilId): void
     {
-        $etapa1 = $this->findOne($etapa1Id, $funilId);
-        $etapa2 = $this->findOne($etapa2Id, $funilId);
-    
-        if ($etapa1 && $etapa2 && $etapa1->position !== $etapa2->position) {
-            $etapa1Position = $etapa1->position;
-            $etapa2Position = $etapa2->position;
-    
-            // Atualiza a posição das etapas sem criar conflitos
-            $this->model->where('funil_id', $funilId)
-                ->where('position', $etapa2Position)
-                ->update(['position' => $etapa1Position]);
-    
-            $etapa1->position = $etapa2Position;
-            $etapa2->position = $etapa1Position;
-    
-            $etapa1->save();
-            $etapa2->save();
-        }
+        $etapa = $this->model->find($etapaId);
+
+        $etapa->Update([
+            'position' => $newPosition
+        ]);
+
+        $getPositions = $this->model->where('etapa_id', $funilId)
+            ->where('position','>=', $newPosition)
+            ->where('id','!=',$etapaId)->get();
+
+
+        foreach ($getPositions as $position){
+                $position->update([
+                'position' => $position->position+1
+            ]);
+            }
     }
     
 

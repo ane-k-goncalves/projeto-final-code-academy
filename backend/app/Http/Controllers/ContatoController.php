@@ -31,24 +31,17 @@ class ContatoController extends Controller
 
     public function store(Request $request, string $etapaId)
     {
-        $dto = CreateContatoDTO::makeFromRequest($request, $etapaId);
-        $contato = $this->service->create($dto);
+        $dto = CreateContatoDTO::makeFromRequest($request);
+        $contato = $this->service->create($dto, $etapaId);
         return response()->json($contato, 201);
     }
 
-    public function update(StoreUpdateContato $requestContato,string $etapaId, string $id)
+    public function update(StoreUpdateContato $requestContato, string $etapaId,string $contatoId)
     {
-
-     
-
         $validatedData = $requestContato->validated();
-      
-        $validatedData['id'] = $id;
-        $validatedData['etapaId'] = $etapaId;
         $dto = UpdateContatoDTO::makeFromRequest($validatedData);
         
-        $contato = $this->service->update($dto);
-       
+        $contato = $this->service->update($dto, $contatoId);
 
         if (!$contato) {
             return response()->json(['message' => 'Contato não encontrado.'], 404);
@@ -63,13 +56,17 @@ class ContatoController extends Controller
         return response()->json(['message' => 'Contato deletada com sucesso!'], 204);
     }
 
-    public function swap(Request $request, string $contatoId)
+    public function swap(Request $request,string $etapaId)
     {
-        $newPosition = $request->input('new_position');
-        $etapaId = $request->input('etapa_id');
-
+       
+        (integer)$newPosition = $request->input('newPosition');
+        (integer)$contatoId = $request->input('contato_id');
+     
+        
+        
         $this->service->swap($contatoId, $newPosition, $etapaId);
-
+    
+    
         return response()->json(['message' => 'Contato movido com sucesso'], 200);
     }
 

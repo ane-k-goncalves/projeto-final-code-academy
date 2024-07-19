@@ -9,7 +9,6 @@ class CreateContatoDTO
 
     public function __construct(
         public string $name,
-        public string $etapa_id,
         public string $telefone,
         public string $email,
         public string $data_de_nascimento,
@@ -21,11 +20,10 @@ class CreateContatoDTO
 
     ) {}
 
-    public static function makeFromRequest(Request $request, string $EtapaId): self
+    public static function makeFromRequest(Request $request): self
     {
         return new self(
             $request->name,
-            $EtapaId,
             $request->telefone,
             $request->email,
             $request->data_de_nascimento,
