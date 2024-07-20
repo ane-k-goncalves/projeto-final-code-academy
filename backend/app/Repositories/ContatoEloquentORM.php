@@ -132,7 +132,7 @@ class ContatoEloquentORM implements ContatoRepositoryInterface
         ]);
 
         $getPositions = $this->model->where('etapa_id', $newEtapaId)
-            ->where('position','=>', $newPosition)
+            ->where('position','>=', $newPosition)
             ->where('id','!=',$contatoId)->get();
 
         foreach ($getPositions as $position){

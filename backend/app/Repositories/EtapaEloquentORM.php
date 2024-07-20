@@ -76,7 +76,7 @@ class EtapaEloquentORM implements EtapaRepositoryInterface
             'position' => $newPosition
         ]);
 
-        $getPositions = $this->model->where('etapa_id', $funilId)
+        $getPositions = $this->model->where('funil_id', $funilId)
             ->where('position','>=', $newPosition)
             ->where('id','!=',$etapaId)->get();
 

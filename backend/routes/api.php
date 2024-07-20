@@ -55,13 +55,14 @@ Route::prefix('funis/{funilId}')->group(function () {
 
 Route::prefix('etapas/{etapaId}')->group(function () {
     Route::get('contatos', [ContatoController::class, 'index']);
-    Route::post('contatos', [ContatoControllertroller::class, 'store']);
+    Route::post('contatos', [ContatoController::class, 'store']);
     Route::get('contatos/{contatoId}', [ContatoController::class, 'show']);
     Route::put('contatos/{contatoId}', [ContatoController::class, 'update']);
     Route::delete('contatos/{contatoId}', [ContatoController::class, 'destroy']);
     Route::patch('contatos/{contatoId}/swap', [ContatoController::class, 'swap']);
     Route::patch('contatos/{contatoId}/swap-phase', [ContatoController::class, 'swapPhase']);
 });
+
 
 
 Route::apiResource('register-funil','App\Http\Controllers\FunilController');
