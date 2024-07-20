@@ -48,7 +48,7 @@ Route::prefix('funis/{funilId}')->group(function () {
     Route::post('etapas', [EtapaController::class, 'store']);
     Route::put('etapas/{id}', [EtapaController::class, 'update']);
     Route::delete('etapas/{id}', [EtapaController::class, 'destroy']);
-    Route::put('etapas/swap', [EtapaController::class, 'swap']);
+    Route::put('etapas/{etapaId}/swap', [EtapaController::class, 'swap']);
 
 });
 
@@ -62,6 +62,7 @@ Route::prefix('etapas/{etapaId}')->group(function () {
     Route::patch('contatos/{contatoId}/swap', [ContatoController::class, 'swap']);
     Route::patch('contatos/{contatoId}/swap-phase', [ContatoController::class, 'swapPhase']);
 });
+
 
 
 Route::apiResource('register-funil','App\Http\Controllers\FunilController');

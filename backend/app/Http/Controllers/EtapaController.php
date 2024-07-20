@@ -61,13 +61,15 @@ class EtapaController extends Controller
         return response()->json(['message' => 'Etapa deletada com sucesso!'], 204);
     }
 
-    public function swap(Request $request, string $funilId)
+    public function swap(Request $request, string $funilId, string $etapaId)
     {
-        $newPosition = $request->input('new_position');
-        $etapaId = $request->input('etapa_id');
+        $newPosition = $request->newPosition;
+        $etapaId = $request->etapaId;
 
         $this->service->swap($etapaId, $newPosition, $funilId);
 
         return response()->json(['message' => 'Contato movido com sucesso'], 200);
+
+
     }
 }
