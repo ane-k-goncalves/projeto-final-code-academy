@@ -1,22 +1,26 @@
 <script>
 import NavBar from "@/components/NavBar.vue";
 import EtapasFunil from "../components/EtapasFunil.vue";
-import CardsEtapas from "../components/CardsEtapas.vue";
+// import CardsEtapas from "../components/CardsEtapas.vue";
 import EditarEtapa from "@/components/EditarEtapa.vue";
 import Cookie from 'js-cookie';
 import { ref } from 'vue';
 import draggable from 'vuedraggable';
 import CrudEtapas from "@/components/CrudEtapas.vue";
+import CriarContato from "@/components/CriarContato.vue";
+import CrudContato from "@/components/CrudContato.vue";
 
 export default {
   name: "Etapas",
   components: {
     NavBar,
     EtapasFunil,
-    CardsEtapas,
+    // CardsEtapas,
     EditarEtapa,
     CrudEtapas,
-    draggable
+    draggable,
+    CriarContato,
+    CrudContato
   },
   props: {
     id: {
@@ -33,9 +37,8 @@ export default {
     return {
       etapas: [],
 
-      selectedEtapa1: null ,
-      selectedEtapa1: null ,
-
+      selectedEtapa: null ,
+    
     };
   },
   methods: {
@@ -62,28 +65,29 @@ export default {
       }
     },
 
-    setSelectedEtapa(etapaId) {
-      if (!this.selectedEtapa1) {
-        this.selectedEtapa1 = etapaId;
-      } else {
-        this.selectedEtapa2 = etapaId;
-      }
-    },
+   
     async onDragEnd(evt) {
       const { newIndex, oldIndex } = evt;
 
-      const etapa1Id = this.etapas[oldIndex].id;
-      const etapa2Id = this.etapas[newIndex].id;
+      const etapa_id = this.etapas[oldIndex].id;
+      const newPosition = newIndex;
 
-      console.log(etapa1Id, etapa2Id, )
+      this.etapas.forEach((etapa, index) => {
+        etapa.position = index;
+      });
+
+      
+      
+      console.log(etapa_id, newPosition )
       const dados = {
-        etapa1_id: etapa1Id,
-        etapa2_id: etapa2Id,
+        etapaId: etapa_id,
+        newPosition: newPosition,
+        
       }
 
       try {
-        const response = await fetch(`http://localhost:8000/api/funis/${this.id}/etapas/swap`, {
-            method: "POST",
+        const response = await fetch(`http://localhost:8000/api/funis/${this.id}/etapas/${etapa_id}/swap`, {
+            method: "PUT",
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
@@ -92,22 +96,22 @@ export default {
 
           body: JSON.stringify(dados)
         });
-
-        alert(response.data.message);
-        this.fetchEtapas(); 
+        const result = await response.json();
+        if(result.ok) {
+          
+          alert("Etapas trocadas");
+          this.fetchEtapas(); 
+        }
+        
       } catch (error) {
-        if (error.response && error.response.data) {
-          alert(error.response.data.message);
-        } else {
+        console.log(error)
           alert('Ocorreu um erro ao trocar as posições das etapas.');
         }
       }
     },
-
-  },
-  mounted() {
-    this.listarEtapas();
-  },
+    mounted() {
+      this.listarEtapas();
+    },
 };
 </script>
 <template>
@@ -134,32 +138,21 @@ export default {
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">
-                <button class="btn" id="novo" type="submit">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    fill="currentColor"
-                    class="bi bi-person-add"
-                    viewBox="0 0 16 16">
-                    <path
-                      d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4"
-                    />
-                    <path
-                      d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z"
-                    />
-                  </svg>
-                  Novo contato
-                </button>
+                <!-- <CrudContato /> -->
               </a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
+        <div class="contato">
     
+
+        
+        </div>
+
       <div class="container">
-        <draggable id="display" v-model="etapas" item-key="etapa.id" @end="onDragEnd">
+        <draggable id="display" v-model="etapas" item-key="id" @end="onDragEnd">
           <template #item="{ element }">
           <div :key="element.id" class="card text-center">
             <div class="card-body">
@@ -172,12 +165,24 @@ export default {
 
                       <div class="row">
                         <div class="col">
-                            <CrudEtapas :element="element.id" :id="id"/>
+                            <!-- Example single danger button -->
+                          <!-- <div class="btn-group">
+                            <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                            <ul class="dropdown-menu">
+                               <li> <CrudEtapas :element="element.id" :etapas="etapas.id" :id="id"/></li> -->
+                              <!-- <li><a class="dropdown-item" href="#">  <CriarContato /></a></li>
+                              <li><a class="dropdown-item" href="#">Something else here</a></li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="dropdown-item" href="#">Separated link</a></li>
+                            </ul>
+                          </div> --> 
+
+
+                          <CriarContato />
+                            <CrudEtapas :element="element.id" :etapas="etapas.id" :id="id"/>
                         </div>
                         <div class="col">
-                            <button class="btn" id="c" @click="showModal"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
-                            </svg></button>
+                          <CrudContato />
                         </div>
                       </div>
                     
@@ -191,6 +196,11 @@ export default {
   </div>
 </template>
 <style scoped>
+
+.contato {
+  margin-left: 100px;
+}
+
 .navbar {
   height: 80px;
   margin-left: 100px;
