@@ -83,18 +83,31 @@ class ContatoEloquentORM implements ContatoRepositoryInterface
     public function delete(string $id): void
     {
         $this->model->where('id',$id)->delete();
+
+        $contato = $this->model->find($id);
+        $position = $contato->position;
+        $etapaId = $contato->etapa_id;
+
+        $getPositions = $this->model->where('etapa_id', $etapaId)
+            ->where('position','>=', $position)
+            ->where('id','!=',$id)->get();
+
+        foreach ($getPositions as $position){
+                $position->update([
+                    'position' => $position->position-1
+                ]);
+            }
     }
 
     public function swap(string $contatoId, int $newPosition, string $etapaId): void
     {
      
         $contato = $this->model->find($contatoId);
+        $oldPosition = $contato->position;
       
-        $contato->Update([
-            'position' => $newPosition
-        ]);
       
-     
+      
+        if($newPosition > $oldPosition){
         $getPositions = $this->model->where('etapa_id', $etapaId)
             ->where('position','>=', $newPosition)
             ->where('id','!=',$contatoId)->get();
@@ -105,7 +118,36 @@ class ContatoEloquentORM implements ContatoRepositoryInterface
                 'position' => $position->position+1
             ]);
             }
+            $getPositionsMenores = $this->model->where('etapa_id', $etapaId)
+            ->whereBetween('position', [$newPosition -1, $oldPosition +1])
+            ->where('id','!=',$contatoId)->get();
+
+            foreach ($getPositionsMenores as $position){
+                $position->update([
+                'position' => $position->position-1
+            ]);
+            }
         }
+        if($newPosition < $oldPosition){
+                $getPositions = $this->model->where('etapa_id', $etapaId)
+                    ->whereBetween('position', [$newPosition+1, $oldPosition -1])
+                    ->where('id','!=',$contatoId)->get();
+        
+
+
+        foreach ($getPositions as $position){
+                $position->update([
+                'position' => $position->position+1
+            ]);
+            }
+        }
+    $contato->Update([
+        'position' => $newPosition
+    ]);
+
+        
+}
+        
 
 
 

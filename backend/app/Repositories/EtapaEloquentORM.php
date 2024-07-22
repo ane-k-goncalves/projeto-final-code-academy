@@ -71,13 +71,14 @@ class EtapaEloquentORM implements EtapaRepositoryInterface
     public function swap(string $etapaId, string $newPosition, string $funilId): void
     {
         $etapa = $this->model->find($etapaId);
+        $oldPosition = $etapa->position;
+        $etapaId = $etapa->etapa_id;
 
-        $etapa->Update([
-            'position' => $newPosition
-        ]);
+        
 
+        if ($newPosition < $oldPosition) {
         $getPositions = $this->model->where('funil_id', $funilId)
-            ->where('position','>=', $newPosition)
+        ->whereBetween('position', [$newPosition, $oldPosition -1])
             ->where('id','!=',$etapaId)->get();
 
 
@@ -86,7 +87,24 @@ class EtapaEloquentORM implements EtapaRepositoryInterface
                 'position' => $position->position+1
             ]);
             }
-    }
-    
+        }
+        if ($newPosition > $oldPosition) {
+            $getSmallerPositions = $this->model->where('funil_id', $funilId)
+            ->whereBetween('position', [$oldPosition+1, $newPosition])
+            ->where('id','!=',$etapaId)->get();
 
+
+
+        foreach ($getSmallerPositions as $position){
+        $position->update([
+        'position' => $position->position-1
+        ]);
+    }
+
+    
+}
+    $etapa->Update([
+        'position' => $newPosition
+    ]);
+    }
 }
