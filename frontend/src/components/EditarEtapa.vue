@@ -9,8 +9,8 @@ export default {
     //     type: Number,
     //     required: true
     //     },
-    //     element: {
-    //         type: Number,
+    //     etapas: {
+    //         type: Array,
     //         required: true
     //     },
     //     data() {
@@ -35,7 +35,7 @@ export default {
       
             
     //         try{
-    //         const res = await fetch(`http://localhost:8000/api/funis/${this.id}/etapas/${this.element}`,  {
+    //         const res = await fetch(`http://localhost:8000/api/funis/${this.id}/etapas/${this.etapa_id}`,  {
     //                     method: 'PUT',
     //                     headers: {
     //                         'Accept': 'application/json',
@@ -82,6 +82,21 @@ export default {
                 
                 </div>
                 </div>
+            </div>
+        </div> -->
+<!-- 
+        <div class="card" >
+            <div class="card-header">
+                Editar etapa
+            </div>
+            <div class="card-body">
+                <form @submit.prevent="editarEtapa()" >
+                    <div>
+                    <label>Novo nome:</label>
+                    <input v-model="newName" type="text" />
+                    </div>
+                    <button type="submit" class="btn">Salvar</button>                
+                </form>
             </div>
         </div> -->
     </div>

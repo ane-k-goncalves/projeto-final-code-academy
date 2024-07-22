@@ -1,20 +1,18 @@
 <script>
-import ExcluirEtapa from './ExcluirEtapa.vue';
-import EditarEtapa from './EditarEtapa.vue';
 import { Offcanvas } from 'bootstrap';
 import Cookie from 'js-cookie';
 import { Modal } from 'bootstrap';
 
+
 export default {
     name: 'CrudEtapas',
     components: {
-        ExcluirEtapa,
-        EditarEtapa
     },
     data() {
         return {
             newName: '',
             idExcluir: "modal" + this.element,
+           crud: "canvas" + this.element
         }
     },
     props: {
@@ -23,17 +21,19 @@ export default {
             required: true
         },
         element: {
-            type: Number,
+            type: Array,
             required: true
         },
         name: {
             type: String,
             required: true
-        }
+        }, 
+      
+       
     },
     methods: {
         show() {
-            const myOffcanvas = document.getElementById('offcanvasRight');
+            const myOffcanvas = document.getElementById(this.crud);
             const bsOffcanvas = new Offcanvas(myOffcanvas);
             bsOffcanvas.show();
         },
@@ -47,6 +47,7 @@ export default {
                 const dados = {
                     name: this.newName,
                 };
+                
             
                 try{
                 const res = await fetch(`http://localhost:8000/api/funis/${this.id}/etapas/${this.element}`,  {
@@ -60,6 +61,7 @@ export default {
                         });
                     if(res.ok){
                         alert('Etapa editada')
+                        console.log(this.element)
                     }
                 }catch(error) {
                     console.log(error)
@@ -90,9 +92,9 @@ export default {
 </script>
 <template>
     <div>
-    <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Editar</button>
+    <button class="btn" type="button" data-bs-toggle="offcanvas" :data-bs-target="'#' + crud" aria-controls="crud">Editar</button>
 
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas offcanvas-end" tabindex="-1" :id="crud" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
             <h5 id="offcanvasRightLabel"> {{ element.name }} </h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -123,6 +125,7 @@ export default {
                 </div>
             </div>
         </div>
+       
 
         <div class="card" >
             <div class="card-header">
@@ -169,6 +172,8 @@ export default {
 .card-body button {
     margin: 10px;
 }
+
+
 
 
 

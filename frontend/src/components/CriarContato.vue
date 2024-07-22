@@ -1,0 +1,198 @@
+<script>
+import { Offcanvas } from 'bootstrap';
+import Cookie from 'js-cookie';
+
+export default {
+    name: 'CriarContato',
+    props: {
+        etapas: {
+            type: Array,
+            required: true
+        },
+       
+    },
+    data() {
+      return {
+        name: '',
+        telefone: '',
+        email: '',
+        data_de_nascimento: '',
+        valor: '',
+        ddd:'',
+        cpf:'',
+        endereco: ''
+      }
+    },
+    methods: {
+      async criarContato() {
+        try {
+          const dados = {
+            name: this.name,
+            telefone: this.telefone,
+            email: this.email,
+            data_de_nascimento: this.data_de_nascimento,
+            valor: this.valor,
+            ddd: this.ddd,
+            cpf: this.cpf,
+            endereco: this.endereco,
+        
+          }
+
+          
+          
+          const res = await fetch(`http://localhost:8000/api/etapas/${etapa.id}/contatos`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer  ${Cookie.get('token')}`,
+                 },
+                body: JSON.stringify(dados)
+          });
+          if(res.ok) {
+                
+            alert('Novo contato criado!')
+          }
+        }catch(error){
+            console.log(error)
+        }
+    }
+  }
+}
+</script>
+<template>
+<div>                
+  
+
+<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><svg
+                    xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                    class="bi bi-person-add" viewBox="0 0 16 16"><path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
+                    <path
+                      d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z"
+                    /></svg></button>
+
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+  <div class="offcanvas-header-start">
+    <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
+    </svg>Voltar</button>
+    
+
+  </div>
+  <div class="offcanvas-body">
+    <div class="card">
+      <div class="card-header">
+        {{ nome  }} 
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Funil nome</h5>
+        <div class="buttons">
+          <button type="button" id="bot" class="btn btn-sm">Sem etapa</button>
+          <button type="button" id="bot" class="btn btn-sm">Prospecção</button>
+          <button type="button" id="bot" class="btn btn-sm">Contato</button>
+          <button type="button" id="bot" class="btn btn-sm">Proposta</button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        Dados
+      </div>
+      <div class="card-body">
+       
+        <form @submit.prevent="criarContato">
+          <div class="mb-3 row">
+            <label for="nome" class="col-sm-2 col-form-label">Nome</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" v-model="name">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="telefone" class="col-sm-2 col-form-label">Telefone</label>
+            <div class="col-sm-8">
+              <input type="number" class="form-control" v-model="telefone">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" v-model="email">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="data_de_nascimento" class="col-sm-2 col-form-label">Data de Nascimento</label>
+            <div class="col-sm-8">
+              <input type="data" class="form-control" v-model="data_de_nascimento">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="valor" class="col-sm-2 col-form-label">Valor</label>
+            <div class="col-sm-8">
+              <input type="decimal" class="form-control" v-model="valor">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="ddd" class="col-sm-2 col-form-label">DDD</label>
+            <div class="col-sm-8">
+              <input type="number" class="form-control" v-model="ddd">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="cpf" class="col-sm-2 col-form-label">CPF</label>
+            <div class="col-sm-8">
+              <input type="number" class="form-control" v-model="cpf">
+            </div>
+          </div>
+          <div class="mb-4 row">
+            <label for="endereco" class="col-sm-2 col-form-label">Endereço</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" v-model="endereco">
+            </div>
+          </div>
+        
+          <button type="submit" class="btn btn-primary">Criar Contato</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</template>
+<style scoped>
+.offcanvas {
+  width: 600px;
+  border-color:  #E1E9F4;
+}
+
+
+.buttons{
+  display: flex;
+  justify-content: center;
+}
+
+#bot {
+  margin: 10px;
+  border-radius: 10px;
+  width: 100px;
+  background-color: #E1E9F4;
+  
+}
+#bot a:hover{
+  background-color: #3057F2;
+  ;
+}
+
+.card {
+  border-color: #E1E9F4;
+  margin-bottom: 20px;
+ 
+}
+.card-header {
+  border-color:  #E1E9F4;
+}
+
+input {
+  border-color: #E1E9F4;
+}
+</style>
