@@ -178,11 +178,11 @@ export default {
                           </div> --> 
 
 
-                          <CriarContato />
+                          <CriarContato :element="element.id" :id="id" />
                             <CrudEtapas :element="element.id" :etapas="etapas.id" :id="id"/>
                         </div>
                         <div class="col">
-                          <CrudContato />
+                          <CrudContato  :element="element.id" :id="id"/>
                         </div>
                       </div>
                     

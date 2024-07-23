@@ -19,10 +19,16 @@ export default {
         data_de_nascimento: '',
         valor: '',
         ddd:'',
-        endereco: ''
+        endereco: '',
+        
       }
     },
     methods: {
+      // show() {
+      //       const myOffcanvas = document.getElementById(this.crud);
+      //       const bsOffcanvas = new Offcanvas(myOffcanvas);
+      //       bsOffcanvas.show();
+      //   },
         showModal() {
             const modalElement = document.getElementById(id);
             const modal = new Modal(modalElement);
@@ -70,13 +76,13 @@ export default {
 </script>
 <template>
 <div>
-    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
+    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" :data-bs-target="'#' + idcriar" aria-controls="idcriar">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
                             </svg>
     </button>
 
-    <div class="offcanvas offcanvas-end" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
+    <div class="offcanvas offcanvas-end" data-bs-backdrop="static" tabindex="-1" :id="idcriar" aria-labelledby="staticBackdropLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="staticBackdropLabel">Offcanvas</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
