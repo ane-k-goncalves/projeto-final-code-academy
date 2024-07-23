@@ -50,9 +50,10 @@ class ContatoController extends Controller
         return response()->json(['message' => 'Contato atualizado com sucesso!', 'data' => $contato], 200);
     }
   
-    public function destroy(string $id)
+    public function destroy(string $etapaId, string $id )
     {
-        $this->service->delete($id);
+       
+        $this->service->delete($id, $etapaId);
         return response()->json(['message' => 'Contato deletada com sucesso!'], 204);
     }
 

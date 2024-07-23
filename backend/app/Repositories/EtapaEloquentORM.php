@@ -64,15 +64,38 @@ class EtapaEloquentORM implements EtapaRepositoryInterface
 
 
     public function delete(string $id, string $funilId): void
-    {
-        $this->model->where('id', $id)->where('funil_id', $funilId)->delete();
+{
+    
+    $etapa = $this->model->find($id);
+
+    if ($etapa) {
+        $position = $etapa->position;
+
+    
+        $getPositions = $this->model->where('funil_id', $funilId)
+            ->where('position', '>=', $position)
+            ->where('id', '!=', $id)
+            ->orderBy('position', 'asc') 
+            ->get();
+
+       
+        foreach ($getPositions as $etapaAtual) {
+            $etapaAtual->update([
+                'position' => $etapaAtual->position - 1
+            ]);
+        }
+
+        $etapa->delete();
+    
     }
+}
+
 
     public function swap(string $etapaId, string $newPosition, string $funilId): void
     {
         $etapa = $this->model->find($etapaId);
         $oldPosition = $etapa->position;
-        $etapaId = $etapa->etapa_id;
+        $etapaId = $etapa->id;
 
         
 
@@ -102,7 +125,7 @@ class EtapaEloquentORM implements EtapaRepositoryInterface
     }
 
     
-}
+    }
     $etapa->Update([
         'position' => $newPosition
     ]);
