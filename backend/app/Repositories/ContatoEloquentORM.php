@@ -80,32 +80,69 @@ class ContatoEloquentORM implements ContatoRepositoryInterface
     }
 
 
-    public function delete(string $id): void
+    public function delete(string $etapaId, string $id): void
     {
-        $this->model->where('id',$id)->delete();
+        $contato = $this->model->find($id);
+    
+        if ($contato) {
+            $position = $contato->position;
+    
+            $getPositions = $this->model->where('etapa_id', $etapaId)
+                ->where('position', '>=', $position)
+                ->where('id', '!=', $id)
+                ->orderBy('position', 'asc')
+                ->get();
+    
+            foreach ($getPositions as $contatoAtual) {
+                $contatoAtual->update([
+                    'position' => $contatoAtual->position - 1
+                ]);
+            }
+    
+            $contato->delete(); 
+        }
     }
 
     public function swap(string $contatoId, int $newPosition, string $etapaId): void
     {
      
         $contato = $this->model->find($contatoId);
+        $oldPosition = $contato->position;
+        $contatoId = $contato->id;
       
-        $contato->Update([
-            'position' => $newPosition
-        ]);
       
-     
-        $getPositions = $this->model->where('etapa_id', $etapaId)
-            ->where('position','>=', $newPosition)
-            ->where('id','!=',$contatoId)->get();
-
-
-        foreach ($getPositions as $position){
-                $position->update([
-                'position' => $position->position+1
-            ]);
+        if ($newPosition < $oldPosition) {
+            $getPositions = $this->model->where('etapa_id', $etapaId)
+            ->whereBetween('position', [$newPosition, $oldPosition -1])
+                ->where('id','!=',$contatoId)->get();
+    
+    
+            foreach ($getPositions as $position){
+                    $position->update([
+                    'position' => $position->position+1
+                ]);
+                }
             }
+            if ($newPosition > $oldPosition) {
+                $getSmallerPositions = $this->model->where('etapa_id', $etapaId)
+                ->whereBetween('position', [$oldPosition+1, $newPosition])
+                ->where('id','!=',$contatoId)->get();
+    
+    
+    
+            foreach ($getSmallerPositions as $position){
+            $position->update([
+            'position' => $position->position-1
+            ]);
         }
+    }
+
+
+    $contato->Update([
+        'position' => $newPosition
+    ]);
+}
+        
 
 
 
