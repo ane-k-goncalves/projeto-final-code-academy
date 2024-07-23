@@ -36,9 +36,9 @@ class ContatoService
     }
 
 
-    public function delete(string $id): void
+    public function delete(string $id, string $etapaId): void
     {
-        $this->repository->delete($id);
+        $this->repository->delete($etapaId, $id);
     }
 
     public function swap(string $contatoId, int $newPosition, string $etapaId): void

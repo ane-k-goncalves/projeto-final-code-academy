@@ -59,8 +59,8 @@ Route::prefix('etapas/{etapaId}')->group(function () {
     Route::get('contatos/{contatoId}', [ContatoController::class, 'show']);
     Route::put('contatos/{contatoId}', [ContatoController::class, 'update']);
     Route::delete('contatos/{contatoId}', [ContatoController::class, 'destroy']);
-    Route::patch('contatos/{contatoId}/swap', [ContatoController::class, 'swap']);
-    Route::patch('contatos/{contatoId}/swap-phase', [ContatoController::class, 'swapPhase']);
+    Route::put('contatos/{contatoId}/swap', [ContatoController::class, 'swap']);
+    Route::put('contatos/{contatoId}/swap-phase', [ContatoController::class, 'swapPhase']);
 });
 
 

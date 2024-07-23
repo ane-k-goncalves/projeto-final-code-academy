@@ -15,7 +15,7 @@ interface ContatoRepositoryInterface
 
     public function update(UpdateContatoDTO $dto, string $contatoId): Contato|null;
 
-    public function delete(string $id): void;
+    public function delete(string $id, string $etapaId): void;
 
     public function swap(string $contatoId, int $newPosition, string $etapaId): void;
 
