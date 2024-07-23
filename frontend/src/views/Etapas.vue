@@ -3,24 +3,25 @@ import NavBar from "@/components/NavBar.vue";
 import EtapasFunil from "../components/EtapasFunil.vue";
 // import CardsEtapas from "../components/CardsEtapas.vue";
 import EditarEtapa from "@/components/EditarEtapa.vue";
-import Cookie from 'js-cookie';
-import { ref } from 'vue';
-import draggable from 'vuedraggable';
+import Cookie from "js-cookie";
+import { ref } from "vue";
+import draggable from "vuedraggable";
 import CrudEtapas from "@/components/CrudEtapas.vue";
 import CriarContato from "@/components/CriarContato.vue";
 import CrudContato from "@/components/CrudContato.vue";
+import CardContato from "@/components/CardContato.vue";
 
 export default {
   name: "Etapas",
   components: {
     NavBar,
     EtapasFunil,
-    // CardsEtapas,
     EditarEtapa,
     CrudEtapas,
     draggable,
     CriarContato,
-    CrudContato
+    CrudContato,
+    CardContato,
   },
   props: {
     id: {
@@ -31,14 +32,12 @@ export default {
       type: String,
       required: true,
     },
-   
   },
   data() {
     return {
       etapas: [],
-
-      selectedEtapa: null ,
-    
+      contatos: [],
+      selectedEtapa: null,
     };
   },
   methods: {
@@ -49,9 +48,9 @@ export default {
           {
             method: "GET",
             headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                'Authorization': `Bearer  ${Cookie.get('token')}`,
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer  ${Cookie.get("token")}`,
             },
           }
         );
@@ -65,7 +64,6 @@ export default {
       }
     },
 
-   
     async onDragEnd(evt) {
       const { newIndex, oldIndex } = evt;
 
@@ -76,42 +74,41 @@ export default {
         etapa.position = index;
       });
 
-      
-      
-      console.log(etapa_id, newPosition )
+      console.log(etapa_id, newPosition);
       const dados = {
         etapaId: etapa_id,
         newPosition: newPosition,
-        
-      }
+      };
 
       try {
-        const response = await fetch(`http://localhost:8000/api/funis/${this.id}/etapas/${etapa_id}/swap`, {
+        const response = await fetch(
+          `http://localhost:8000/api/funis/${this.id}/etapas/${etapa_id}/swap`,
+          {
             method: "PUT",
             headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                'Authorization': `Bearer  ${Cookie.get('token')}`,
-          },
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer  ${Cookie.get("token")}`,
+            },
 
-          body: JSON.stringify(dados)
-        });
+            body: JSON.stringify(dados),
+          }
+        );
         const result = await response.json();
-        if(result.ok) {
-          
+        if (result.ok) {
           alert("Etapas trocadas");
-          this.fetchEtapas(); 
+          this.fetchEtapas();
         }
-        
       } catch (error) {
-        console.log(error)
-          alert('Ocorreu um erro ao trocar as posições das etapas.');
-        }
+        console.log(error);
+        alert("Ocorreu um erro ao trocar as posições das etapas.");
       }
     },
-    mounted() {
-      this.listarEtapas();
-    },
+  },
+
+  mounted() {
+    this.listarEtapas();
+  },
 };
 </script>
 <template>
@@ -120,13 +117,15 @@ export default {
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="#"> Funil {{ name }}</a>
-        <button class="navbar-toggler"
+        <button
+          class="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
-          aria-label="Toggle navigation">
+          aria-label="Toggle navigation"
+        >
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -145,58 +144,55 @@ export default {
         </div>
       </div>
     </nav>
-        <div class="contato">
-    
+    <div class="contato"></div>
 
-        
-        </div>
-
-      <div class="container">
-        <draggable id="display" v-model="etapas" item-key="id" @end="onDragEnd">
-          <template #item="{ element }">
+    <div class="container">
+      <draggable id="display" v-model="etapas" item-key="id" @end="onDragEnd">
+        <template #item="{ element }">
           <div :key="element.id" class="card text-center">
             <div class="card-body">
-                <div class="container-body">
-                    <div class="row">
-                      <div class="col">
-                      <h5 class="card-title"> {{ element.name }} </h5> 
-                      </div>
-                      </div>
+              <div class="container-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title">{{ element.name }}</h5>
+                  </div>
+                </div>
 
-                      <div class="row">
-                        <div class="col">
-                            <!-- Example single danger button -->
-                          <!-- <div class="btn-group">
+                <div class="row">
+                  <div class="col">
+                    <!-- Example single danger button -->
+                    <!-- <div class="btn-group">
                             <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"></button>
                             <ul class="dropdown-menu">
                                <li> <CrudEtapas :element="element.id" :etapas="etapas.id" :id="id"/></li> -->
-                              <!-- <li><a class="dropdown-item" href="#">  <CriarContato /></a></li>
+                    <!-- <li><a class="dropdown-item" href="#">  <CriarContato /></a></li>
                               <li><a class="dropdown-item" href="#">Something else here</a></li>
                               <li><hr class="dropdown-divider"></li>
                               <li><a class="dropdown-item" href="#">Separated link</a></li>
                             </ul>
-                          </div> --> 
+                          </div> -->
 
-
-                          <CriarContato :element="element.id" :id="id" />
-                            <CrudEtapas :element="element.id" :etapas="etapas.id" :id="id"/>
-                        </div>
-                        <div class="col">
-                          <CrudContato  :element="element.id" :id="id"/>
-                        </div>
-                      </div>
-                    
+                    <CriarContato :element="element.id" :id="id" />
+                    <CrudEtapas
+                      :element="element.id"
+                      :etapas="etapas.id"
+                      :id="id"
+                    />
+                    <!-- <CrudContato  :element="element.id" :id="id"/> -->
+                  </div>
+                  <div class="col">
+                    <CardContato :element="element.id"  />
+                  </div>
                 </div>
+              </div>
             </div>
           </div>
         </template>
-        </draggable>
-      </div>
-     
+      </draggable>
+    </div>
   </div>
 </template>
 <style scoped>
-
 .contato {
   margin-left: 100px;
 }
@@ -205,7 +201,6 @@ export default {
   height: 80px;
   margin-left: 100px;
   width: 100wh;
-  
 }
 
 .col {
@@ -227,7 +222,6 @@ export default {
 #display {
   display: flex;
   flex-wrap: nowrap;
-
 }
 .btn {
   background-color: #3057f2;
@@ -240,23 +234,15 @@ export default {
   margin-left: 200px;
 }
 
-
-.card{
-    width: 280px;
-    margin: 10px;
-    height: 600px;
-    background-color:#F0F4FA;
-  
+.card {
+  width: 280px;
+  margin: 10px;
+  height: 600px;
+  background-color: #f0f4fa;
 }
 
 .container-body {
-    display: inline;
-    justify-content: space-between;
-
-}
-
-#c {
-    background-color: #E1E9F4;
-    
+  display: inline;
+  justify-content: space-between;
 }
 </style>
