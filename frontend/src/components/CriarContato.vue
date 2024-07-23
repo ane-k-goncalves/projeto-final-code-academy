@@ -71,12 +71,11 @@ export default {
 <div>                
   
 
-<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" :data-bs-target="'#' + idCriar" aria-controls="idCriar"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                    class="bi bi-person-add" viewBox="0 0 16 16"><path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
-                    <path
-                      d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z"
-                    /></svg></button>
+<button class="btn" id="c" type="button" data-bs-toggle="offcanvas" :data-bs-target="'#' + idCriar" aria-controls="idCriar">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+                            </svg>
+</button>
 
 <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" :id="idCriar" aria-labelledby="offcanvasScrollingLabel">
   <div class="offcanvas-header-start">
@@ -170,6 +169,12 @@ export default {
 .offcanvas {
   width: 600px;
   border-color:  #E1E9F4;
+}
+
+#c {
+  
+    background-color: #E1E9F4;
+    
 }
 
 

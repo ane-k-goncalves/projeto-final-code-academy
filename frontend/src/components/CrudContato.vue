@@ -1,14 +1,19 @@
 <script>
 import Cookie from 'js-cookie';
 import { Modal } from 'bootstrap';
+import { Offcanvas } from 'bootstrap';
 
 export default {
     name:"CrudContato",
     props: {
-        etapas: {
+        element: {
             type: Array,
             required: true
         },
+        id: {
+          type: Number,
+          required: true
+        }
        
     },
     data() {
@@ -20,30 +25,43 @@ export default {
         valor: '',
         ddd:'',
         endereco: '',
-        
+        idCrud: 'canvas' + this.id,
+        idexcluir: "mod" + this.id
       }
     },
     methods: {
-      // show() {
-      //       const myOffcanvas = document.getElementById(this.crud);
-      //       const bsOffcanvas = new Offcanvas(myOffcanvas);
-      //       bsOffcanvas.show();
-      //   },
+     
+        show() {
+            const myOffcanvas = document.getElementById(this.idCrud);
+            const bsOffcanvas = new Offcanvas(myOffcanvas);
+            bsOffcanvas.show();
+        },
         showModal() {
-            const modalElement = document.getElementById(id);
+            const modalElement = document.getElementById(this.idexcluir);
             const modal = new Modal(modalElement);
             modal.show();
         },
         async editarContato() {
+
+          // const dados = {
+          //   name: this.name,
+          //   telefone: this.telefone,
+          //   email:this.email,
+          //   data_de_nascimento: this.data_de_nascimento,
+          //   valor: this.valor,
+          //   ddd: this.ddd,
+          //   endereco: this.endereco,
+
+          // }
             try {
-                const res = await fetch(`http://localhost:8000/api/etapas/${etapa.id}/contatos/${this.contato_id}`, {
+                const res = await fetch(`http://localhost:8000/api/etapas/${this.element}/contatos/${this.id}`, {
                 method: 'PUT',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer  ${Cookie.get('token')}`,
                  },
-                body: JSON.stringify(dados)
+                // body: JSON.stringify(dados)
                 });
                 if(res.ok) {
                         
@@ -56,7 +74,7 @@ export default {
 
         async excluirContato() {
             try{
-            const res = await fetch(`http://localhost:8000/api/etapas/${etapa.id}/etapas/${this.contato_id}`,  {
+            const res = await fetch(`http://localhost:8000/api/etapas/${this.element}/contatos/${this.id}`,  {
                         method: 'DELETE',
                         headers: {
                             'Accept': 'application/json',
@@ -76,33 +94,16 @@ export default {
 </script>
 <template>
 <div>
-    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" :data-bs-target="'#' + idcriar" aria-controls="idcriar">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
-                            </svg>
-    </button>
+    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" :data-bs-target="'#' + idCrud" aria-controls="idCrud">
+     EDITAR</button>
 
-    <div class="offcanvas offcanvas-end" data-bs-backdrop="static" tabindex="-1" :id="idcriar" aria-labelledby="staticBackdropLabel">
+    <div class="offcanvas offcanvas-end" data-bs-backdrop="static" tabindex="-1" :id="idCrud" aria-labelledby="staticBackdropLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="staticBackdropLabel">Offcanvas</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
         <div>
-            <div class="card">
-      <div class="card-header">
-        {{ nome  }} 
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Funil nome</h5>
-        <div class="buttons">
-          <button type="button" id="bot" class="btn btn-sm">Sem etapa</button>
-          <button type="button" id="bot" class="btn btn-sm">Prospecção</button>
-          <button type="button" id="bot" class="btn btn-sm">Contato</button>
-          <button type="button" id="bot" class="btn btn-sm">Proposta</button>
-        </div>
-      </div>
-    </div>
     <div class="card">
       <div class="card-header">
         Dados
@@ -168,19 +169,22 @@ export default {
     
 
 
-    <div class="modal" id="id" tabindex="-1">
+    <div class="modal" :id="idexcluir" tabindex="-1" data-bs-backdrop="false">
     <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">Modal title</h5>
+            <h5 class="modal-title">Excluir contato</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <p>Modal body text goes here.</p>
+            <h5>Tem certeza que deseja excuir o contato?</h5>
+            <p>A ação não poderá ser desfeita.</p>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+          <form @submit.prevent="excluirContato">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-danger">Confirmar</button>
+          </form>
         </div>
         </div>
     </div>
@@ -191,4 +195,8 @@ export default {
 </template>
 <style scoped>
 
+.offcanvas {
+
+  width: 600px;
+}
 </style>
