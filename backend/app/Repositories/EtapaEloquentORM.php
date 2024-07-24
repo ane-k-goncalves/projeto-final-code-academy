@@ -98,8 +98,10 @@ class EtapaEloquentORM implements EtapaRepositoryInterface
         $etapaId = $etapa->id;
 
         
-
-        if ($newPosition < $oldPosition) {
+        if($newPosition == $oldPosition){
+            return;
+        }
+        else if ($newPosition < $oldPosition) {
         $getPositions = $this->model->where('funil_id', $funilId)
         ->whereBetween('position', [$newPosition, $oldPosition -1])
             ->where('id','!=',$etapaId)->get();
@@ -111,7 +113,7 @@ class EtapaEloquentORM implements EtapaRepositoryInterface
             ]);
             }
         }
-        if ($newPosition > $oldPosition) {
+        else if ($newPosition > $oldPosition) {
             $getSmallerPositions = $this->model->where('funil_id', $funilId)
             ->whereBetween('position', [$oldPosition+1, $newPosition])
             ->where('id','!=',$etapaId)->get();

@@ -50,10 +50,9 @@ class ContatoController extends Controller
         return response()->json(['message' => 'Contato atualizado com sucesso!', 'data' => $contato], 200);
     }
   
-    public function destroy(string $etapaId, string $id )
+    public function destroy(string $etapaId, string $id)
     {
-       
-        $this->service->delete($id, $etapaId);
+        $this->service->delete($id,$etapaId);
         return response()->json(['message' => 'Contato deletada com sucesso!'], 204);
     }
 
@@ -61,6 +60,7 @@ class ContatoController extends Controller
     {
         $newPosition = $request->newPosition;
         $contatoId = $request->contatoId;
+
         
         $this->service->swap($contatoId, $newPosition, $etapaId);
     
@@ -68,12 +68,12 @@ class ContatoController extends Controller
         return response()->json(['message' => 'Contato movido com sucesso'], 200);
     }
 
-    public function swapPhase(Request $request,string $etapaId, string $contatoId)
+    public function swapPhase(Request $request, string $contatoId)
     {
-        $newPosition = $request->newPosition;
-        $etapaId = $request->etapaId;
-        $newEtapaId = $request->newEtapaId;
-      
+        $newPosition = $request->input('new_position');
+        $etapaId = $request->input('etapa_id');
+        $newEtapaId = $request->input('new_etapa_id');
+
         $this->service->swapPhase($contatoId, $newPosition, $etapaId, $newEtapaId);
 
         return response()->json(['message' => 'Contato movido para uma nova etapa com sucesso'], 200);
