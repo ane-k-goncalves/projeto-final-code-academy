@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Request\StoreCreateContato;
 use App\Http\Request\StoreUpdateContato;
 use App\Services\ContatoService;
 use App\DTO\{CreateContatoDTO, UpdateContatoDTO};
@@ -29,9 +30,11 @@ class ContatoController extends Controller
         return response()->json($contato);
     }
 
-    public function store(Request $request, string $etapaId)
+    public function store(StoreCreateContato $requestEtapa, string $etapaId)
     {
-        $dto = CreateContatoDTO::makeFromRequest($request);
+        $validatedData = $requestEtapa->validated();
+        $dto = CreateContatoDTO::makeFromRequest($validatedData);
+
         $contato = $this->service->create($dto, $etapaId);
         return response()->json($contato, 201);
     }
@@ -52,8 +55,12 @@ class ContatoController extends Controller
   
     public function destroy(string $etapaId, string $id)
     {
-        $this->service->delete($id,$etapaId);
-        return response()->json(['message' => 'Contato deletada com sucesso!'], 204);
+        try {
+            $this->service->delete($id, $etapaId);
+            return response()->json(['message' => 'Contato deletado com sucesso!'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 404);
+        }
     }
 
     public function swap(Request $request,string $etapaId, string $contatoId)
@@ -68,11 +75,11 @@ class ContatoController extends Controller
         return response()->json(['message' => 'Contato movido com sucesso'], 200);
     }
 
-    public function swapPhase(Request $request, string $contatoId)
+    public function swapPhase(Request $request, string $etapaId, string $contatoId)
     {
-        $newPosition = $request->input('new_position');
-        $etapaId = $request->input('etapa_id');
-        $newEtapaId = $request->input('new_etapa_id');
+        $newPosition = $request->newPosition;
+        $etapaId = $request->etapaId;
+        $newEtapaId = $request->newEtapaId;
 
         $this->service->swapPhase($contatoId, $newPosition, $etapaId, $newEtapaId);
 

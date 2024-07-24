@@ -20,17 +20,17 @@ class CreateContatoDTO
 
     ) {}
 
-    public static function makeFromRequest(Request $request): self
+    public static function makeFromRequest(array $data): self
     {
         return new self(
-            $request->name,
-            $request->telefone,
-            $request->email,
-            $request->data_de_nascimento,
-            $request->valor,
-            $request->ddd,
-            $request->cpf,
-            $request->endereco
+            $data['name'],
+            $data['telefone'],
+            $data['email'],
+            $data['data_de_nascimento'],
+            (float)($data['valor']),
+            $data['ddd'],
+            $data['cpf'],
+            $data['endereco']
 
         );
     }
