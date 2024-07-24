@@ -68,12 +68,13 @@ class EtapaEloquentORM implements EtapaRepositoryInterface
     
     $etapa = $this->model->find($id);
 
+    
     if ($etapa) {
         $position = $etapa->position;
 
     
         $getPositions = $this->model->where('funil_id', $funilId)
-            ->where('position', '>=', $position)
+            ->where('position', '>', $position)
             ->where('id', '!=', $id)
             ->orderBy('position', 'asc') 
             ->get();
@@ -84,6 +85,7 @@ class EtapaEloquentORM implements EtapaRepositoryInterface
                 'position' => $etapaAtual->position - 1
             ]);
         }
+        
 
         $etapa->delete();
     
@@ -97,14 +99,19 @@ class EtapaEloquentORM implements EtapaRepositoryInterface
         $oldPosition = $etapa->position;
         $etapaId = $etapa->id;
 
+        if($newPosition <1){
+            return;
+        }
         
-        if($newPosition == $oldPosition){
+        else if($newPosition == $oldPosition){
             return;
         }
         else if ($newPosition < $oldPosition) {
         $getPositions = $this->model->where('funil_id', $funilId)
         ->whereBetween('position', [$newPosition, $oldPosition -1])
-            ->where('id','!=',$etapaId)->get();
+            ->where('id','!=',$etapaId)
+            ->orderBy('position', 'asc')
+            ->get();
 
 
         foreach ($getPositions as $position){
@@ -116,7 +123,8 @@ class EtapaEloquentORM implements EtapaRepositoryInterface
         else if ($newPosition > $oldPosition) {
             $getSmallerPositions = $this->model->where('funil_id', $funilId)
             ->whereBetween('position', [$oldPosition+1, $newPosition])
-            ->where('id','!=',$etapaId)->get();
+            ->where('id','!=',$etapaId)
+            ->orderBy('position', 'asc')->get();
 
 
 

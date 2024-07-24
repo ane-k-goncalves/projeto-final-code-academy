@@ -6,7 +6,7 @@ namespace App\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Client\Request;
 
-class StoreUpdateContato extends FormRequest
+class StoreCreateContato extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,15 @@ class StoreUpdateContato extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'name' => 'string|max:255',
-            'telefone' => 'string',
-            'email' => 'string|max:255',
-            'data_de_nascimento' => 'date',
-            'endereco' => 'string|max:255',
-            'valor' => 'integer',
-            'ddd' => 'ddd'
-            
+            'name' => 'required|string|max:255',
+            'telefone' => 'required|string',
+            'email' => 'required|string|max:255',
+            'data_de_nascimento' => 'required|date',
+            'endereco' => 'required|string|max:255',
+            'valor' => 'required|integer',
+            'ddd' => 'required|ddd',
+            'formato_cpf' => 'formato_cpf',
+            'cpf' => 'required|cpf'
         ];
 
 

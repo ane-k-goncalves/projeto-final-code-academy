@@ -88,7 +88,7 @@ class ContatoEloquentORM implements ContatoRepositoryInterface
             $position = $contato->position;
     
             $getPositions = $this->model->where('etapa_id', $etapaId)
-                ->where('position', '>=', $position)
+                ->where('position', '>', $position)
                 ->where('id', '!=', $id)
                 ->orderBy('position', 'asc')
                 ->get();
@@ -109,15 +109,18 @@ class ContatoEloquentORM implements ContatoRepositoryInterface
         $contato = $this->model->find($contatoId);
         $oldPosition = $contato->position;
         $contatoId = $contato->id;
-      
-      
-        if($newPosition == $oldPosition){
+        
+        if($newPosition <1){
             return;
         }
-        if ($newPosition < $oldPosition) {
+        else if($newPosition == $oldPosition){
+            return;
+        }else if ($newPosition < $oldPosition) {
             $getPositions = $this->model->where('etapa_id', $etapaId)
             ->whereBetween('position', [$newPosition, $oldPosition -1])
-                ->where('id','!=',$contatoId)->get();
+                ->where('id','!=',$contatoId)
+                ->orderBy('position', 'asc')
+                ->get();
     
     
             foreach ($getPositions as $position){
@@ -129,7 +132,9 @@ class ContatoEloquentORM implements ContatoRepositoryInterface
             if ($newPosition > $oldPosition) {
                 $getSmallerPositions = $this->model->where('etapa_id', $etapaId)
                 ->whereBetween('position', [$oldPosition+1, $newPosition])
-                ->where('id','!=',$contatoId)->get();
+                ->where('id','!=',$contatoId)
+                ->orderBy('position', 'asc')
+                ->get();
     
     
     
@@ -155,9 +160,15 @@ class ContatoEloquentORM implements ContatoRepositoryInterface
         $oldPosition = $contato->position;
         $oldEtapaId = $contato->etapa_id;
 
+
+        if($newPosition <1){
+            return;
+        }
         $getOldPositions = $this->model->where('etapa_id', $oldEtapaId)
             ->where('position','>=', $oldPosition)
-            ->where('id','!=',$contatoId)->get();
+            ->where('id','!=',$contatoId)
+            ->orderBy('position', 'asc')
+            ->get();
 
         foreach ($getOldPositions as $position){
                 $position->update([
@@ -173,7 +184,9 @@ class ContatoEloquentORM implements ContatoRepositoryInterface
 
         $getPositions = $this->model->where('etapa_id', $newEtapaId)
             ->where('position','>=', $newPosition)
-            ->where('id','!=',$contatoId)->get();
+            ->where('id','!=',$contatoId)
+            ->orderBy('position', 'asc')
+            ->get();
 
         foreach ($getPositions as $position){
 
