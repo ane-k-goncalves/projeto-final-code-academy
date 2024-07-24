@@ -68,18 +68,20 @@ export default {
       const { newIndex, oldIndex } = evt;
 
       const etapa_id = this.etapas[oldIndex].id;
-      const newPosition = newIndex;
+      const newPosition = newIndex + 1;
 
       this.etapas.forEach((etapa, index) => {
-        etapa.position = index;
+        etapa.position = index +1;
       });
 
       console.log(etapa_id, newPosition);
       const dados = {
-        etapaId: etapa_id,
+      
         newPosition: newPosition,
       };
 
+
+      
       try {
         const response = await fetch(
           `http://localhost:8000/api/funis/${this.id}/etapas/${etapa_id}/swap`,
@@ -97,7 +99,7 @@ export default {
         const result = await response.json();
         if (result.ok) {
           alert("Etapas trocadas");
-          this.fetchEtapas();
+          await this.fetchEtapas();
         }
       } catch (error) {
         console.log(error);
