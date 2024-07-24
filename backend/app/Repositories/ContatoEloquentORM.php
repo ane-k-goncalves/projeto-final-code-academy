@@ -111,6 +111,9 @@ class ContatoEloquentORM implements ContatoRepositoryInterface
         $contatoId = $contato->id;
       
       
+        if($newPosition == $oldPosition){
+            return;
+        }
         if ($newPosition < $oldPosition) {
             $getPositions = $this->model->where('etapa_id', $etapaId)
             ->whereBetween('position', [$newPosition, $oldPosition -1])
