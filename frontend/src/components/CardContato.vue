@@ -1,7 +1,7 @@
 <script>
 import Cookie from 'js-cookie';
 import CrudContato from './CrudContato.vue';
-
+import draggable from "vuedraggable";
 
 export default {
     name: "CardContato",
@@ -11,16 +11,14 @@ export default {
         }
     },
     components: {
-        CrudContato
+        CrudContato,
+        draggable
     },
     props: {
         element: {
             type: Array,
             required: true
         },
-       
-
-       
     },
     methods: {
         async listarContatos() {
@@ -71,6 +69,8 @@ export default {
                 
             </div>
         </div>
+
+        <draggable ></draggable>
     </div>
 </template>
 <style scoped>
@@ -84,6 +84,9 @@ export default {
     justify-content: flex-start;
     margin-top: 20px;
     color: #677C92;
+}
+.card{
+    margin: 10px
 }
 
 
