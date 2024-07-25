@@ -67,16 +67,18 @@ export default {
     async onDragEnd(evt) {
       const { newIndex, oldIndex } = evt;
 
+       
+
       const etapa_id = this.etapas[oldIndex].id;
       const newPosition = newIndex + 1;
 
       this.etapas.forEach((etapa, index) => {
-        etapa.position = index +1;
+        etapa.position = index ;
       });
 
       console.log(etapa_id, newPosition);
       const dados = {
-      
+       
         newPosition: newPosition,
       };
 
@@ -183,7 +185,8 @@ export default {
                     <!-- <CrudContato  :element="element.id" :id="id"/> -->
                   </div>
                   <div class="col">
-                    <CardContato :element="element.id"  />
+                    <CardContato :element="element.id" :id="id"  />
+                    <!-- eu tenho que passar o contato.id para o card,mas por aqui nao da :contatos="contato.id" -->
                   </div>
                 </div>
               </div>
