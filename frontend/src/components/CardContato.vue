@@ -2,12 +2,16 @@
 import Cookie from 'js-cookie';
 import CrudContato from './CrudContato.vue';
 import draggable from "vuedraggable";
+import { Modal } from 'bootstrap';
+import { Offcanvas } from 'bootstrap';
+
 
 export default {
     name: "CardContato",
     data() {
         return {
-            contatos: []
+            contatos: [],
+          
         }
     },
     components: {
@@ -19,11 +23,11 @@ export default {
             type: Array,
             required: true
         },
+        etapas: {
+            type: Array,
+            required: true
+        }
 
-        // contatos:{
-        //     type: Number,
-        //     required: true
-        // }
     },
     methods: {
         async listarContatos() {
@@ -48,38 +52,44 @@ export default {
         }catch(error){
             console.log(error)
         }
-    },
-    async onDragEnd(event) {
-        this.newIndex = event.newIndex;
-        this.oldIndex = event.oldIndex;
+        },
+        async onDragEnd(event) {
+            this.newIndex = event.newIndex;
+            this.oldIndex = event.oldIndex;
 
-      
-      try {
-        const response = await fetch(
-          `http://localhost:8000/api/etapas/${this.element}/contatos/${this.contatos}/swap`,
-          {
-            method: "PUT",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-              Authorization: `Bearer  ${Cookie.get("token")}`,
-            },
+        
+            const contatoMovido = this.contatos[this.oldIndex];
+            const contatoId = contatoMovido.id;
 
-           
-          }
-        );
-        const result = await response.json();
-        if (result.ok) {
-          alert("Etapas trocadas");
-          await this.listarContatos();
+        try {
+            const response = await fetch(
+            `http://localhost:8000/api/etapas/${this.element}/contatos/${contatoId}/swap`,
+            {
+                method: "PUT",
+                headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: `Bearer  ${Cookie.get("token")}`,
+                },
+
+            
+            }
+            );
+            const result = await response.json();
+            if (result.ok) {
+            alert("Etapas trocadas");
+            await this.listarContatos();
+            }
+        } catch (error) {
+            console.log(error);
+            alert("Ocorreu um erro ao trocar as posições das etapas.");
         }
-      } catch (error) {
-        console.log(error);
-        alert("Ocorreu um erro ao trocar as posições das etapas.");
-      }
 
       
     }, 
+   
+        
+     
 //     async ondragstart() {
     
 //     try {
@@ -124,21 +134,13 @@ export default {
 </script>
 <template>
     <div>
-        <!-- <div v-for="contato in contatos" :key="contato.id" class="card" style="width: 240px;">
-            <div class="card-body">
-                <CrudContato :id="contato.id" :element="element" />
-                <h5 class="card-title">{{contato.name}}</h5>
-               
-                <p class="card-text"> R${{ contato.valor }}</p>
-                
-            </div>
-        </div> -->
 
-       <draggable v-model="contatos" item-key="id"  @end="onDragEnd">
+       <draggable v-model="contatos" item-key="id"  @end="onDragEnd"  group="contato">
         <template #item="{ element }">
           <div :key="element.id"  class="card" style="width: 240px;">
             <div class="card-body">
-                <CrudContato :element="element" />
+              
+                 <CrudContato :element="element" />
                 <h5 class="card-title">{{element.name}}</h5>
                
                 <p class="card-text"> R${{ element.valor }}</p>

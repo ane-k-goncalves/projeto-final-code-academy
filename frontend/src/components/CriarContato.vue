@@ -116,7 +116,7 @@ export default {
           <div class="mb-3 row">
             <label for="telefone" class="col-sm-2 col-form-label">Telefone</label>
             <div class="col-sm-8">
-              <input type="number" class="form-control" v-model="telefone">
+              <input type="text" class="form-control" v-model="telefone">
             </div>
           </div>
           <div class="mb-3 row">
@@ -128,13 +128,13 @@ export default {
           <div class="mb-3 row">
             <label for="data_de_nascimento" class="col-sm-2 col-form-label">Data de Nascimento</label>
             <div class="col-sm-8">
-              <input type="data" class="form-control" v-model="data_de_nascimento">
+              <input type="text" class="form-control" v-model="data_de_nascimento">
             </div>
           </div>
           <div class="mb-3 row">
             <label for="valor" class="col-sm-2 col-form-label">Valor</label>
             <div class="col-sm-8">
-              <input type="decimal" class="form-control" v-model="valor">
+              <input type="number" class="form-control" v-model="valor">
             </div>
           </div>
           <div class="mb-3 row">
@@ -146,7 +146,7 @@ export default {
           <div class="mb-3 row">
             <label for="cpf" class="col-sm-2 col-form-label">CPF</label>
             <div class="col-sm-8">
-              <input type="number" class="form-control" v-model="cpf">
+              <input type="text" class="form-control" v-model="cpf">
             </div>
           </div>
           <div class="mb-4 row">

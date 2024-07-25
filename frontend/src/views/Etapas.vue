@@ -139,11 +139,6 @@ export default {
                 <EtapasFunil :etapas="etapas" :id="id" />
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <!-- <CrudContato /> -->
-              </a>
-            </li>
           </ul>
         </div>
       </div>
@@ -151,7 +146,7 @@ export default {
     <div class="contato"></div>
 
     <div class="container">
-      <draggable id="display" v-model="etapas" item-key="id" @end="onDragEnd">
+      <draggable id="display" v-model="etapas" item-key="id" @end="onDragEnd" group="etapa">
         <template #item="{ element }">
           <div :key="element.id" class="card text-center">
             <div class="card-body">
@@ -182,10 +177,10 @@ export default {
                       :etapas="etapas.id"
                       :id="id"
                     />
-                    <!-- <CrudContato  :element="element.id" :id="id"/> -->
+                 
                   </div>
                   <div class="col">
-                    <CardContato :element="element.id" :id="id"  />
+                    <CardContato :element="element.id" :etapas="etapas" :id="id"  />
                     <!-- eu tenho que passar o contato.id para o card,mas por aqui nao da :contatos="contato.id" -->
                   </div>
                 </div>

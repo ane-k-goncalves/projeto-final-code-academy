@@ -7,12 +7,8 @@ export default {
     name:"CrudContato",
     props: {
         element: {
-            type: Array,
+            type: Number,
             required: true
-        },
-        id: {
-          type: Number,
-          required: true
         }
        
     },
@@ -25,8 +21,8 @@ export default {
         valor: '',
         ddd:'',
         endereco: '',
-        idCrud: 'canvas' + this.id,
-        idexcluir: "mod" + this.id
+        idCrud: 'canvas' + this.element.id,
+        idexcluir: "mod" + this.element.id
       }
     },
     methods: {
@@ -43,25 +39,25 @@ export default {
         },
         async editarContato() {
 
-          // const dados = {
-          //   name: this.name,
-          //   telefone: this.telefone,
-          //   email:this.email,
-          //   data_de_nascimento: this.data_de_nascimento,
-          //   valor: this.valor,
-          //   ddd: this.ddd,
-          //   endereco: this.endereco,
+          const dados = {
+            name: this.name,
+            telefone: this.telefone,
+            email:this.email,
+            data_de_nascimento: this.data_de_nascimento,
+            valor: this.valor,
+            ddd: this.ddd,
+            endereco: this.endereco,
 
-          // }
+          }
             try {
-                const res = await fetch(`http://localhost:8000/api/etapas/${this.element}/contatos/${this.id}`, {
+                const res = await fetch(`http://localhost:8000/api/etapas/${this.element.etapa_id}/contatos/${this.element.id}`, {
                 method: 'PUT',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer  ${Cookie.get('token')}`,
                  },
-                // body: JSON.stringify(dados)
+                body: JSON.stringify(dados)
                 });
                 if(res.ok) {
                         
@@ -74,7 +70,7 @@ export default {
 
         async excluirContato() {
             try{
-            const res = await fetch(`http://localhost:8000/api/etapas/${this.element}/contatos/${this.id}`,  {
+            const res = await fetch(`http://localhost:8000/api/etapas/${this.id}/contatos/${this.element}`,  {
                         method: 'DELETE',
                         headers: {
                             'Accept': 'application/json',
