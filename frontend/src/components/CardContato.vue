@@ -19,6 +19,11 @@ export default {
             type: Array,
             required: true
         },
+
+        // contatos:{
+        //     type: Number,
+        //     required: true
+        // }
     },
     methods: {
         async listarContatos() {
@@ -44,6 +49,65 @@ export default {
             console.log(error)
         }
     },
+    async onDragEnd(event) {
+        this.newIndex = event.newIndex;
+        this.oldIndex = event.oldIndex;
+
+      
+      try {
+        const response = await fetch(
+          `http://localhost:8000/api/etapas/${this.element}/contatos/${this.contatos}/swap`,
+          {
+            method: "PUT",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer  ${Cookie.get("token")}`,
+            },
+
+           
+          }
+        );
+        const result = await response.json();
+        if (result.ok) {
+          alert("Etapas trocadas");
+          await this.listarContatos();
+        }
+      } catch (error) {
+        console.log(error);
+        alert("Ocorreu um erro ao trocar as posições das etapas.");
+      }
+
+      
+    }, 
+//     async ondragstart() {
+    
+//     try {
+//       const response = await fetch(
+//         `http://localhost:8000/api/etapas/${this.element}/contatos/${contatoId}/swap-phase`,
+//         {
+//           method: "PUT",
+//           headers: {
+//             Accept: "application/json",
+//             "Content-Type": "application/json",
+//             Authorization: `Bearer  ${Cookie.get("token")}`,
+//           },
+
+         
+//         }
+//       );
+//       const result = await response.json();
+//       if (result.ok) {
+//         alert("Contato trocado de posição");
+//         await this.listarContatos();
+//       }
+//     } catch (error) {
+//       console.log(error);
+//       alert("Ocorreu um erro ao trocar as posições dos contatos.");
+//     }
+//   },
+
+  
    
     },
     mounted() {
@@ -60,7 +124,7 @@ export default {
 </script>
 <template>
     <div>
-        <div v-for="contato in contatos" :key="contato.id" class="card" style="width: 240px;">
+        <!-- <div v-for="contato in contatos" :key="contato.id" class="card" style="width: 240px;">
             <div class="card-body">
                 <CrudContato :id="contato.id" :element="element" />
                 <h5 class="card-title">{{contato.name}}</h5>
@@ -68,9 +132,21 @@ export default {
                 <p class="card-text"> R${{ contato.valor }}</p>
                 
             </div>
-        </div>
+        </div> -->
 
-        <draggable ></draggable>
+       <draggable v-model="contatos" item-key="id"  @end="onDragEnd">
+        <template #item="{ element }">
+          <div :key="element.id"  class="card" style="width: 240px;">
+            <div class="card-body">
+                <CrudContato :element="element" />
+                <h5 class="card-title">{{element.name}}</h5>
+               
+                <p class="card-text"> R${{ element.valor }}</p>
+                
+            </div>
+            </div>
+        </template>
+        </draggable>
     </div>
 </template>
 <style scoped>
