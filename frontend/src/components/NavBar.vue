@@ -89,6 +89,7 @@ export default {
   background-color: #FFBD00;
   width: 100px;
   height: 80px;
+  margin-top: ;
   display: flex;
   justify-content: center;
   /* position: fixed; */
@@ -102,6 +103,7 @@ export default {
   flex-direction: column;
   align-items: start;
   height: 100%;
+  
  
 }
 
@@ -122,6 +124,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  box-shadow: 2px 2px 10px #76777c;
 }
 
 
@@ -135,6 +138,7 @@ export default {
 
 #navbarNavDropdown {
   margin-top: 100px;
+  
 }
 
 .flex-column {

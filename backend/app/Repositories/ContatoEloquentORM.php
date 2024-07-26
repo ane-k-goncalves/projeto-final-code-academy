@@ -99,7 +99,7 @@ class ContatoEloquentORM implements ContatoRepositoryInterface
                 ]);
             }
     
-            $contato->delete(); 
+            $contato->delete(); d
         }
     }
 

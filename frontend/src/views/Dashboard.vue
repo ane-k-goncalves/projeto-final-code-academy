@@ -71,8 +71,8 @@ export default {
 <template>
   <div>
     <NavBar />
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav">
+      <div class="container-fluid" >
         <a class="navbar-brand" href="#">Dashboard</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -111,11 +111,16 @@ export default {
 .navbar {
   height: 80px;
   margin-left: 100px;
-}
+  }
+
+  #nav{
+    box-shadow: 2px 5px 5px #76777c;
+  }
 
 .container {
     display: flex;
     justify-content: center;
+    
 }
 
 .row {
