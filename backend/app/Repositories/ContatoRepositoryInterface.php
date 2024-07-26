@@ -13,6 +13,8 @@ interface ContatoRepositoryInterface
 
     public function create(CreateContatoDTO $dto, string $etapaId): Contato;
 
+    public function importCsv(string $filePath, string $etapaId): void;
+
     public function update(UpdateContatoDTO $dto, string $contatoId): Contato|null;
 
     public function delete(string $id, string $etapaId): void;
