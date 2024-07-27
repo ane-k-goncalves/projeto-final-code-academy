@@ -1,8 +1,6 @@
 <script>
 import NavBar from "@/components/NavBar.vue";
 import EtapasFunil from "../components/EtapasFunil.vue";
-// import CardsEtapas from "../components/CardsEtapas.vue";
-import EditarEtapa from "@/components/EditarEtapa.vue";
 import Cookie from "js-cookie";
 import { ref } from "vue";
 import draggable from "vuedraggable";
@@ -16,7 +14,6 @@ export default {
   components: {
     NavBar,
     EtapasFunil,
-    EditarEtapa,
     CrudEtapas,
     draggable,
     CriarContato,
@@ -69,12 +66,10 @@ export default {
 
        
 
-      const etapa_id = this.etapas[oldIndex].id;
+      const etapa_id = this.etapas[newIndex].id;
       const newPosition = newIndex + 1;
 
-      this.etapas.forEach((etapa, index) => {
-        etapa.position = index ;
-      });
+      
 
       console.log(etapa_id, newPosition);
       const dados = {
@@ -100,8 +95,7 @@ export default {
         );
         const result = await response.json();
         if (result.ok) {
-          alert("Etapas trocadas");
-          await this.fetchEtapas();
+          await this.listarEtapas();
         }
       } catch (error) {
         console.log(error);
@@ -181,7 +175,6 @@ export default {
                   </div>
                   <div class="col">
                     <CardContato :element="element.id" :etapas="etapas" :id="id"  />
-                    <!-- eu tenho que passar o contato.id para o card,mas por aqui nao da :contatos="contato.id" -->
                   </div>
                 </div>
               </div>
