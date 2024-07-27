@@ -30,6 +30,11 @@ class ContatoService
         return $this->repository->create($dto, $etapaId);
     }
 
+    public function importCsv(string $filePath, string $etapaId): void
+    {
+        $this->repository->importCsv($filePath, $etapaId);
+    }
+
     public function update(UpdateContatoDTO $dto,string $contatoId): Contato|null
     {
         return $this->repository->update($dto, $contatoId);
@@ -50,5 +55,7 @@ class ContatoService
     {
         $this->repository->swapPhase($contatoId, $newPosition, $etapaId, $newEtapaId);
     }
+
+
 
 }

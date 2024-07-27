@@ -61,6 +61,7 @@ Route::prefix('etapas/{etapaId}')->group(function () {
     Route::delete('contatos/{contatoId}', [ContatoController::class, 'destroy']);
     Route::put('contatos/{contatoId}/swap', [ContatoController::class, 'swap']);
     Route::put('contatos/{contatoId}/swap-phase', [ContatoController::class, 'swapPhase']);
+    Route::post('contatos/import',[ContatoController::class, 'importCsv']);
 });
 
 

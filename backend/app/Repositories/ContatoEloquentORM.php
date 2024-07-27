@@ -5,6 +5,8 @@ namespace App\Repositories;
 use App\Models\Contato;
 use App\DTO\{CreateContatoDTO, UpdateContatoDTO};
 use App\Repositories\ContatoRepositoryInterface;
+use League\Csv\Reader;
+use League\Csv\Statement;
 
 class ContatoEloquentORM implements ContatoRepositoryInterface
 {
@@ -30,10 +32,10 @@ class ContatoEloquentORM implements ContatoRepositoryInterface
         return $query->get()->toArray();
     }
 
-    public function findOne(string $id, string $etapaId): Contato|null
-{
+    public function findOne(string $id, string $etapaId): Contato|null  
+    {
     return $this->model->where('id', $id)->where('etapa_id', $etapaId)->first();
-}
+    }   
 
 
     public function create(CreateContatoDTO $dto, string $etapaId): Contato
@@ -55,6 +57,27 @@ class ContatoEloquentORM implements ContatoRepositoryInterface
 
 
         ]);
+    }
+
+    public function importCsv(string $filePath, string $etapaId): void
+    {
+        $csv = Reader::createFromPath($filePath, 'r');
+        $csv->setHeaderOffset(0);
+        $stmt = (new Statement())->process($csv);
+
+        foreach ($stmt as $record) {
+            $dto = new CreateContatoDTO(
+                $record['name'],
+                $record['telefone'],
+                $record['email'],
+                $record['data_de_nascimento'],
+                $record['valor'],
+                $record['ddd'],
+                $record['cpf'],
+                $record['endereco']
+            );
+            $this->create($dto, $etapaId);
+        }
     }
 
     public function update(UpdateContatoDTO $dto, string $contatoId): Contato|null

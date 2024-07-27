@@ -7,6 +7,9 @@ use App\Http\Request\StoreUpdateContato;
 use App\Services\ContatoService;
 use App\DTO\{CreateContatoDTO, UpdateContatoDTO};
 use Illuminate\Http\Request;
+use League\Csv\Reader;
+use Illuminate\Support\Facades\Validator;
+use League\Csv\Statement;
 
 class ContatoController extends Controller
 {
@@ -16,6 +19,9 @@ class ContatoController extends Controller
     {
         $this->service = $service;
     }
+
+   
+
 
     public function index(Request $request, string $etapaId)
     {
@@ -38,6 +44,35 @@ class ContatoController extends Controller
         $contato = $this->service->create($dto, $etapaId);
         return response()->json($contato, 201);
     }
+
+    public function importCsv(Request $request, string $etapaId)
+{
+    $validator = Validator::make($request->all(), [
+        'file' => 'required|file|mimes:csv,txt'
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json($validator->errors(), 400);
+    }
+
+    $file = $request->file('file')->getPathname();
+    $csv = Reader::createFromPath($file, 'r');
+    $csv->setHeaderOffset(0);
+    $stmt = (new Statement())->process($csv);
+
+    foreach ($stmt as $record) {
+        $recordValidator = Validator::make($record, (new StoreCreateContato())->rules());
+
+        if ($recordValidator->fails()) {
+            return response()->json($recordValidator->errors(), 400);
+        }
+
+        $dto = CreateContatoDTO::makeFromRequest($record);
+        $this->service->create($dto, $etapaId);
+    }
+
+    return response()->json(['message' => 'Importação e criação realizada com sucesso'], 200);
+}
 
     public function update(StoreUpdateContato $requestContato, string $etapaId,string $contatoId)
     {
