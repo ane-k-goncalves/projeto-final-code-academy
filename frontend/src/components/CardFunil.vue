@@ -46,9 +46,9 @@ export default {
 }
 
 .col {
-  width: 1360px;
+  width: 1400px;
   display: flex;
   flex-wrap: wrap;
-  margin-top: 150px;
+  margin: 100px ;
 }
 </style>

@@ -70,7 +70,7 @@ export default {
 
         async excluirContato() {
             try{
-            const res = await fetch(`http://localhost:8000/api/etapas/${this.id}/contatos/${this.element}`,  {
+            const res = await fetch(`http://localhost:8000/api/etapas/${this.element.etapa_id}/contatos/${this.element.id}`,  {
                         method: 'DELETE',
                         headers: {
                             'Accept': 'application/json',
@@ -116,7 +116,7 @@ export default {
           <div class="mb-3 row">
             <label for="telefone" class="col-sm-2 col-form-label">Telefone</label>
             <div class="col-sm-8">
-              <input type="number" class="form-control" v-model="telefone">
+              <input type="text" class="form-control" v-model="telefone">
             </div>
           </div>
           <div class="mb-3 row">
@@ -134,7 +134,7 @@ export default {
           <div class="mb-3 row">
             <label for="valor" class="col-sm-2 col-form-label">Valor</label>
             <div class="col-sm-8">
-              <input type="decimal" class="form-control" v-model="valor">
+              <input type="number" class="form-control" v-model="valor">
             </div>
           </div>
           <div class="mb-3 row">

@@ -1,7 +1,4 @@
 <script>
-import ExcluirEtapa from './ExcluirEtapa.vue';
-import EditarEtapa from './EditarEtapa.vue';
-import CrudEtapas from './CrudEtapas.vue';
 
 
 export default {
