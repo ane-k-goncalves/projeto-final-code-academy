@@ -135,8 +135,7 @@ export default {
           class="modal"
           :id="idExcluir"
           tabindex="-1"
-          data-bs-backdrop="false"
-        >
+          data-bs-backdrop="false" >
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -145,8 +144,7 @@ export default {
                   type="button"
                   class="btn-close"
                   data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                  aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <form @submit.prevent="excluirEtapa">

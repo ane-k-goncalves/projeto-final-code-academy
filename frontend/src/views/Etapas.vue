@@ -102,6 +102,10 @@ export default {
         alert("Ocorreu um erro ao trocar as posições das etapas.");
       }
     },
+  
+    buscarContato() {
+
+    },
   },
 
   mounted() {
@@ -134,6 +138,13 @@ export default {
               </a>
             </li>
           </ul>
+
+          <form class="d-flex" @submit.prevent="buscarContato">
+            <div class="filtro">
+              <input v-model="filtro" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Buscar</button>
+            </div>
+          </form>
         </div>
       </div>
     </nav>
@@ -153,25 +164,10 @@ export default {
 
                 <div class="row">
                   <div class="col">
-                    <!-- Example single danger button -->
-                    <!-- <div class="btn-group">
-                            <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"></button>
-                            <ul class="dropdown-menu">
-                               <li> <CrudEtapas :element="element.id" :etapas="etapas.id" :id="id"/></li> -->
-                    <!-- <li><a class="dropdown-item" href="#">  <CriarContato /></a></li>
-                              <li><a class="dropdown-item" href="#">Something else here</a></li>
-                              <li><hr class="dropdown-divider"></li>
-                              <li><a class="dropdown-item" href="#">Separated link</a></li>
-                            </ul>
-                          </div> -->
-
-                    <CriarContato :element="element.id" :id="id" />
-                    <CrudEtapas
-                      :element="element.id"
-                      :etapas="etapas.id"
-                      :id="id"
-                    />
-                 
+                    <div class="head">
+                      <CriarContato :element="element.id" :id="id" />
+                      <CrudEtapas :element="element.id" :etapas="etapas.id" :id="id"/>
+                    </div>
                   </div>
                   <div class="col">
                     <CardContato :element="element.id" :etapas="etapas" :id="id"  />
@@ -203,10 +199,14 @@ export default {
 
 .container {
   width: 100%;
-  margin: 100px;
+  margin-left: 150px;
+  margin-top: 50px;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+  
+  max-width: 1600px;
+  overflow-x: auto;
 }
 
 #novo {
@@ -228,14 +228,30 @@ export default {
 }
 
 .card {
-  width: 280px;
+  width: 300px;
   margin: 10px;
-  height: 600px;
+  height: 700px;
   background-color: #f0f4fa;
+  max-height: 700px;
+  max-width: 300px;
+  overflow-y: auto;
+  
 }
 
 .container-body {
   display: inline;
+  justify-content: space-between;
+}
+
+.head {
+    display: flex;
+    justify-content: space-between;
+   
+}
+
+.filtro {
+  width: 400px;
+  display: flex;
   justify-content: space-between;
 }
 </style>
