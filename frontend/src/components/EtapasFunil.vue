@@ -72,14 +72,14 @@ export default {
                 <div class="modal-body">
                     <form @submit.prevent="novaEtapa">
                     <div>
-                    <label>Nomeie nova etapa:</label>
+                    <label>Nome:</label>
                     <input v-model="name" type="text" />
                     </div>
                        
-                
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                
+                    <div class="modal-footer">
+                        <button type="button" id="btn-a" class="btn " data-bs-dismiss="modal">Close</button>
+                        <button type="submit" id="btn-b" class="btn ">Save changes</button>
+                    </div>
                     </form>
                 
                 </div>
@@ -92,10 +92,50 @@ export default {
 </template>
 <style scoped>
 
+input {
+    box-sizing: border-box;
+    border: 2px solid #eeeded;
+    border-radius: 4px;
+    margin: 20px;
+    width: 340px;
+    height: 40px;
+    
+}
+
+.modal-body {
+    margin:10px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+
+}
+
+.modal-footer button { 
+  margin: 5px;
+  width: 200px;
+}
+
 .btn {
   background-color: #3057f2;
   color: white;
   width: 200px;
   height: 40px;
+}
+
+#btn-a {
+    background-color: #E1E9F4;
+    color: rgb(0, 0, 0);
+    width: 200px;
+    height: 40px;
+}
+
+#btn-b {
+    background-color: #3057f2;
+    color: rgb(255, 255, 255);
+    width: 200px;
+    height: 40px;
 }
 </style>

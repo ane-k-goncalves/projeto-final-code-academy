@@ -20,7 +20,7 @@ export default {
     },
     props: {
         element: {
-            type: Array,
+            type: Object,
             required: true
         },
         etapas: {
@@ -33,7 +33,6 @@ export default {
         async listarContatos() {
         try {
                 
-          
           const res = await fetch(`http://localhost:8000/api/etapas/${this.element}/contatos`, {
                 method: 'GET',
                 headers: {
@@ -46,8 +45,6 @@ export default {
           if(res.ok) {
             const data = await res.json();
             this.contatos = data;
-    
-
           }
         }catch(error){
             console.log(error)
@@ -55,19 +52,29 @@ export default {
         },
         log(event){
 
-            const { moved, added } = event;
+            const { moved, added, removed } = event;
             if (moved) {
-                this.onDragEnd(moved);
+                
+                this.dentroEtapa(moved);
             }
-            if (added) {
-                this.onDragStart(added);
+            if(removed) {
+                this.dentroEtapa(removed);
+                this.entreEtapas(removed);
+              
             }
+            
+            if(added) {
+                this.entreEtapas(added);
+                
+               
+            }
+            
        
         },
 
         
         
-        async onDragEnd({ newIndex, oldIndex }) {
+        async dentroEtapa({ newIndex, oldIndex }) {
          
             const contatoId = this.contatos[oldIndex].id;
             const newPosition = newIndex + 1;
@@ -105,21 +112,23 @@ export default {
    
         
      
-    async onDragStart({newIndex, oldIndex}) {
+    async entreEtapas({newIndex, oldIndex}) {
         
         const contatoId = this.contatos[newIndex].id;
 
         const newPosition = newIndex + 1;
 
-        const newEtapaId = this.etapas[newIndex].id;
+        const newEtapaId = this.element;
+
+        const etapaId = this.etapas[newIndex].id;
 
         const dados = {
                 newPosition,
-                contatoId,
+                etapaId,
                 newEtapaId
         }
 
-         console.log(newPosition, contatoId,newEtapaId )
+         console.log(newPosition, etapaId,newEtapaId )
     
     try {
       const response = await fetch(
@@ -160,15 +169,14 @@ export default {
 </script>
 <template>
     <div>
-        <!-- usar if para manipular as mudanças de  -->
-
-       <draggable v-model="contatos" item-key="id"  @change="event => log(event)" group="contato">
+       <draggable v-model="contatos" item-key="id" @change="event => log(event)" :animation="300"  group="contato">
         <template #item="{ element }">
           <div :key="element.id"  class="card" style="width: 240px;">
             <div class="card-body">
-              
-                 <CrudContato :element="element" />
-                <h5 class="card-title">{{element.name}}</h5>
+                <div class="head">
+                    <h5 class="card-title">{{element.name}}</h5>
+                    <CrudContato :element="element" />
+                </div>
                
                 <p class="card-text"> R${{ element.valor }}</p>
                 
@@ -192,7 +200,16 @@ export default {
 }
 .card{
     margin: 10px
+    
 }
 
+.head {
+    display: flex;
+    justify-content: space-between;
+}
+
+h5 {
+    margin: 10px;
+}
 
 </style>
