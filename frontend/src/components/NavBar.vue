@@ -109,6 +109,11 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
+  
+}
+
+.navbar {
+  box-shadow: 4px 4px 4px #585656;
 }
 
 

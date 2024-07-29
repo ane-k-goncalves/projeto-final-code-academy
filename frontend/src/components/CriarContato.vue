@@ -29,7 +29,7 @@ export default {
             const myOffcanvas = document.getElementById(this.idCriar);
             const bsOffcanvas = new Offcanvas(myOffcanvas);
             bsOffcanvas.show();
-        },
+      },
       async criarContato() {
         try {
           const dados = {
@@ -63,9 +63,36 @@ export default {
         }catch(error){
             console.log(error)
         }
-    }
+    },
+    async importCSV() {
+      try{
+
+        const fileInput = document.getElementById('csvFileInput');
+        const file = fileInput.files[0];
+        if (!file) {
+          alert('Por favor, selecione um arquivo CSV.');
+          return;
+        }
+        const formData = new FormData();
+        formData.append('file', file);
+
+      const res = await fetch(`http://localhost:8000/api/etapas/${this.element}/contatos/import`, {
+                method: 'POST',
+                headers: {
+                   'Authorization': `Bearer  ${Cookie.get('token')}`,
+                 },
+                 body:formData
+          });
+          if(res.ok) {
+                
+            alert('Novos contatos importados!');
+            await this.listarContatos();
+          }
+        }catch(error){
+            console.log(error)
+        }
+  },
   }
-  
 }
 </script>
 <template>
@@ -161,6 +188,11 @@ export default {
         </form>
       </div>
     </div>
+
+    <input type="file" id="csvFileInput" accept=".csv">
+    <button class="btn btn-primary" @click="importCSV()">Importar CSV</button>
+    <table id="csvTable"></table>
+
   </div>
 </div>
 
