@@ -152,7 +152,7 @@ export default {
 <template>
   <div>
     <NavBar />
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar bg">
       <div class="container-fluid">
         <a class="navbar-brand" href="#"> Funil {{ name }}</a>
         <button
@@ -178,7 +178,7 @@ export default {
           <form class="d-flex" @submit.prevent="buscarContato">
             <div class="filtro">
               <input v-model="filter" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Buscar</button>
+              <button class="btn btn-outline-primary" type="submit">Buscar</button>
             </div>
           </form>
         </div>
