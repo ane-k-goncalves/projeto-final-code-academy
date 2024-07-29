@@ -81,7 +81,7 @@ export default {
                 headers: {
                    'Authorization': `Bearer  ${Cookie.get('token')}`,
                  },
-                 body:formData
+                 body: formData
           });
           if(res.ok) {
                 
