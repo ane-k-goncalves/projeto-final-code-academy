@@ -7,7 +7,7 @@ use App\DTO\{CreateContatoDTO, UpdateContatoDTO};
 
 interface ContatoRepositoryInterface
 {
-    public function getAll(string $filter = null, string $etapaId = null): array;
+    public function getAll(string $filter = null, string $etapaId = null, bool $ignoreEtapa = false): array;
 
     public function findOne(string $id, string $etapaId): Contato|null;
 

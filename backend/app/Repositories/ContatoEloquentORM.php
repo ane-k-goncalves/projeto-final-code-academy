@@ -17,11 +17,11 @@ class ContatoEloquentORM implements ContatoRepositoryInterface
         $this->model = $model;
     }
 
-    public function getAll(string $filter = null, string $etapaId = null): array
+    public function getAll(string $filter = null, string $etapaId = null, bool $ignoreEtapa = false): array
     {
         $query = $this->model->query();
 
-        if ($etapaId) {
+        if (!$ignoreEtapa && $etapaId) {
             $query->where('etapa_id', $etapaId);
         }
 

@@ -15,9 +15,10 @@ class ContatoService
         $this->repository = $repository;
     }
 
-    public function getAll(string $filter = null, string $etapaId = null): array
+    public function getAll(string $filter = null, string $etapaId = null, bool $ignoreEtapa = false): array
     {
-        return $this->repository->getAll($filter, $etapaId);
+        
+        return $this->repository->getAll($filter, $etapaId, $ignoreEtapa);
     }
 
     public function findOne(string $id, string $etapaId): Contato|null

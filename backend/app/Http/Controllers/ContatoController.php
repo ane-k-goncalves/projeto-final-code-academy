@@ -25,9 +25,17 @@ class ContatoController extends Controller
 
     public function index(Request $request, string $etapaId)
     {
-        $filter = $request->query('filter');
-        $contatos = $this->service->getAll($filter, $etapaId);
-        return response()->json($contatos);
+      
+    $filter = $request->input('filter', null);
+    $ignoreEtapa = filter_var($request->input('ignoreEtapa', true), FILTER_VALIDATE_BOOLEAN);
+    
+
+    $etapaIdParam = $ignoreEtapa ? null : $etapaId;
+    
+    
+    $contatos = $this->service->getAll($filter, $etapaIdParam, $ignoreEtapa);
+    
+    return response()->json($contatos);
     }
 
     public function show(string $etapaId, string $id)
