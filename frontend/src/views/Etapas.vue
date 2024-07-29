@@ -29,9 +29,11 @@ export default {
       type: String,
       required: true,
     },
+    
   },
   data() {
     return {
+      filter: '',
       etapas: [],
       contatos: [],
       selectedEtapa: null,
@@ -103,10 +105,44 @@ export default {
       }
     },
   
-    buscarContato() {
+    async buscarContato() {
+      
+      const dados = {
+       
+        filter: this.filter,
+        contatos: this.etapa_id
+      };
+
+
+      
+      try {
+        const response = await fetch(
+          `http://localhost:8000/api/etapas/${this.id}/contatos`,
+          {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer  ${Cookie.get("token")}`,
+            },
+
+          }
+        );
+        const result = await response.json();
+        if (response.ok) {
+          this.contatos = result;  // Assuming the result is the list of contatos
+        } else {
+          console.error("Error:", result);
+          alert("O contato não existe.");
+        }
+      } catch (error) {
+        console.log(error);
+        alert("O contato não existe.");
+      }
+    },
 
     },
-  },
+  
 
   mounted() {
     this.listarEtapas();
@@ -141,7 +177,7 @@ export default {
 
           <form class="d-flex" @submit.prevent="buscarContato">
             <div class="filtro">
-              <input v-model="filtro" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <input v-model="filter" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Buscar</button>
             </div>
           </form>
