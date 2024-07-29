@@ -27,7 +27,7 @@ class ContatoController extends Controller
     {
       
     $filter = $request->input('filter', null);
-    $ignoreEtapa = filter_var($request->input('ignoreEtapa', true), FILTER_VALIDATE_BOOLEAN);
+    $ignoreEtapa = filter_var($request->input('ignoreEtapa', false), FILTER_VALIDATE_BOOLEAN);
     
 
     $etapaIdParam = $ignoreEtapa ? null : $etapaId;

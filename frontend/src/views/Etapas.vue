@@ -107,17 +107,12 @@ export default {
   
     async buscarContato() {
       
-      const dados = {
-       
-        filter: this.filter,
-        contatos: this.etapa_id
-      };
 
-
+      const url = `http://localhost:8000/api/etapas/${this.id}/contatos?ignoreEtapa=true&filter=${this.filter}`;
       
       try {
         const response = await fetch(
-          `http://localhost:8000/api/etapas/${this.id}/contatos`,
+         url,
           {
             method: "GET",
             headers: {
@@ -126,6 +121,7 @@ export default {
               Authorization: `Bearer  ${Cookie.get("token")}`,
             },
 
+           
           }
         );
         const result = await response.json();
@@ -215,6 +211,7 @@ export default {
         </template>
       </draggable>
     </div>
+   
   </div>
 </template>
 <style scoped>
