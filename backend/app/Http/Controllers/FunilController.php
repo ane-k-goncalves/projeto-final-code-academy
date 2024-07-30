@@ -40,7 +40,6 @@ class FunilController extends Controller
     }
 
 
-
     public function store(StoreUpdateFunil $request)
     {
         $user = JWTAuth::parseToken()->authenticate();
@@ -48,13 +47,11 @@ class FunilController extends Controller
         if (!$user) {
             return response()->json(['message' => 'User not authenticated'], 401);
         }
-   
 
         $dto = new CreateFunilDTO(
             name: $request->name,
             userId: $user->id
         );
-
 
         $funil = $this->service->new($dto);
         return response()->json($funil, 201);
