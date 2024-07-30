@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Tymon\JWTAuth\Facades\JWTAuth;
 use App\DTO\CreateFunilDTO;
 use App\DTO\UpdateFunilDTO;
 use App\Http\Request\StoreUpdateFunil;
@@ -23,6 +24,12 @@ class FunilController extends Controller
     public function index(Request $request)
     {
         $filter = data_get($request->filter, null);
+        $user = JWTAuth::parseToken()->authenticate(); // Autentica o usuário
+
+        if (!$user) {
+            return response()->json(['message' => 'User not authenticated'], 401);
+        }
+
         $funis = $this->service->paginate(
             page: $request->get('page', 1),
             totalPerPage: $request->get('perPage', 8),
@@ -32,15 +39,19 @@ class FunilController extends Controller
         return response()->json($funis->toArray());
     }
 
-    
     public function store(StoreUpdateFunil $request)
     {
-        $user = auth()->user();
+        $user = JWTAuth::parseToken()->authenticate();
+    
+        if (!$user) {
+            return response()->json(['message' => 'User not authenticated'], 401);
+        }
+    
         $dto = new CreateFunilDTO(
             name: $request->name,
             userId: $user->id
         );
-
+    
         $funil = $this->service->new($dto);
         return response()->json($funil, 201);
     }
