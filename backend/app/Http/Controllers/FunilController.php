@@ -52,7 +52,7 @@ class FunilController extends Controller
             name: $request->name,
             userId: $user->id
         );
-
+    
         $funil = $this->service->new($dto);
         return response()->json($funil, 201);
     }
