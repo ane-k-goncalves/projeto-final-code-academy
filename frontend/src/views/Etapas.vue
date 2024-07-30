@@ -181,8 +181,9 @@ export default {
       </div>
     </nav>
     <div class="contato"></div>
-
+    
     <div class="container">
+      
       <draggable id="display" v-model="etapas" item-key="id" @end="onDragEnd" group="etapa">
         <template #item="{ element }">
           <div :key="element.id" class="card text-center">
@@ -211,10 +212,49 @@ export default {
         </template>
       </draggable>
     </div>
+
+    <div class="container" style="  background: #f7f7f7; ">
+      
+      <div v-if="contatos.length" class="buscar">
+        <h3>Buscar contatos</h3>
+        
+        <div v-for="contato in contatos" :key="contato.id" id="busca" class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ contato.name }}</h5>
+            <p class="card-text">{{ contato.email }}</p>
+            <p class="card-text">{{ contato.etapa_id }}</p>
+           
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  
    
   </div>
 </template>
 <style scoped>
+.buscar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  
+  max-width: 1600px;
+  overflow-x: auto;
+  background: #f7f7f7;
+}
+
+h3 {
+ text-align: center;
+ margin: 40px;
+ margin-top: 80px;
+
+}
+
+#busca{
+  width: 200px;
+  height: 200px;
+}
 .contato {
   margin-left: 100px;
 }
@@ -287,4 +327,7 @@ export default {
   display: flex;
   justify-content: space-between;
 }
+
+
+
 </style>
