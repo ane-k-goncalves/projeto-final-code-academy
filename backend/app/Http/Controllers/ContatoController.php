@@ -68,9 +68,10 @@ class ContatoController extends Controller
     $csv->setHeaderOffset(0);
     $stmt = (new Statement())->process($csv);
 
+   
     foreach ($stmt as $record) {
         $recordValidator = Validator::make($record, (new StoreCreateContato())->rules());
-
+        
         if ($recordValidator->fails()) {
             return response()->json($recordValidator->errors(), 400);
         }

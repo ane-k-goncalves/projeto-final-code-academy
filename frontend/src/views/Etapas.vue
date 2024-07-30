@@ -138,6 +138,11 @@ export default {
     },
 
     },
+    computed: {
+    isFilterActive() {
+      return this.filter.trim().length > 0;
+    },
+  },
   
 
   mounted() {
@@ -182,7 +187,7 @@ export default {
     </nav>
     <div class="contato"></div>
     
-    <div class="container">
+    <div class="container" v-if="!isFilterActive">
       
       <draggable id="display" v-model="etapas" item-key="id" @end="onDragEnd" group="etapa">
         <template #item="{ element }">
@@ -213,11 +218,10 @@ export default {
       </draggable>
     </div>
 
-    <div class="container" style="  background: #f7f7f7; ">
-      
+    <div class="container" v-if="isFilterActive">
+      <h3>Contatos</h3>
+
       <div v-if="contatos.length" class="buscar">
-        <h3>Buscar contatos</h3>
-        
         <div v-for="contato in contatos" :key="contato.id" id="busca" class="card">
           <div class="card-body">
             <h5 class="card-title">{{ contato.name }}</h5>
@@ -235,24 +239,28 @@ export default {
 </template>
 <style scoped>
 .buscar {
+  margin-top: 70px;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
   
-  max-width: 1600px;
+  max-width: 1000px;
   overflow-x: auto;
-  background: #f7f7f7;
+  
 }
 
 h3 {
- text-align: center;
- margin: 40px;
- margin-top: 80px;
+ 
+ display: inline;
+ margin-left: 100px;
+ width: 300px;
+ height: 20px;
 
 }
 
 #busca{
-  width: 200px;
+  width: 300px;
   height: 200px;
 }
 .contato {
