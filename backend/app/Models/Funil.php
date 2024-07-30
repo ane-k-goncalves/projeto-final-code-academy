@@ -10,11 +10,16 @@ class Funil extends Model
     use HasFactory;
 
     protected $nome = 'funils';    
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'user_id'];
 
     public function etapas()
     {
         return $this->hasMany(Etapa::class);
+    }
+
+       public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
   

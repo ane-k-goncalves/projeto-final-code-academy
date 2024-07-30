@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DTO\CreateFunilDTO;
 use App\DTO\UpdateFunilDTO;
+use App\Http\Request\StoreUpdateFunil;
 use App\Services\FunilService;
 use Illuminate\Http\Request;
 
@@ -32,9 +33,14 @@ class FunilController extends Controller
     }
 
     
-    public function store(Request $request)
+    public function store(StoreUpdateFunil $request)
     {
-        $dto = new CreateFunilDTO($request->name);
+        $user = auth()->user();
+        $dto = new CreateFunilDTO(
+            name: $request->name,
+            userId: $user->id
+        );
+
         $funil = $this->service->new($dto);
         return response()->json($funil, 201);
     }

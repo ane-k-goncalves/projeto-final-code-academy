@@ -35,7 +35,8 @@ class FunilEloquentORM implements FunilRepositoryInterface
     public function create(CreateFunilDTO $dto): Funil
     {
         return $this->model->create([
-            'name' => $dto->name
+            'name' => $dto->name,
+            'user_id' => auth()->id()
         ]);
     }
 

@@ -74,7 +74,8 @@ class ContatoEloquentORM implements ContatoRepositoryInterface
                 $record['valor'],
                 $record['ddd'],
                 $record['cpf'],
-                $record['endereco']
+                $record['endereco'],
+            
             );
             $this->create($dto, $etapaId);
         }
