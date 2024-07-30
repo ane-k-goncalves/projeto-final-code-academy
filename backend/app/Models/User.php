@@ -67,4 +67,10 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     {
         return [];
     }
+
+    public function funis()
+    {
+        return $this->hasMany(Funil::class);
+    }
+
 }
