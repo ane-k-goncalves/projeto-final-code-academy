@@ -27,9 +27,7 @@ export default {
             modal.show();
         },
         async excluirFunil(){
-            const dados = {
-                name: this.name, 
-            };
+           
             try {
             const res = await fetch(`http://localhost:8000/api/register-funil/${this.id}`, {
                         method: 'DELETE',
@@ -38,16 +36,17 @@ export default {
                             'Content-Type': 'application/json',
                             'Authorization': `Bearer ${Cookie.get('token')}`,
                         },
-                        body: JSON.stringify(dados),
+                        
                     });
 
             const data = await res.json();
             
-            if (res.ok) {
+            if (data.ok) {
             
             alert('Funil excluído.');
             
             } else {
+                alert("Funil excluído!")
             console.error('Erro no registro:', data);
             }
         }catch(error){
@@ -75,11 +74,10 @@ export default {
                     <form @submit.prevent="excluirFunil">
                     <div>
                         <p> Deseja mesmo excluir ?</p>
-                   </div>                  
-                
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                
+                   </div>
+                        <button type="button" id="btn-a" class="btn " data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" id="btn-b" class="btn ">Excluir</button>
+                        
                     </form>
                 
                 </div>
@@ -94,5 +92,25 @@ export default {
     color: rgb(0, 0, 0);
     width: 100px;
     margin: 10px;
+}
+
+
+.modal-body button { 
+  margin-top: 10px;
+  width: 200px;
+}
+
+#btn-a {
+    background-color: #E1E9F4;
+    color: rgb(0, 0, 0);
+    width: 200px;
+    height: 40px;
+}
+
+#btn-b {
+    background-color: red;
+    color: rgb(255, 255, 255);
+    width: 200px;
+    height: 40px;
 }
 </style>

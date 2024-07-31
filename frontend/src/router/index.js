@@ -61,7 +61,7 @@ const router = createRouter({
     },
 
     {
-      path: '/verify/email/:id/:hash',
+      path: '/verify/email/:${id}/:${hash}',
       name: 'VerifyEmail',
       component: () => import('../views/VerifyEmail.vue'),
     },

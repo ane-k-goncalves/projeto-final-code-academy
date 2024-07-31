@@ -38,7 +38,7 @@ export default {
         const data = await response.json();
         if (response.ok) {
           alert('Cadastro realizado. Por favor verifique seu email.');
-          this.$router.push('/verify/email/:id/:hash');
+          this.$router.push('/login');
         } else {
           console.error('Erro no registro:', data);
         }
@@ -57,7 +57,7 @@ export default {
           const id = responseData.id;
           const hash= responseData.hash;
          
-          this.$router.push('/verify/email/:id/:hash');
+          this.$router.push(`/verify/email/:${id}/:${hash}`);
         }else{
           const errorData = await sendVerificationResponse.json();
           this.message = 'Error: ' + errorData.message;

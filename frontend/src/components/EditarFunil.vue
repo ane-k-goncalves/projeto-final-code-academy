@@ -42,8 +42,11 @@ export default {
 
         const data = await res.json();
 
-        if (data.ok) {
+        if (data) {
          alert("Funil editado.");
+        }
+        else {
+          alert("Erro ao editar funil");
         }
       } catch (error) {
         console.log("Erro", error);
@@ -78,16 +81,8 @@ export default {
                 <input v-model="newName" type="text" />
               </div>
 
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="submit" class="btn btn-primary">
-                Save changes
-              </button>
+              <button type="button" id="btn-a" class="btn" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" id="btn-b" class="btn "> Salvar </button>
             </form>
           </div>
         </div>
@@ -101,5 +96,35 @@ export default {
   color: rgb(0, 0, 0);
   width: 100px;
   margin: 10px;
+}
+
+input {
+    box-sizing: border-box;
+    border: 2px solid #eeeded;
+    border-radius: 4px;
+    margin: 10px;
+    width: 340px;
+    height: 40px;
+    
+}
+
+.modal-body button { 
+  margin-top: 30px;
+  width: 200px;
+}
+
+
+#btn-a {
+    background-color: #E1E9F4;
+    color: rgb(0, 0, 0);
+    width: 200px;
+    height: 40px;
+}
+
+#btn-b {
+    background-color: #3057f2;
+    color: rgb(255, 255, 255);
+    width: 200px;
+    height: 40px;
 }
 </style>
