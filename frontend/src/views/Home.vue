@@ -38,7 +38,7 @@
                     <a href="#" class="nav-link mx-2" id="blog-link">Blog</a>
                     <a href="#" class="nav-link mx-2" id="partner-link">Seja um parceiro</a>
                 </div>
-                <div class="d-flex align-items-center ml-auto">
+                <div class="d-flex align-items-center ml-auto" id="button-right">
                     <button id="button-login" class="btn btn-warning rounded-pill mx-2" @click="goToLogin">Login</button>
                     <button id="button-signup" class="btn btn-warning rounded-pill" @click="goToCadastro">Cadastro</button>
                 </div>
@@ -74,6 +74,39 @@
                 <img src="../assets/image copy 3.png" alt="">
                 <img src="../assets/image copy 2.png" alt="">
             </div>
+        </div>
+        <div id="motivation">
+        <div id="opq">
+            <div class="alnopq">
+            <h2>Por que</h2>
+            <h2>usar o</h2>
+            <h2>3C Plus?</h2>
+            </div>
+        </div>
+        <div class="divs-motivation">
+            <div class="aln">
+            <h5>Vender mais</h5>
+            <p>Transforme leads em</p>
+            <p>vendas ao otimizar</p>
+            <p>sua comunicação.</p>
+            </div>
+        </div>
+        <div class="divs-motivation">
+            <div class="aln">
+            <h5>Gerir melhor</h5>
+            <p>Organize todo o seu</p>
+            <p>atendimento em uma</p>
+            <p>única ferramenta.</p>
+            </div>
+        </div>
+        <div class="divs-motivation">
+            <div class="aln">
+            <h5>Conecte texto e voz</h5>
+            <p>para falar com mais</p>
+            <p>clientes em menos</p>
+            <p>tempo.</p>
+            </div>
+        </div>
         </div>
     </div>
 </template>
@@ -125,6 +158,10 @@ export default {
     margin-left: 150px;
 }
 
+#info-home{
+    margin-left: 200px;
+}
+
 #navbar {
     height: 70px;
     width: 100%;
@@ -144,6 +181,7 @@ export default {
 .estilo-home {
     color: #f4a10f;
     font-size: 60px;
+    margin-left: 100px;
 }
 
 #separador-home {
@@ -151,7 +189,10 @@ export default {
     padding-left: 130px;
     font-size: 20px;
 }
-
+.img-fluid{
+    margin-top: 80px;
+    margin-left: 300px;
+}
 .p-home {
     text-align: left;
 }
@@ -201,5 +242,59 @@ export default {
     padding: 0.5rem 1rem;
     display: block;
     font-size: 1.1rem;
+}
+#button-right{
+    margin-left: 200px
+}
+
+#opq{
+ 
+    margin-right: 80px;
+    height: 250px;
+    width: 230px;
+    box-shadow: 2px 5px 10px #76777c;
+    text-align: center;
+    color: #76777c;
+    font-size: 29;
+    background-color: #F0FFFF;
+    border-radius: 20px;
+   
+    
+
+}
+
+#motivation{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+}
+
+
+.divs-motivation{
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 350px;
+    width: 230px;
+    background-color: #4682B4;
+    text-align: center;
+    border-radius:  20px;
+    color: #fff;
+    box-shadow: 2px 5px 10px #76777c;
+    
+}
+
+.divs-motivation h5 {
+
+   margin-bottom: 10px; 
+}
+.aln{
+    margin-top: 110px;
+    
+}
+
+.alnopq{
+
+    margin-top: 55px;
 }
 </style>
