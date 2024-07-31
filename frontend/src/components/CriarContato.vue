@@ -21,7 +21,8 @@ export default {
         ddd:'',
         cpf:'',
         endereco: '',
-        idCriar: 'canvas' + this.element
+        idCriar: 'canvas' + this.element,
+        selectedFile: null 
       }
     },
     methods: {
@@ -64,17 +65,21 @@ export default {
             console.log(error)
         }
     },
+    handleFileChange(event) {
+      this.selectedFile = event.target.files[0]
+    },
     async importCSV() {
       try{
 
-        const fileInput = document.getElementById('csvFileInput');
-        const file = fileInput.files[0];
-        if (!file) {
+        if (!this.selectedFile) {
           alert('Por favor, selecione um arquivo CSV.');
           return;
         }
+        
+        console.log(this.selectedFile);
+        
         const formData = new FormData();
-        formData.append('file', file);
+        formData.append('file', this.selectedFile);
 
       const res = await fetch(`http://localhost:8000/api/etapas/${this.element}/contatos/import`, {
                 method: 'POST',
@@ -189,10 +194,9 @@ export default {
       </div>
     </div>
 
-    <input type="file" id="csvFileInput" accept=".csv">
+    <input type="file" id="csvFileInput" accept=".csv" @change="handleFileChange">>
     <button class="btn btn-primary" @click="importCSV()">Importar CSV</button>
-    <table id="csvTable"></table>
-
+   
   </div>
 </div>
 

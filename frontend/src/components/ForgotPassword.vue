@@ -34,7 +34,7 @@ export default {
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        Authorization: `Bearer  ${Cookie.get("token")}`,
                     },
                     body: JSON.stringify(req),
                 });
@@ -43,7 +43,7 @@ export default {
                     const data = await res.json();
                     if (data.token) {
                         Cookie.set('token', data.token);
-                        console.log("Token de redefinição enviado com sucesso");
+                        alert("Token de redefinição enviado com sucesso");
                         this.$router.push({ path: '/reset-password/:token', query: { token: data.token } });
                     }
                 } else {

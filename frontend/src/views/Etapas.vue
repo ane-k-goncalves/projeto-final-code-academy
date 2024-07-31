@@ -126,7 +126,7 @@ export default {
         );
         const result = await response.json();
         if (response.ok) {
-          this.contatos = result;  // Assuming the result is the list of contatos
+          this.contatos = result;  
         } else {
           console.error("Error:", result);
           alert("O contato não existe.");
