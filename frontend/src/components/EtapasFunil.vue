@@ -47,8 +47,11 @@ export default {
             });
 
             if(res.ok) {
-                this.name = '';
                 alert('Nova etapa criada!')
+                const newEtapa = await res.json();
+                this.etapas.push(newEtapa);
+                this.name = '';
+                
             }
         }catch(error){
             console.log(error)

@@ -227,6 +227,7 @@ export default {
             <h5 class="card-title">{{ contato.name }}</h5>
             <p class="card-text">{{ contato.email }}</p>
             <p class="card-text">{{ contato.etapa_id }}</p>
+            <!-- <CardContato :element="id" :etapas="etapas" :contato="contato.id"  /> -->
            
             
           </div>
