@@ -1,16 +1,44 @@
 <script>
 import { RouterLink, RouterView } from 'vue-router';
 import AnimationVue from "./components/AnimationVue.vue";
+import Cookie from 'js-cookie';
  
 export default {
     name: "CRM" ,
-    components: { 
-        AnimationVue
+      components: { 
+          AnimationVue
+     },
+  
+    mounted() {
+      // Inicie a verificação recursiva quando o componente for montado
+      this.tokenExpirado();
     },
     methods: {
+      async tokenExpirado()  {
+        try {
+        const response = await fetch(`http://localhost:8000/api/logout`, {
+             method: 'POST',
+             headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer  ${Cookie.get('token')}`,
+            },
+        });
+        if (!response.ok) {
+          alert('Sua sessão expirou. Por favor, faça login novamente.');
+          router.push('/login');
+          
+        }
 
-
+      } finally {
+        // Chamar a função novamente após um intervalo de tempo
+        setTimeout(() => {
+          this.tokenExpirado();
+        }, 60000); // Verificar a cada 60 segundos (1 minuto)
+      }
+    
     }
+  }
 }
 
 </script>
