@@ -169,7 +169,7 @@ export default {
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
+            <li class="nav-item" id="naav">
               <a class="nav-link" href="#">
                 <EtapasFunil :etapas="etapas" :id="id" />
               </a>
@@ -250,6 +250,13 @@ export default {
   overflow-x: auto;
   
 }
+
+#naav {
+  margin-left: 800px;
+  display: inline;
+  justify-content: flex-end;
+}
+ 
 
 h3 {
  
@@ -332,7 +339,7 @@ h3 {
 }
 
 .filtro {
-  width: 400px;
+  width: 500px;
   display: flex;
   justify-content: space-between;
 }

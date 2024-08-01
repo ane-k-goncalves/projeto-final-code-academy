@@ -37,12 +37,14 @@
 
 .txt-animado {
     font-size: 45px;
+    margin: 40px;
 
 }
 
 .txt-animado span{
     position: relative;
     color: #3057F2;
+  
 }
 
 
@@ -58,4 +60,6 @@
     display: flex;
    
 }
+
+
 </style>

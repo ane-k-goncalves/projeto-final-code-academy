@@ -79,7 +79,7 @@ export default {
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
+            <li class="nav-item" id="naav">
               <a class="nav-link" href="#">
                 <FunilDashboard />
               </a>
@@ -111,6 +111,12 @@ export default {
 .navbar {
   height: 80px;
   margin-left: 100px;
+  
+}
+#naav {
+  margin-left: 800px;
+  display: inline;
+  justify-content: flex-end;
 }
 
 .container {
@@ -132,6 +138,11 @@ export default {
 .filtro {
   display: flex;
   justify-content: center;
+  width: 500px;
+}
+
+.filtro input {
+  width: 500px;
 }
 
 input {
