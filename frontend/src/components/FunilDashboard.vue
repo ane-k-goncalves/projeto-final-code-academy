@@ -41,8 +41,7 @@ export default {
 
         if (res.ok) {
           alert("Funil cadastrado.");
-          const newData = await res.json();
-          this.funils.push(newData);
+          location.reload();
         } else {
           console.error("Erro no registro:", data);
         }

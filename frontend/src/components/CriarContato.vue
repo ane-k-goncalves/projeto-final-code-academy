@@ -59,8 +59,7 @@ export default {
           });
           if(res.ok) {
             alert('Novo contato criado!');
-            // const newContact = await res.json();
-            // this.element.push(newContact); 
+            location.reload();
             
             
           }

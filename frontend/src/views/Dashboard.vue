@@ -46,6 +46,7 @@ export default {
           this.funis.total = data.total;
           this.funis.currentPage = data.current_page;
           this.funis.perPage = data.per_page;
+         
         } else {
           console.error('Erro ao buscar funis');
         }
@@ -64,6 +65,7 @@ export default {
   },
   mounted() {
     this.fetchFunils();
+    
   }
 }
 </script>
