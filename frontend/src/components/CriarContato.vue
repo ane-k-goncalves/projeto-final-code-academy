@@ -22,7 +22,8 @@ export default {
         cpf:'',
         endereco: '',
         idCriar: 'canvas' + this.element,
-        selectedFile: null 
+        selectedFile: null,
+        
       }
     },
     methods: {
@@ -57,9 +58,11 @@ export default {
                 body: JSON.stringify(dados)
           });
           if(res.ok) {
-                
             alert('Novo contato criado!');
-            await this.listarContatos();
+            // const newContact = await res.json();
+            // this.element.push(newContact); 
+            
+            
           }
         }catch(error){
             console.log(error)
@@ -81,7 +84,7 @@ export default {
         const formData = new FormData();
         formData.append('file', this.selectedFile);
 
-      const res = await fetch(`http://localhost:8000/api/etapas/${this.element}/contatos/import`, {
+        const res = await fetch(`http://localhost:8000/api/etapas/${this.element}/contatos/import`, {
                 method: 'POST',
                 headers: {
                    'Authorization': `Bearer  ${Cookie.get('token')}`,

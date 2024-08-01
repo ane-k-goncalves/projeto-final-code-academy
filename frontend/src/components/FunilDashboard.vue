@@ -10,9 +10,10 @@ export default {
       name: "",
       newName: "",
       id: "",
-      funils: {},
+      funils: [],
     };
   },
+  
   components: {
     CardFunil,
   },
@@ -40,8 +41,8 @@ export default {
 
         if (res.ok) {
           alert("Funil cadastrado.");
-          const data = await res.json();
-          this.funils = data;
+          const newData = await res.json();
+          this.funils.push(newData);
         } else {
           console.error("Erro no registro:", data);
         }
