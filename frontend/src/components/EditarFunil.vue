@@ -44,6 +44,7 @@ export default {
 
         if (data) {
          alert("Funil editado.");
+         
         }
         else {
           alert("Erro ao editar funil");

@@ -115,8 +115,10 @@ export default {
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-end">
+            <div class="row justify-content-end" id="aa">
+              
               <img width="100px" height="100px" src="../../src/assets/logo3c.svg">
+           
             
               <div>
                 <AnimationVue />
@@ -164,8 +166,15 @@ p {
     box-shadow: 0 0 10px #b6b1b1;
     width: 450px;
     height: 500px;
+    margin-top:150px;
 
 }
+
+#aa {
+  margin-top: 200px;
+}
+
+
 .btn {
     background-color: #FFB534;
     width: 200px;
