@@ -18,7 +18,7 @@
           
 
             <div id="copyright">
-                <p>	&copy; jorgeDevSoftware 2024</p>
+                <p>	&copy; DevSoftware 2024</p>
             </div>
 
 

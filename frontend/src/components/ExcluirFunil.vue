@@ -39,11 +39,11 @@ export default {
                         
                     });
 
-            const data = await res.json();
+        
             
-            if (data.ok) {
-            
-            alert('Funil excluído.');
+            if (res.ok) {
+                alert('Funil excluído.');
+                location.reload();
             
             } else {
                 alert("Funil excluído!")

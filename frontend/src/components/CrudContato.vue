@@ -60,8 +60,8 @@ export default {
                 body: JSON.stringify(dados)
                 });
                 if(res.ok) {
-                        
-                    alert('Contato editado!')
+                    alert('Contato editado!');
+                    location.reload();
                 }
             }catch(error) {
                 console.log(error)
@@ -78,9 +78,10 @@ export default {
                             'Authorization': `Bearer  ${Cookie.get('token')}`,
                         },   
                     });
-                if(res.ok){
-                    alert('Contato excluído.');
-                }
+              if(res.ok){
+                alert('Contato excluído.');
+                location.reload();
+              }
             }catch(error) {
                 console.log(error)
             }

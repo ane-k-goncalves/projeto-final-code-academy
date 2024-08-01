@@ -224,9 +224,12 @@ export default {
       <div v-if="contatos.length" class="buscar">
         <div v-for="contato in contatos" :key="contato.id" id="busca" class="card">
           <div class="card-body">
-            <h5 class="card-title">{{ contato.name }}</h5>
+            <h4 class="card-title">{{ contato.name }}</h4>
+            <h5> Dados </h5>
             <p class="card-text">{{ contato.email }}</p>
-            <p class="card-text">{{ contato.etapa_id }}</p>
+            <p class="card-text"> Etapa: {{ contato.etapa_id }}</p>
+            <p class="card-text">Valor:{{ contato.valor }}</p>
+            <p class="card-text">Endereço:{{ contato.endereco }}</p>
             <!-- <CardContato :element="id" :etapas="etapas" :contato="contato.id"  /> -->
            
             
@@ -269,7 +272,7 @@ h3 {
 
 #busca{
   width: 300px;
-  height: 200px;
+  height: 250px;
 }
 .contato {
   margin-left: 100px;

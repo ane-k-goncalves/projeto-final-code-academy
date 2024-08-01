@@ -44,6 +44,7 @@ export default {
 
         if (data) {
          alert("Funil editado.");
+         location.reload();
          
         }
         else {

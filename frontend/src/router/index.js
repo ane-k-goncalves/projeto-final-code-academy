@@ -3,7 +3,7 @@ import CadastroView from '../views/CadastroView.vue'
 import LoginView from '../views/LoginView.vue'
 import Guard from '../services/LoginMiddleware'
 
-import teste from '@/views/teste.vue'
+
 
 
 
@@ -52,12 +52,6 @@ const router = createRouter({
       meta: {
         title: 'Redefinir senha'
       }
-    },
-    {
-      path: '/teste',
-      name: 'Teste',
-      component: () => import('../views/teste.vue'),
-     
     },
 
     {

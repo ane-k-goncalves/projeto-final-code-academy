@@ -96,6 +96,7 @@ export default {
   height: 80px;
   display: flex;
   justify-content: center;
+  margin-left: -12px;
   /* position: fixed; */
   
  
