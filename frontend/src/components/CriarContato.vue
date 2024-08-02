@@ -1,6 +1,7 @@
 <script>
 import { Offcanvas } from 'bootstrap';
 import Cookie from 'js-cookie';
+import { Modal } from 'bootstrap';
 
 export default {
     name: 'CriarContato',
@@ -8,6 +9,10 @@ export default {
         element: {
             type: Array,
             required: true
+        },
+        id: {
+          type: Number,
+          required: true,
         },
        
     },
@@ -22,6 +27,7 @@ export default {
         cpf:'',
         endereco: '',
         idCriar: 'canvas' + this.element,
+        idImport: "import" + this.element,
         selectedFile: null,
         
       }
@@ -32,6 +38,11 @@ export default {
             const bsOffcanvas = new Offcanvas(myOffcanvas);
             bsOffcanvas.show();
       },
+      showModal() {
+            const modalElement = document.getElementById(this.idImport);
+            const modal = new Modal(modalElement);
+            modal.show();
+        },
       async criarContato() {
         try {
           const dados = {
@@ -94,6 +105,7 @@ export default {
                 
             alert('Novos contatos importados!');
             await this.listarContatos();
+            location.reload();
           }
         }catch(error){
             console.log(error)
@@ -108,25 +120,25 @@ export default {
 
 <button class="btn" id="c" type="button" data-bs-toggle="offcanvas" :data-bs-target="'#' + idCriar" aria-controls="idCriar">
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
-                            </svg>
+   <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+ </svg>
 </button>
 
 <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" :id="idCriar" aria-labelledby="offcanvasScrollingLabel">
   <div class="offcanvas-header">
     <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
       <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
-    </svg>Voltar</button>
+    </svg></button>
     
 
   </div>
   <div class="offcanvas-body">
     <div class="card">
       <div class="card-header">
-        {{ nome  }} 
+        <h6 class="card-title">Etapas </h6>
       </div>
       <div class="card-body">
-        <h5 class="card-title">Funil nome</h5>
+       
         <div class="buttons">
           <button type="button" id="bot" class="btn btn-sm">Sem etapa</button>
           <button type="button" id="bot" class="btn btn-sm">Prospecção</button>
@@ -135,7 +147,7 @@ export default {
         </div>
       </div>
     </div>
-    <div class="card">
+    <div class="card" id="criar">
       <div class="card-header">
         Dados
       </div>
@@ -190,15 +202,36 @@ export default {
               <input type="text" class="form-control" v-model="endereco">
             </div>
           </div>
-        
-          <button type="submit" class="btn btn-primary">Criar Contato</button>
+          <div class="bb">
+            <button type="submit" id="btncolor" class="btn">Criar Contato</button>
+            <button type="button" id="btncolor" class="btn" @click="showModal" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Importar contatos
+            </button>
+          </div>
+          <div class="modal fade" :id="idImport" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="false">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <input type="file" id="csvFileInput" accept=".csv" @change="handleFileChange">>
+                 
+   
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button class="btn btn-primary" @click="importCSV()">Importar CSV</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     </div>
 
-    <input type="file" id="csvFileInput" accept=".csv" @change="handleFileChange">>
-    <button class="btn btn-primary" @click="importCSV()">Importar CSV</button>
-   
+
   </div>
 </div>
 
@@ -222,6 +255,12 @@ export default {
   justify-content: center;
 }
 
+.bb{
+  display: flex;
+  justify-content: space-around;
+  margin-top: 60px;
+}
+
 #bot {
   margin: 10px;
   border-radius: 10px;
@@ -235,15 +274,28 @@ export default {
 }
 
 .card {
-  border-color: #E1E9F4;
+  border-color: #638cc6;
   margin-bottom: 20px;
+
  
 }
 .card-header {
   border-color:  #E1E9F4;
+  display: flex;
+  justify-content: center;
+  background-color: #638cc6;
 }
 
 input {
-  border-color: #E1E9F4;
+  border-color:#638cc6;
+  display: flex;
+}
+
+#btncolor {
+  background-color: #ffc107;
+}
+
+#criar {
+  height: 650px;
 }
 </style>
