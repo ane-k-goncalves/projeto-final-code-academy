@@ -230,8 +230,6 @@ export default {
             <p class="card-text"> Etapa: {{ contato.etapa_id }}</p>
             <p class="card-text">Valor:{{ contato.valor }}</p>
             <p class="card-text">Endereço:{{ contato.endereco }}</p>
-            <!-- <CardContato :element="id" :etapas="etapas" :contato="contato.id"  /> -->
-           
             
           </div>
         </div>

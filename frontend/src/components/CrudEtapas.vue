@@ -122,13 +122,13 @@ export default {
                 <label>Novo nome:</label>
                 <input v-model="newName" type="text" />
               </div>
-              <button type="submit" class="btn">Salvar</button>
+              <button type="submit" id="btncolor" class="btn">Salvar</button>
             </form>
           </div>
         </div>
 
         <div class="offcanvas-footer" >
-        <button type="submit" class="btn btn-primary"  id="dd" style="width: 300px;" @click="showModal">
+        <button type="submit" class="btn "  id="dd" @click="showModal">
           <svg xmlns="http://www.w3.org/2000/svg"
             width="20"
             height="20"
@@ -206,7 +206,7 @@ input {
 }
 
 .btn {
-  background-color: #3057f2;
+  background-color: #638cc6;
   color: white;
   width: 100px;
   height: 40px;
@@ -225,6 +225,14 @@ input {
   width: 450px;
   display: flex;
   justify-content: center;
+  border-color: #638cc6;
+}
+
+.card-header {
+ 
+  display: flex;
+  justify-content: center;
+  background-color: #638cc6;
 }
 
 .card-body button {
@@ -239,10 +247,20 @@ input {
 }
 
 #btn-b {
-    background-color: red;
+  background-color: #f23f2c;
     color: rgb(255, 255, 255);
     width: 150px;
     height: 40px;
+}
+
+#dd {
+  width: 400px;
+  background-color: #f23f2c;
+}
+
+#btncolor {
+  background-color: #638cc6;
+  width: 200px;
 }
 
 

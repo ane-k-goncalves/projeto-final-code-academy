@@ -257,7 +257,7 @@ h5 {
 }
 
 .card-header {
-  border-color:  #E1E9F4;
+  
   display: flex;
   justify-content: center;
   background-color: #638cc6;
