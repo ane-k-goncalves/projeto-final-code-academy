@@ -20,7 +20,8 @@ class EtapaEloquentORM implements EtapaRepositoryInterface
         $query = $this->model->query();
 
         if ($funilId) {
-            $query->where('funil_id', $funilId);
+            $query->where('funil_id', $funilId)
+            ->orderBy('position','asc');
         }
 
         if ($filter) {

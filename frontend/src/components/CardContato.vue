@@ -76,7 +76,7 @@ export default {
         
         async dentroEtapa({ newIndex, oldIndex }) {
          
-            const contatoId = this.contatos[oldIndex].id;
+            const contatoId = this.contatos[newIndex].id;
             const newPosition = newIndex + 1;
 
             const dados = {
@@ -169,7 +169,7 @@ export default {
 </script>
 <template>
     <div>
-       <draggable v-model="contatos" item-key="id" @change="event => log(event)" :animation="300"  group="contato">
+       <draggable v-model="contatos" item-key="id" @change="event => log(event)" :animation="300"  group="contato" ghost-class="hidden-ghost">
         <template #item="{ element }">
           <div :key="element.id"  class="card" style="width: 240px;">
             <div class="card-body">
@@ -187,6 +187,10 @@ export default {
     </div>
 </template>
 <style scoped>
+
+.hidden-ghost {
+  opacity: 0.3;
+}
 .card-title {
     display:flex;
     justify-content: flex-start;
