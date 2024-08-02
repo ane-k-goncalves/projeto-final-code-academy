@@ -31,10 +31,10 @@ export default {
         }
 
       } finally {
-        // Chamar a função novamente após um intervalo de tempo
+       
         setTimeout(() => {
           this.tokenExpirado();
-        }, 60000); // Verificar a cada 60 segundos (1 minuto)
+        }, 600000); 
       }
     
     }
