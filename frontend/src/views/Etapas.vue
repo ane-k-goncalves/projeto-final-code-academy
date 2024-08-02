@@ -189,7 +189,7 @@ export default {
     
     <div class="container" v-if="!isFilterActive">
       
-      <draggable id="display" v-model="etapas" item-key="id" @end="onDragEnd" group="etapa">
+      <draggable id="display" v-model="etapas" item-key="id" @end="onDragEnd" group="etapa" ghost-class="hidden-ghost">
         <template #item="{ element }">
           <div :key="element.id" class="card text-center">
             <div class="card-body">
@@ -240,6 +240,10 @@ export default {
   </div>
 </template>
 <style scoped>
+.hidden-ghost {
+  opacity: 0.3;
+}
+
 .buscar {
   margin-top: 70px;
   display: flex;
