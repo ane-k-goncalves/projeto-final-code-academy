@@ -22,8 +22,9 @@ class ContatoEloquentORM implements ContatoRepositoryInterface
         $query = $this->model->query();
 
         if (!$ignoreEtapa && $etapaId) {
-            $query->where('etapa_id', $etapaId);
-        }
+            $query->where('etapa_id', $etapaId)
+            ->orderBy('position','asc');
+        }   
 
         if ($filter) {
             $query->where('name', 'like', "%$filter%");
