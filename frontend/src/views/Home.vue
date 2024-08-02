@@ -133,16 +133,15 @@ export default {
 }
 
 #empresas {
-    height: 100px;
+    height: 90px;
     text-align: center;
     margin-top: 150px;
 }
 
 #empresas h4 {
     font-size: 16px;
-    margin-bottom: 10px;
     color: #76777c;
-    margin-bottom: 30px;
+   
 }
 
 
@@ -268,6 +267,7 @@ export default {
     justify-content: center;
     align-items: center;
     height: 600px;
+    background: linear-gradient(to top, #62aeff 0%, #f7f7f7 100%); ;
 }
 
 
