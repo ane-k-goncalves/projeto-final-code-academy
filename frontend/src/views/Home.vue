@@ -267,7 +267,7 @@ export default {
     justify-content: center;
     align-items: center;
     height: 600px;
-    background: linear-gradient(to top, #62aeff 0%, #f7f7f7 100%); ;
+    background: linear-gradient(to top, #B1AFFF 0%, #f5f5ff 90%); ;
 }
 
 

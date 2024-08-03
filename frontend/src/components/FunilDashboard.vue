@@ -54,7 +54,7 @@ export default {
 </script>
 <template>
   <div>
-    <button type="button" class="btn" @click="showModal">Adicionar novo funil</button>
+    <button type="button" class="btn" id="btncolor" @click="showModal">Adicionar novo funil</button>
     <div class="modal" id="adicionar" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -92,6 +92,12 @@ export default {
 </template>
   
 <style scoped>
+
+#btncolor {
+  background-color: #638cc6;
+  width: 200px;
+}
+
 .container {
   margin: 80px;
 }
