@@ -54,7 +54,7 @@ export default {
 
 
 #app {
-  background: linear-gradient(to top, #f7f7f7 0%, #F5EDED 100%); ;
+  background:  #f5f5ff ;
   height: 100vh;
   
 

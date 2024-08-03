@@ -179,7 +179,7 @@ export default {
           <form class="d-flex" @submit.prevent="buscarContato">
             <div class="filtro">
               <input v-model="filter" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-primary" type="submit">Buscar</button>
+              <button class="btn " id="btncolor" type="submit">Buscar</button>
             </div>
           </form>
         </div>
@@ -228,7 +228,7 @@ export default {
             <h5> Dados </h5>
             <p class="card-text">{{ contato.email }}</p>
             <p class="card-text"> Etapa: {{ contato.etapa_id }}</p>
-            <p class="card-text">Valor:{{ contato.valor }}</p>
+            <p class="card-text">Valor: R${{ contato.valor }}</p>
             <p class="card-text">Endereço:{{ contato.endereco }}</p>
             
           </div>
@@ -240,6 +240,18 @@ export default {
   </div>
 </template>
 <style scoped>
+
+
+#btncolor {
+  background-color: #638cc6;
+  width: 100px;
+} 
+
+
+#btncolor :hover {
+  background-color: #305589;
+}
+
 .hidden-ghost {
   opacity: 0.3;
 }

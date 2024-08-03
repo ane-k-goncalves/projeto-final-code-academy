@@ -62,7 +62,7 @@ export default {
 </script>
 <template>
      <div>
-        <button type="button" class="btn" @click="showModal"> Adicionar nova etapa</button>
+        <button type="button" id="btncolor" class="btn" @click="showModal"> Adicionar nova etapa</button>
 
         <div class="modal" :id="adicionar" tabindex="-1">
             <div class="modal-dialog">
@@ -94,6 +94,11 @@ export default {
     </div>
 </template>
 <style scoped>
+
+#btncolor {
+  background-color: #638cc6;
+  width: 200px;
+}
 
 input {
     box-sizing: border-box;

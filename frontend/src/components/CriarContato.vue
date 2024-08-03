@@ -221,8 +221,8 @@ export default {
    
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button class="btn btn-primary" @click="importCSV()">Importar CSV</button>
+                  <button type="button" id="btn-a" class="btn" data-bs-dismiss="modal">Close</button>
+                  <button class="btn" id="btncolor" @click="importCSV()">Importar CSV</button>
                 </div>
               </div>
             </div>
@@ -238,6 +238,31 @@ export default {
 </div>
 </template>
 <style scoped>
+
+#btn-a {
+    background-color: #E1E9F4;
+    color: rgb(0, 0, 0);
+    width: 200px;
+    height: 40px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+
+}
+
+
+#btncolor {
+  background-color: #638cc6;
+  width: 200px;
+} 
+
+
+#btncolor :hover {
+  background-color: #305589;
+}
 .offcanvas {
   width: 600px;
   border-color:  #E1E9F4;
