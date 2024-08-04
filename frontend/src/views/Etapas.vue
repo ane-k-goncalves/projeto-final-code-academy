@@ -178,7 +178,7 @@ export default {
 
           <form class="d-flex" @submit.prevent="buscarContato">
             <div class="filtro">
-              <input v-model="filter" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <input v-model="filter" class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search">
               <button class="btn " id="btncolor" type="submit">Buscar</button>
             </div>
           </form>
@@ -191,12 +191,12 @@ export default {
       
       <draggable id="display" v-model="etapas" item-key="id" @end="onDragEnd" group="etapa" ghost-class="hidden-ghost">
         <template #item="{ element }">
-          <div :key="element.id" class="card text-center">
+          <div :key="element.id" class="card text-center" id="cardedt">
             <div class="card-body">
               <div class="container-body">
                 <div class="row">
                   <div class="col">
-                    <h5 class="card-title">{{ element.name }}</h5>
+                    <h5 class="card-title" id="titletop">{{ element.name }}</h5>
                   </div>
                 </div>
 
@@ -224,7 +224,9 @@ export default {
       <div v-if="contatos.length" class="buscar">
         <div v-for="contato in contatos" :key="contato.id" id="busca" class="card">
           <div class="card-body">
+            <div class="card-header">
             <h4 class="card-title">{{ contato.name }}</h4>
+            </div>
             <h5> Dados </h5>
             <p class="card-text">{{ contato.email }}</p>
             <p class="card-text"> Etapa: {{ contato.etapa_id }}</p>
@@ -240,16 +242,27 @@ export default {
   </div>
 </template>
 <style scoped>
+#cardedt{
+  background-color: #f5f5ff;
+  border-color: #f5f5ff ;
+}
+
+#titletop{
+  border-top: 6px #7036e4 solid;
+  
+}
+
+
 
 
 #btncolor {
-  background-color: #638cc6;
+  background-color: #3057f2;
   width: 100px;
 } 
 
 
 #btncolor :hover {
-  background-color: #305589;
+  background-color: #3057f2;
 }
 
 .hidden-ghost {
@@ -263,7 +276,7 @@ export default {
   flex-direction: row;
   justify-content: center;
   
-  max-width: 1000px;
+  max-width: 1500px;
   overflow-x: auto;
   
 }
@@ -286,7 +299,8 @@ h3 {
 
 #busca{
   width: 300px;
-  height: 250px;
+  height: 300px;
+  
 }
 .contato {
   margin-left: 100px;

@@ -26,7 +26,7 @@ export default {
         });
         if (!response.ok) {
           alert('Sua sessão expirou. Por favor, faça login novamente.');
-          router.push('/login');
+          this.$router.push('/login');
           
         }
 

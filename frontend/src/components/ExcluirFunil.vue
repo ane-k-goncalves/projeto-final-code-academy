@@ -105,6 +105,7 @@ export default {
     color: rgb(0, 0, 0);
     width: 200px;
     height: 40px;
+     margin-top: 40px;
 }
 
 #btn-b {
@@ -112,5 +113,6 @@ export default {
     color: rgb(255, 255, 255);
     width: 200px;
     height: 40px;
+    margin-top: 40px;
 }
 </style>
