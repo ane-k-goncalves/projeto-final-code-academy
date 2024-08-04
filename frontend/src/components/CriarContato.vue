@@ -221,7 +221,7 @@ export default {
    
                 </div>
                 <div class="modal-footer">
-                  <button type="button" id="btn-a" class="btn" data-bs-dismiss="modal">Close</button>
+                  <button type="button" id="btn-a" class="btn" data-bs-dismiss="modal">Cancelar</button>
                   <button class="btn" id="btncolor" @click="importCSV()">Importar CSV</button>
                 </div>
               </div>

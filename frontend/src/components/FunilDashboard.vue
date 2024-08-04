@@ -77,10 +77,10 @@ export default {
               <div class="modal-footer">
               <button type="button" id="btn-a"
                 class="btn "
-                data-bs-dismiss="modal">Close
+                data-bs-dismiss="modal">Cancelar
               </button>
               <button type="submit" id="btn-b" class="btn ">
-                Save changes
+                Salvar
               </button>
             </div>
             </form>
