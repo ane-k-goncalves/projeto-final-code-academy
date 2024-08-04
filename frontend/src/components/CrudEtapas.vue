@@ -206,7 +206,7 @@ input {
 }
 
 .btn {
-  background-color: #638cc6;
+  background-color: #FFBD00;
   color: white;
   width: 100px;
   height: 40px;

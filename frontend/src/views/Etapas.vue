@@ -254,7 +254,6 @@ export default {
             </div>
             <h5> Dados </h5>
             <p class="card-text">{{ contato.email }}</p>
-            <p class="card-text"> Etapa: {{ contato.etapa_id }}</p>
             <p class="card-text">Valor: R${{ contato.valor }}</p>
             <p class="card-text">Endereço:{{ contato.endereco }}</p>
             
@@ -324,7 +323,7 @@ h3 {
 
 #busca{
   width: 300px;
-  height: 300px;
+  height: 250px;
   
 }
 .contato {
