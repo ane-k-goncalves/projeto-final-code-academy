@@ -26,6 +26,30 @@ export default {
     Paginacao
   },
   methods: {
+    async tokenExpirado()  {
+        try {
+        const response = await fetch(`http://localhost:8000/api/logout`, {
+             method: 'POST',
+             headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer  ${Cookie.get('token')}`,
+            },
+        });
+        if (!response.ok) {
+          alert('Sua sessão expirou. Por favor, faça login novamente.');
+          this.$router.push('/login');
+          
+        }
+
+      } finally {
+       
+        setTimeout(() => {
+          this.tokenExpirado();
+        }, 600000); 
+      }
+    
+    },
     async fetchFunils(page = 1) {
       const token = Cookie.get('token');
       const url = `http://localhost:8000/api/register-funil?page=${page}&filter=${encodeURIComponent(this.filtro)}`;
@@ -65,7 +89,7 @@ export default {
   },
   mounted() {
     this.fetchFunils();
-    
+    this.tokenExpirado();
   }
 }
 </script>

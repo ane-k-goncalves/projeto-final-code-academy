@@ -40,6 +40,30 @@ export default {
     };
   },
   methods: {
+    async tokenExpirado()  {
+        try {
+        const response = await fetch(`http://localhost:8000/api/logout`, {
+             method: 'POST',
+             headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer  ${Cookie.get('token')}`,
+            },
+        });
+        if (!response.ok) {
+          alert('Sua sessão expirou. Por favor, faça login novamente.');
+          this.$router.push('/login');
+          
+        }
+
+      } finally {
+       
+        setTimeout(() => {
+          this.tokenExpirado();
+        }, 600000); 
+      }
+    
+    },
     async listarEtapas() {
       try {
         const res = await fetch(
@@ -147,6 +171,7 @@ export default {
 
   mounted() {
     this.listarEtapas();
+    this.tokenExpirado();
   },
 };
 </script>
