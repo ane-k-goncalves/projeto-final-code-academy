@@ -94,7 +94,7 @@ export default {
 </template>
 <style scoped>
 .btn {
-  background:  #E1E9F4;
+  background:  #ffbd00;
   color: rgb(0, 0, 0);
   width: 100px;
   margin: 10px;

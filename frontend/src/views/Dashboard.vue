@@ -89,7 +89,7 @@ export default {
           </ul>
           <form class="d-flex" @submit.prevent="buscar">
             <div class="filtro">
-              <input v-model="filtro" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <input v-model="filtro" class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Search">
               <button class="btn btn-outline" id="btncolor" type="submit">Buscar</button>
             </div>
           </form>
@@ -112,13 +112,14 @@ export default {
 <style scoped>
 
 #btncolor {
-  background-color: #638cc6;
+  background-color: #3057f2;
   width: 100px;
+  color: white;
 } 
 
 
 #btncolor :hover {
-  background-color: #305589;
+  background-color: #3057f2;
 }
 
 .navbar {

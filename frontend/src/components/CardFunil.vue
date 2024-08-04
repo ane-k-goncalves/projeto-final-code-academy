@@ -26,7 +26,9 @@ export default {
   <div class="col">
     <div v-for="funil in funils" :key="funil.id" class="card text-center">
       <div class="card-body">
+        <div class="card-header">
         <h5 @click="goToCard(funil.id, funil.name)" class="card-title">{{ funil.name }}</h5>
+        </div>
         <div class="btns">
           <div>
             <EditarFunil :id="funil.id" />
@@ -43,11 +45,17 @@ export default {
 <style scoped>
 
 
+
+
 .btns {
   display: flex;
   justify-content: center;
-  margin-top: 70px;
+  margin-top: 40px;
 
+}
+
+.card-header {
+  background-color: white;
 }
 
 .card-title {
@@ -59,8 +67,9 @@ export default {
   width: 300px;
   height: 200px;
   box-shadow: grey 20px;
-  
 }
+
+
 
 .col {
   width: 1400px;
