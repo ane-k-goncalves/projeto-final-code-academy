@@ -79,7 +79,7 @@ export default {
       }
     },
     async buscar() {
-      this.funis.currentPage = 1; // Reseta para a primeira página ao buscar
+      this.funis.currentPage = 1; 
       await this.fetchFunils();
     },
     handlePageChange(page) {
@@ -127,7 +127,7 @@ export default {
       </div>
     </div>
 
-    <div>
+    <div class="pag">
       <Paginacao :currentPage="funis.currentPage" :totalPages="Math.ceil(funis.total / funis.perPage)" @changePage="handlePageChange" />
     </div>
   </div>
@@ -185,5 +185,9 @@ export default {
 
 input {
   width: 300px;
+}
+
+.pag {
+ 
 }
 </style>
